@@ -18,6 +18,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.FlowEvent;
 
 import com.unbosque.edu.co.calendarioFifa.entity.Audit;
@@ -32,73 +33,80 @@ import com.unbosque.edu.co.calendarioFifa.util.Util;
 public class UserBean {
 
 	private User usuario;
-
 	private DataModel listaUsuarios;
 	private String ingresarUsuario;
 	private String contrasenia;
-
+	
+	private static Logger log = Logger.getLogger(UserBean.class);
 	public String getIngresarUsuario() {
 		return ingresarUsuario;
 	}
-
 	public void setIngresarUsuario(String usuario) {
 		this.ingresarUsuario = usuario;
 	}
-
+	
 	public String getContrasenia() {
 		return contrasenia;
 	}
-
+	
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
-
+	
 	public String validarUsuario() {
-
+	
+//		BasicConfigurator.configure();
 		String respuesta = "registro";
 		Iterator<User> aux = getListarUsuario().iterator();
 		boolean existe = false;
-
-		FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-
+		
+//		 FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
+//	     FacesContext.getCurrentInstance().addMessage(null, msg);
+		
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
-
-		while (aux.hasNext() && existe == false) {
-
-			User a = aux.next();
-
-			boolean contra = a.getPassword().equals(contrasenia);
-
-			boolean use = a.getUserName().equals(ingresarUsuario);
-
-			if (contra && use) {
-				if (a.getUserType().equals("ADMIN")) {
-					respuesta = "/Administrador/administrador";
-				} else if (a.getUserType().equals("FUNCIONAL")) {
-					respuesta = "/UserFuncional/funcional";
-				} else {
-					respuesta = "/User/cliente";
-				}
-
-				Audit auditoria = new Audit();
-				AuditService as = new AuditService();
-				auditoria.setUserId(a.getId());
-				auditoria.setOperation("E");
-				auditoria.setTableName("user");
-				auditoria.setTableId(1);
-				auditoria.setCreateDate(new Date());
-				as.save(auditoria);
-
-				existe = true;
-
+		
+		while(aux.hasNext() && existe == false) {
+			
+		  usuario = aux.next();
+		
+		boolean contra = usuario.getPassword().equals(contrasenia);
+		
+		boolean use = usuario.getUserName().equals(ingresarUsuario);
+		
+		
+		if(contra && use) {
+			if(usuario.getUserType().equals("ADMIN")) {
+				respuesta = "/Administrador/administrador";
 			}
+			else if(usuario.getUserType().equals("FUNCIONAL")) {
+				respuesta = "/UserFuncional/funcional";
+			}
+			else {
+				respuesta = "/User/cliente";
+			}
+			
+			Audit auditoria = new Audit();
+			AuditService as = new AuditService();
+			auditoria.setUserId(usuario.getId());
+			auditoria.setOperation("E");
+			auditoria.setTableName("user");
+			auditoria.setTableId(1);
+			auditoria.setCreateDate(new Date());
+			as.save(auditoria);
+			if(log.isInfoEnabled()) {
+				log.info("Ingreso de usuario correcto : Usuario: "+usuario.getUserName()+" tipo: "+ usuario.getUserType());
+			}
+			existe = true;
+			
+		
+		}
 		}
 		contrasenia = "";
 		ingresarUsuario = "";
+		log.info("Ingreso del usuario Correcto: Usuario: "+ usuario.getUserName()+" Tipo: "+ usuario.getUserType() );
 		return respuesta;
 	}
-
+	
 	public String prepararAdicionarUsuario() {
 		usuario = new User();
 		usuario.setActive("A");
@@ -106,17 +114,17 @@ public class UserBean {
 		usuario.setUserType("cliente");
 		return "registro";
 	}
-
+	
 	public String prepararModificarUsuario() {
 		usuario = (User) (listaUsuarios.getRowData());
 		return "registro";
 	}
-
+	
 	public String eliminarUsuario() {
-		User usuarioTemp = (User) (listaUsuarios.getRowData());
+		User usuarioTemp = (User)(listaUsuarios.getRowData());
 		UserService dao = new UserService();
 		usuarioTemp.setActive("I");
-		// dao.remove(usuario);
+//		dao.remove(usuario);
 		dao.update(usuarioTemp);
 		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
@@ -129,20 +137,35 @@ public class UserBean {
 		auditoria.setId(usuario.getId());
 		return "inicio";
 	}
-
+	
 	public String adicionarUsuario() {
 		UserService dao = new UserService();
 		String contra = generarContrasenia();
 		usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
 		dao.save(usuario);
-		String de = "calendario.fifa.uelbosque@gmail.com";
+		String de = "calendario.fifa.uelbosque@gmail.com";  
 		String clave = "patatafrita";
 		String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
-		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usuario.getFullName() + "\n" + "\n"
-				+ "\n" + "\n" + "su cuenta se ha generado exitosamente \n" + "\n" + "\n    " + "usuario: "
-				+ usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n" + "\n"
-				+ "Le solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
-				+ "Att: administrador CalendarioFIFA";
+		String mensaje = "CALENDARIO FIFA 2018 \n"
+				+ "\n"
+				+ "\n"
+				+ "Usuario: " + usuario.getFullName() + "\n"
+				+ "\n"
+				+ "\n"
+				+ "\n"
+				+ "su cuenta se ha generado exitosamente \n"
+				+ "\n"
+				+ "\n    "
+				+ "usuario: "+usuario.getUserName() +"\n    clave: "+ contra+"\n "
+						+ "\n"
+						+ "\n"
+						+ "\n"
+						+ "Le solicitamos que una vez ingrese, cambie su contraseña.\n"
+						+ "\n"
+						+ "\n"
+						+ "\n"
+						+ "\n"
+						+ "Att: administrador CalendarioFIFA";
 		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
@@ -154,12 +177,12 @@ public class UserBean {
 		as.save(auditoria);
 		return "inicio";
 	}
-
+	
 	public String modificarUsuario() {
 		UserService dao = new UserService();
 		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
-
+		
 		auditoria.setUserId(usuario.getId());
 		auditoria.setOperation("U");
 		auditoria.setTableName("user");
@@ -169,34 +192,37 @@ public class UserBean {
 		dao.update(usuario);
 		return "inicio";
 	}
-
+	
 	public User getUsuario() {
 		return usuario;
 	}
-
+	
 	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
-
+	
 	public DataModel getListarUsuario() {
 		List<User> lista = new UserService().list();
 		listaUsuarios = new ListDataModel(lista);
 		return listaUsuarios;
 	}
-
-	public String generarContrasenia() {
-
+	
+public String generarContrasenia() {
+		
 		String contrasenia = "";
 		String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890";
-
+		
 		for (int i = 0; i < 8; i++) {
-			char a = caracteres.charAt((int) (Math.random() * caracteres.length()));
+			char a = caracteres.charAt((int) (Math.random()*caracteres.length()));
 			contrasenia += a;
-
+			
 		}
-
+		
 		return contrasenia;
 	}
-	
 
+
+
+
+	
 }

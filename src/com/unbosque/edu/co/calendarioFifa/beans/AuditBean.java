@@ -100,9 +100,6 @@ public class AuditBean {
 	
 	public String mostrar() {
 		String res = "";
-		
-		
-		
 		return res;
 	}
 	
