@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/mobile"
+		xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloIngresar}" /></title>
+<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+	</h:head>
+	<body>
+		<H1>LOGIN</H1>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="#{principal.usuario}" />
+				<h:inputText value="#{userBean.ingresarUsuario}" />
+				<h:outputText value="#{principal.contrasenia}" />
+				<h:inputText value="#{userBean.contrasenia}" />
+				<div class="g-recaptcha"
+					data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+					rendered="true" required="true"
+					></div>
+				
+				<h:commandButton value="#{principal.btnIngresar}"
+					action="#{userBean.validarUsuario}" />
+				<h:commandButton value="#{principal.btnRegresar}"
+					action="inicio" />
+			</h:panelGrid>
+		</h:form>
+	</body>
+
+</f:view>
+
+
+</html>

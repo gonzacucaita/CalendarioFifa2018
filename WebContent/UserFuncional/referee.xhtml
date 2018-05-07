@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+
+<f:view>
+	<h:head>
+		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
+	</h:head>
+	<body>
+		<h:form>
+		
+			<h:panelGrid columns="2">
+
+				<h:outputText value="Nombre: " />
+				<h:inputText value="#{refereeBean.arbitro.fullName}"
+					rendered="true" />
+					
+				<h:outputText value="Nacionalidad: " rendered="true" />
+				<h:inputText  value="#{refereeBean.arbitro.nationality}"
+					rendered="true" />
+				
+				<h:outputText value="Estado: " rendered="true"  />
+				<h:inputText  value="#{refereeBean.arbitro.state}"
+					rendered="true" />
+				
+				
+				<h:commandButton value="guardar"
+					action="#{refereeBean.adicionarArbitro}" />
+
+			</h:panelGrid>
+		</h:form>
+	</body>
+</f:view>
+</html>

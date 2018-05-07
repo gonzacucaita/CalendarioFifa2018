@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+
+		<title><h:outputText value="#{principal.tituloPrincipal}" /></title>
+	</h:head>
+
+	<h:body>
+
+		<h:form>
+			<p:panelGrid style="width:80%;margin:0px auto;">
+				<p:commandButton value="#{principal.registrarse}"
+					action="#{userBean.prepararAdicionarUsuario}"  style="float:center;"  />
+				<p:commandButton value="#{principal.iniciarSesion}" action="login" />	
+
+
+			</p:panelGrid>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+<f:view>
+	<h:head>
+		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
+	</h:head>
+	<body>
+		<h:form>
+		
+			<h:panelGrid columns="2">
+
+				<h:outputText value="ID del usuario: : " />
+				<h:inputText value="#{auditBean.audit.userId}"
+					rendered="true" />
+					
+				<h:outputText value="Operacion: " rendered="true" />
+				<h:inputText  value="#{auditBean.audit.operation}"
+					rendered="true" />
+				
+				<h:outputText value="Nombre de tabla: " rendered="true"  />
+				<h:inputText  value="#{auditBean.audit.tableName}"
+					rendered="true" />
+				
+				<h:outputText value="Id de la tabla: " rendered="true"  />
+				<h:inputText  value="#{auditBean.audit.tableId}"
+					rendered="true" />
+
+					<h:outputText value="Fecha de creación: " rendered="true"  />
+				<h:inputText  value="#{auditBean.audit.createDate}"
+					rendered="true" />
+				
+				<h:commandButton value="guardar"
+					action="#{auditBean.adicionarAuditoria}" />
+
+			</h:panelGrid>
+		</h:form>
+	</body>
+</f:view>
+</html>

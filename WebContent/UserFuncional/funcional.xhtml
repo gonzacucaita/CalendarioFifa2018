@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<title><h:outputText value="titulo ventana" /></title>
+	</h:head>
+
+	<h:body>
+
+		<h:form>
+
+			<h:panelGrid columns="2">
+
+				<h:panelGrid columns="2">
+					<h:commandButton value="ingresarEquipo"
+						action="#{teamBean.prepararAdicionarEquipo}" />
+					<h:commandButton value="ingresarEstadio"
+						action="#{stadiumBean.prepararAdicionarEstadio}" />
+					<h:commandButton value="ingresarCalendario"
+						action="#{scheduleBean.prepararAdicionarCalendario}" />
+					<h:commandButton value="ingresarArbitro"
+						action="#{refereeBean.prepararAdicionarArbitro}" />
+					<h:commandButton value="ingresarParametro"
+						action="#{parameterBean.prepararAdicionarParametro}" />
+					<h:commandButton value="ingresarNoticia"
+						action="#{newsBean.prepararAdicionarNoticia}" />
+					<h:commandButton value="ingresarGoleador"
+						action="#{goalscorerBean.prepararAdicionarGoleador}" />
+					<h:commandButton value="ingresarAuditoria"
+						action="#{auditBean.prepararAdicionarAuditoria}" />
+				</h:panelGrid>
+				
+				<h:panelGrid>NOTICIAS</h:panelGrid>
+
+				<h:commandButton value="guardar"
+					action="#{newsBean.adicionarNoticia}" />
+			</h:panelGrid>
+
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>

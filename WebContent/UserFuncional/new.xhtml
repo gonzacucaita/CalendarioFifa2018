@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<title><h:outputText value="titulo ventana" /></title>
+	</h:head>
+
+	<h:body>
+	
+		<h:form>
+			
+			<h:panelGrid columns="2" >
+			
+				<h:outputText value= "La fecha de las noticias es: " />
+				<h:inputText value = "#{newsBean.noticia.dateNews}" />
+			
+				<h:outputText value= "la descripcion es: " />
+				<h:inputText value = "#{newsBean.noticia.shortDescription}" />
+				
+				<h:outputText value= "la descripcion larga es: " />
+				<h:inputText value = "#{newsBean.noticia.largeDescription}" />
+				
+				<h:outputText value= "La id del usuario es: " />
+				<h:inputText value = "#{newsBean.noticia.idUser}" />
+				
+				<h:outputText value= "el estado es: " />
+				<h:inputText value = "#{newsBean.noticia.state}" />
+				
+				<h:commandButton value="guardar"
+					action="#{newsBean.adicionarNoticia}" />
+			</h:panelGrid>
+			
+		</h:form>
+	
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloRegistrar}" /></title>
+	<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+	</h:head>
+	<body>
+		<h:form>
+			<h:panelGrid columns="2">
+
+				<h:outputText value="#{principal.nombreUsuario}" />
+				<h:inputText value="#{userBean.usuario.userName}" rendered="true"
+				 />
+
+				<h:outputText value="#{principal.nombre}" rendered="true" />
+				<h:inputText value="#{userBean.usuario.fullName}" rendered="true"
+					 />
+
+
+				<h:outputText value="#{principal.telefono}" rendered="true" />
+				<h:inputText value="#{userBean.usuario.phoneNumber}" rendered="true"
+					  />
+
+				<h:outputText value="#{principal.email}" rendered="true" />
+				<h:inputText value="#{userBean.usuario.emailAddress}"
+					rendered="true" />
+					
+				<div class="g-recaptcha"
+					data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+					rendered="true" 
+					></div>
+				<h:commandButton value="#{principal.btnRegistrar}"
+					action="#{userBean.adicionarUsuario}" />
+				<h:commandButton value="#{principal.btnRegresar}" action="inicio" />
+
+			</h:panelGrid>
+
+		</h:form>
+	</body>
+</f:view>
+</html>
