@@ -14,15 +14,147 @@
 	<h:form>
 		<p:stack icon="/img/canasta.png" expanded="true">
 			<p:menuitem value="Auditoria" icon="/img/auditoria.png"
+				onclick="PF('dlg3').show();" />
+
+			<p:menuitem value="Usuarios" icon="/img/usuarios.png"
+				onclick="PF('dlg2').show();" />
+
+			<p:menuitem value="Organizacion" icon="/img/organizar.png"
 				onclick="PF('dlg1').show();" />
-			<p:menuitem value="Usuarios" icon="/img/usuarios.png" />
-			<p:menuitem value="Organizacion" icon="/img/organizar.png" />
+
 			<p:menuitem value="Salir" icon="/img/cerrar.png" />
 
 		</p:stack>
 
-		<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40"
-			showEffect="explode" hideEffect="bounce">
+		<p:dialog header="Modal Dialog" widgetVar="dlg1" modal="true"
+			height="100">
+			<p:dataTable var="audit" value="#{userBean.listarUsuario}">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Id de Usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre del usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.userName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="clave" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.password}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre completo" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.fullName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.emailAddress}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="telefono" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.phoneNumber}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="fecha" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.dateLastPassword}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="activo" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.active}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="tipo de usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.userType}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:dialog>
+
+
+		<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+			height="100">
+			<p:dataTable var="audit" value="#{userBean.listarUsuario}">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Id de Usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre del usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.userName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="clave" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.password}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre completo" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.fullName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.emailAddress}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="telefono" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.phoneNumber}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="fecha" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.dateLastPassword}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="activo" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.active}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="tipo de usuario" />
+					</f:facet>
+					<h:outputText value="#{userBean.usuario.userType}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</p:dialog>
+
+		<p:dialog header="Modal Dialog" widgetVar="dlg3" modal="true"
+			height="100">
 			<p:dataTable var="audit" value="#{auditBean.listarAuditorias}"
 				widgetVar="dlg1">
 
@@ -65,15 +197,6 @@
 				</p:column>
 
 			</p:dataTable>
-		</p:dialog>
-
-		<p:dialog header="Basic Dialog" widgetVar="dlg2" minHeight="40"
-			showEffect="explode" hideEffect="bounce">
-			
-			
-
-
-
 		</p:dialog>
 
 	</h:form>

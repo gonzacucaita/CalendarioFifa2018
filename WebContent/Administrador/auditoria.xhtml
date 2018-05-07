@@ -52,6 +52,63 @@
 				</p:column>
 	
 	</p:dataTable>
+	<p:dataTable var="audit" value="#{auditBean.listarAuditorias}" >
 
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Id de Usuario" />
+					</f:facet>
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre del usuario" />
+					</f:facet>
+					<h:outputText value="#{user.userName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="clave" />
+					</f:facet>
+					<h:outputText value="#{user.passeword}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="nombre completo" />
+					</f:facet>
+					<h:outputText value="#{user.fullName}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="email" />
+					</f:facet>
+					<h:outputText value="#{user.emailAddress}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="telefono" />
+					</f:facet>
+					<h:outputText value="#{user.phoneNumber}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="fecha" />
+					</f:facet>
+					<h:outputText value="#{user.dateLastPassword}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="activo" />
+					</f:facet>
+					<h:outputText value="#{user.active}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="tipo de usuario" />
+					</f:facet>
+					<h:outputText value="#{user.userType}" />
+				</p:column>
+	</p:dataTable>
+	
 </h:body>
 </html>
