@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
 
 
@@ -16,21 +17,21 @@
 		<h:form>
 			<h:panelGrid columns="2">
 
-				<h:outputText value="#{principal.nombreUsuario}" />
-				<h:inputText value="#{userBean.usuario.userName}" rendered="true"
+				<p:outputLabel value="#{principal.nombreUsuario}" />
+				<p:inputText value="#{userBean.usuario.userName}" rendered="true"
 				 />
 
-				<h:outputText value="#{principal.nombre}" rendered="true" />
-				<h:inputText value="#{userBean.usuario.fullName}" rendered="true"
+				<p:outputLabel value="#{principal.nombre}" rendered="true" />
+				<p:inputText value="#{userBean.usuario.fullName}" rendered="true"
 					 />
 
 
-				<h:outputText value="#{principal.telefono}" rendered="true" />
-				<h:inputText value="#{userBean.usuario.phoneNumber}" rendered="true"
+				<p:outputLabel value="#{principal.telefono}" rendered="true" />
+				<p:inputText value="#{userBean.usuario.phoneNumber}" rendered="true"
 					  />
 
-				<h:outputText value="#{principal.email}" rendered="true" />
-				<h:inputText value="#{userBean.usuario.emailAddress}"
+				<p:outputLabel value="#{principal.email}" rendered="true" />
+				<p:inputText value="#{userBean.usuario.emailAddress}"
 					rendered="true" />
 					
 				<div class="g-recaptcha"
