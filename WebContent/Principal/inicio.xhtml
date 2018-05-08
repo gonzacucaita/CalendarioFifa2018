@@ -6,22 +6,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <f:view>
-	<h:head>
+	<h:head>	
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
-
 		<title><h:outputText value="#{principal.tituloPrincipal}" /></title>
+
 	</h:head>
 
-	<h:body>
-
+	<h:body style="background-image: url(/img/principal.png); background-position: center center; 
+		background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
 		<h:form>
-			<p:panelGrid style="width:80%;margin:0px auto;">
-				<p:commandButton value="#{principal.registrarse}"
-					action="#{userBean.prepararAdicionarUsuario}"  style="float:center;"  />
-				<p:commandButton value="#{principal.iniciarSesion}" action="login" />	
-
-
-			</p:panelGrid>
+			<p:commandButton value="#{principal.registrarse}"
+				action="#{userBean.prepararAdicionarUsuario}"  style="float:right;"  />
+			<p:commandButton value="#{principal.iniciarSesion}" style="float:right;" action="login" />	
 		</h:form>
 	</h:body>
 </f:view>
