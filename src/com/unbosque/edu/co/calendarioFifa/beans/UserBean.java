@@ -31,7 +31,7 @@ import com.unbosque.edu.co.calendarioFifa.util.Util;
 @ManagedBean
 @SessionScoped
 public class UserBean {
-
+//Hola se esta actualizando******************************
 	private User usuario;
 	private DataModel listaUsuarios;
 	private String ingresarUsuario;

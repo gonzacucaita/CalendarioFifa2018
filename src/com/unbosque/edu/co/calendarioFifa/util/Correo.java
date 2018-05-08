@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Correo {
@@ -25,6 +24,7 @@ public class Correo {
 			p.put("mail.smtp.port", 587);
 			p.put("mail.mtp.auth", "true");
 
+			
 			Session sesion = Session.getDefaultInstance(p, null);
 			MimeMessage message = new MimeMessage(sesion);
 			message.setFrom(new InternetAddress(de));
