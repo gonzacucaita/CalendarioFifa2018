@@ -62,9 +62,8 @@ public class UserBean {
 		Iterator<User> aux = getListarUsuario().iterator();
 		boolean existe = false;
 
-		// FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" +
-		// usuario.getUserName());
-		// FacesContext.getCurrentInstance().addMessage(null, msg);
+		FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 
@@ -75,9 +74,9 @@ public class UserBean {
 			boolean contra = usuario.getPassword().equals(contrasenia);
 
 			boolean use = usuario.getUserName().equals(ingresarUsuario);
-			
+
 			int contador = 0;
-			
+
 			if (contra && use && usuario.getActive().equals("A")) {
 				if (usuario.getUserType().equals("ADMIN")) {
 					respuesta = "/Administrador/administrador";
@@ -89,8 +88,7 @@ public class UserBean {
 
 				Audit auditoria = new Audit();
 				AuditService as = new AuditService();
-			
-				
+
 				auditoria.setUserId(usuario.getId());
 				auditoria.setOperation("E");
 				auditoria.setTableName("user");
@@ -103,24 +101,22 @@ public class UserBean {
 				}
 				existe = true;
 
-			}
-			else if(use && contra==false && usuario.getActive().equals("A") ) {
+			} else if (use && contra == false && usuario.getActive().equals("A")) {
 				INTENTOS++;
 				System.out.println(INTENTOS);
 				List<Parameter> lista = parameterService.list();
-//				for (int i = 0; i < lista.size() && existe==false; i++) {
-					if (INTENTOS==3) {
-						System.out.println("entra");
-						usuario.setActive("I");
-						respuesta = "/Error/ErrorLogin";
-						existe = true;
-					}	
-					else {
-						System.out.println("Hola");
-						respuesta = "/Principal/login";
-					}
-//				}
-				
+				// for (int i = 0; i < lista.size() && existe==false; i++) {
+				if (INTENTOS == 3) {
+					System.out.println("entra");
+					usuario.setActive("I");
+					respuesta = "/Error/ErrorLogin";
+					existe = true;
+				} else {
+					System.out.println("Hola");
+					respuesta = "/Principal/login";
+				}
+				// }
+
 			}
 		}
 		contrasenia = "";
@@ -172,27 +168,24 @@ public class UserBean {
 				+ usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n" + "\n"
 				+ "Le solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
 				+ "Att: administrador CalendarioFIFA";
-		
-		// Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+
+		 Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 		Audit auditoria = new Audit();
-//		parameter = new Parameter();
-//		parameterService = new ParameterService();
 		AuditService as = new AuditService();
-		
-		
+
 		auditoria.setUserId(usuario.getId());
 		auditoria.setOperation("C");
 		auditoria.setTableName("user");
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
-		
-		parameter.setParameterType(usuario.getId()+"");
+
+		parameter.setParameterType(usuario.getId() + "");
 		parameter.setTextValue("5");
 		parameter.setNumberValue(3);
-		
+
 		parameterService.save(parameter);
-		
+
 		return "inicio";
 	}
 

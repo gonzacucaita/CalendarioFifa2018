@@ -22,20 +22,64 @@
 			<p:menuitem value="Eliminar" icon="/img/organizar.png"
 				onclick="PF('dlg1').show();" />
 
-			<p:menuitem value="Salir" icon="/img/cerrar.png" />
+			<p:menuitem value="parameter" icon="/img/parametro.png"
+				onclick="PF('parameter').show();" />
+
+			<p:menuitem value="Salir" icon="/img/cerrar.png" action="/Principal/inicio" />
 
 		</p:stack>
 
 		<p:dialog header="Modal Dialog" widgetVar="dlg1" modal="true"
 			height="100">
-			
+
+
+		</p:dialog>
+
+		<p:dialog header="Parametro" widgetVar="parameter" modal="true"
+			height="100" showEffect="explode" hideEffect="bounce">
+
+			<p:dataTable var="parameter"
+				value="#{parameterBean.listarParametros
+			}">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Id" />
+					</f:facet>
+					<h:outputText value="#{parameter.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Id usuario" />
+					</f:facet>
+					<h:outputText value="#{parameter.parameterType}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="días cambio de contraseña" />
+					</f:facet>
+					<h:outputText value="#{parameter.parameterCode}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="limite días cambio contraseña" />
+					</f:facet>
+					<h:outputText value="#{parameter.textValue}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="intentos" />
+					</f:facet>
+					<h:outputText value="#{parameter.numberValue}" />
+				</p:column>
+			</p:dataTable>
 
 		</p:dialog>
 
 
 		<p:dialog header="Auditorio" widgetVar="auditorio" modal="true"
 			height="100" showEffect="explode" hideEffect="bounce">
-			
+
 			<p:dataTable var="audit" value="#{auditBean.listarAuditorias}">
 
 				<p:column>
@@ -100,8 +144,8 @@
 					<f:facet name="header">
 						<h:outputText value="Contraseña" />
 					</f:facet>
-					<h:outputText value="*********" />
-					
+					<h:outputText value="*******" />
+
 				</p:column>
 				<p:column>
 					<f:facet name="header">
@@ -128,11 +172,12 @@
 					<h:outputText value="#{user.dateLastPassword}" />
 				</p:column>
 				<p:column>
-				
+
 					<f:facet name="header">
 						<h:outputText value="Estado" />
 					</f:facet>
-					<h:outputText value="#{user.active}" />
+					<h:outputText value="Activo" rendered="#{'A' eq user.active}" />
+					<h:outputText value="InActivo" rendered="#{'I' eq user.active}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">
@@ -141,6 +186,15 @@
 					<h:outputText value="#{user.userType}" />
 				</p:column>
 
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Eliminar" />
+					</f:facet>
+					<h:form>
+						<h:commandButton action="#{userBean.eliminarUsuario}"
+							value="Eliminar" />
+					</h:form>
+				</h:column>
 			</p:dataTable>
 		</p:dialog>
 
