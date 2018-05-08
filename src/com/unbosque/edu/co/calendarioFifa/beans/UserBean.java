@@ -32,7 +32,7 @@ import com.unbosque.edu.co.calendarioFifa.util.Util;
 @SessionScoped
 public class UserBean {
 //Hola se esta actualizando******************************
-	//hola ahora soy migeul"""""""""""""""""""""22
+	//hola ahora soy migeul"""""""""""""""""""""
 	private User usuario;
 	private DataModel listaUsuarios;
 	private String ingresarUsuario;
