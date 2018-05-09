@@ -52,10 +52,6 @@
 			<artifactId>jsf-api</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-
-
-		<!-- Hibernate 4.3.6 core library library -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
