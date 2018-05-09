@@ -27,6 +27,7 @@ public class TeamBean {
 		equipo = new Team();
 		equipo.setState("A");
 		return "team";
+		
 	}
 	
 	public String prepararModificarEquipo() {

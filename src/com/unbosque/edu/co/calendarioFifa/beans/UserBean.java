@@ -62,8 +62,8 @@ public class UserBean {
 		Iterator<User> aux = getListarUsuario().iterator();
 		boolean existe = false;
 
-		FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+//		FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
+//		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 

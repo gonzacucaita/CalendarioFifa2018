@@ -26,10 +26,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<repositories>
-
-
 		<repository>
 			<id>primefaces-maven-repository</id>
 			<name>PrimeFaces Maven Repository</name>
@@ -38,7 +35,6 @@
 	</repositories>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -56,10 +52,6 @@
 			<artifactId>jsf-api</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-
-
-		<!-- Hibernate 4.3.6 core library library -->
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -78,7 +70,6 @@
 			<version>1.0.10</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>cupertino</artifactId>
@@ -91,15 +82,10 @@
 			<version>1.2.17</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.5.5</version>
 		</dependency>
-
-
-
-
 	</dependencies>
 </project>
