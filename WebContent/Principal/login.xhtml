@@ -8,34 +8,45 @@
 
 <f:view>
 	<h:head>
+		<style type="text/css">
+body {
+	background-image: url('../img/fondo.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+</style>
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloIngresar}" /></title>
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
 	</h:head>
-	<body>
-		<H1>LOGIN</H1>
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="#{principal.usuario}" />
-				<p:inputText value="#{userBean.ingresarUsuario}" />
-				
-				<p:outputLabel value="#{principal.contrasenia}" />
-				<p:password value="#{userBean.contrasenia}" feedback="true"
-					promptLabel="Ingrese una contraseña"
-					weakLabel="La clave es muy debil" goodLabel="La clave es segura" />
-					
-				<div class="g-recaptcha"
-					data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
-					rendered="true" required="true"></div>
+	<h:body>
+		<p:growl life="2000" />
+		<h:form style="align:center">
 
-				<h:commandButton value="#{principal.btnIngresar}"
-					action="#{userBean.validarUsuario}" />
-				<h:commandButton value="#{principal.btnRegresar}" action="inicio" />
-			</h:panelGrid>
+			<p:panel header="Login" style="width:400px">
+				<h:panelGrid columns="2" cellpadding="5"
+					styleClass="panelGridCenter">
+					<p:outputLabel value="#{principal.usuario}" />
+					<p:inputText value="#{userBean.ingresarUsuario} " required="true" />
+					<p:outputLabel value="#{principal.contrasenia}" />
+					<p:password value="#{userBean.contrasenia} Contras" feedback="true"
+						promptLabel="Ingrese una contraseña"
+						weakLabel="La clave es muy debil" goodLabel="La clave es segura" />
+					<f:facet name="footer">
+						<p:commandButton value="#{principal.btnIngresar}"
+							action="#{userBean.validarUsuario}" />
+						<p:commandButton value="#{principal.btnRegresar}" action="inicio" />
+						<h:outputLabel></h:outputLabel>
+						<div class="g-recaptcha"
+							data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+							rendered="true" required="true"></div>
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
-	</body>
 
+	</h:body>
 </f:view>
-
-
 </html>

@@ -11,40 +11,52 @@
 	<h:head>
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloRegistrar}" /></title>
-	<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/fondo.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+</style>
+
 	</h:head>
 	<body>
-		<h:form>
-			<h:panelGrid columns="2">
+		<p:growl life="2000" />
+		<h:form style="align:center">
 
-				<p:outputLabel value="#{principal.nombreUsuario}" />
-				<p:inputText value="#{userBean.usuario.userName}" rendered="true"
-				 />
+			<p:panel header="Registro" style="width:500px">
+				<h:panelGrid columns="2" cellpadding="5"
+					styleClass="panelGridCenter">
+					<p:outputLabel value="#{principal.nombreUsuario}" />
+					<p:inputText value="#{userBean.usuario.userName}" rendered="true" />
 
-				<p:outputLabel value="#{principal.nombre}" rendered="true" />
-				<p:inputText value="#{userBean.usuario.fullName}" rendered="true"
-					 />
+					<p:outputLabel value="#{principal.nombre}" rendered="true" />
+					<p:inputText value="#{userBean.usuario.fullName}" rendered="true" />
 
 
-				<p:outputLabel value="#{principal.telefono}" rendered="true" />
-				<p:inputText value="#{userBean.usuario.phoneNumber}" rendered="true"
-					  />
+					<p:outputLabel value="#{principal.telefono}" rendered="true" />
+					<p:inputText value="#{userBean.usuario.phoneNumber}"
+						rendered="true" />
 
-				<p:outputLabel value="#{principal.email}" rendered="true" />
-				<p:inputText value="#{userBean.usuario.emailAddress}"
-					rendered="true" />
-					
-				<div class="g-recaptcha"
-					data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
-					rendered="true" 
-					></div>
-				<h:commandButton value="#{principal.btnRegistrar}"
-					action="#{userBean.adicionarUsuario}" />
-				<h:commandButton value="#{principal.btnRegresar}" action="inicio" />
-
-			</h:panelGrid>
-
+					<p:outputLabel value="#{principal.email}" rendered="true" />
+					<p:inputText value="#{userBean.usuario.emailAddress}"
+						rendered="true" />
+					<f:facet name="footer">
+						<div class="g-recaptcha"
+							data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+							rendered="true"></div>
+						<p:commandButton value="#{principal.btnRegistrar}"
+							action="#{userBean.adicionarUsuario}" />
+						<p:commandButton value="#{principal.btnRegresar}" action="inicio" />
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
+
 	</body>
 </f:view>
 </html>

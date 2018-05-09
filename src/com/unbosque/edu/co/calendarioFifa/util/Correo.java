@@ -10,7 +10,6 @@ import javax.mail.internet.MimeMessage;
 
 
 
-
 public class Correo {
 	public Correo() {
 		
