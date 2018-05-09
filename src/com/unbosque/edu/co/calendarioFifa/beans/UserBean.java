@@ -169,7 +169,7 @@ public class UserBean {
 				+ "Le solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
 				+ "Att: administrador CalendarioFIFA";
 
-		 Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
 
