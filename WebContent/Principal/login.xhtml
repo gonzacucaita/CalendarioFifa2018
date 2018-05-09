@@ -11,27 +11,64 @@
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloIngresar}" /></title>
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+		<style type="text/css">
+			body{
+				background-image: url('../img/fondo2.gif');
+				background-position: center center;	  
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+			#mail {
+				width: 100%;
+				position: fixed;
+			}
+			.tabla2{
+				border: solid 7px #4371CD;
+				border-radius: 30px;
+				background: rgba(131,149,183,0.7);
+			}
+		</style>
 	</h:head>
 	<body>
-		<H1>LOGIN</H1>
+		
 		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="#{principal.usuario}" />
-				<p:inputText value="#{userBean.ingresarUsuario}" />
-				
-				<p:outputLabel value="#{principal.contrasenia}" />
-				<p:password value="#{userBean.contrasenia}" feedback="true"
-					promptLabel="Ingrese una contraseña"
-					weakLabel="La clave es muy debil" goodLabel="La clave es segura" />
-					
-				<div class="g-recaptcha"
-					data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
-					rendered="true" required="true"></div>
-
-				<h:commandButton value="#{principal.btnIngresar}"
-					action="#{userBean.validarUsuario}" />
-				<h:commandButton value="#{principal.btnRegresar}" action="inicio" />
-			</h:panelGrid>
+			<table width="100%" height="100%">
+				<tr>
+					<td valign="middle">
+						<table align="center" class="tabla2" width="30%" height="30%">
+							<tr><td colspan="2"></td></tr>
+							<tr align="center">
+								<td colspan="2"><H1>LOGIN</H1></td>
+							</tr>
+							<tr align="center">
+								<td><p:outputLabel value="#{principal.usuario}" /></td>
+								<td><p:inputText value="#{userBean.ingresarUsuario}" /></td>
+							</tr>
+							<tr><td colspan="2"></td></tr>
+							<tr align="center">
+								<td><p:outputLabel value="#{principal.contrasenia}" /></td>
+								<td><p:password value="#{userBean.contrasenia}" feedback="true"	
+							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura" /></td>
+							</tr>
+							<tr rowspan="2"><td colspan="2"><br/></td></tr>
+							<tr align="center">
+								<td colspan="2"><div class="g-recaptcha" data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+									rendered="true" required="true"></div></td>
+							</tr>
+							<tr rowspan="2"><td colspan="2"><br/></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td valign="top">
+					<table align="center">
+						<tr>
+							<td><h:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
+							<td><h:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
+						</tr>
+					</table>
+				</td></tr>
+			</table>
 		</h:form>
 	</body>
 
