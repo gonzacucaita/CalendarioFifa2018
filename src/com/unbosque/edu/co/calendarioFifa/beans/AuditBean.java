@@ -1,5 +1,6 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -16,7 +17,7 @@ import com.unbosque.edu.co.calendarioFifa.service.TeamService;
 
 @ManagedBean
 @SessionScoped
-public class AuditBean {
+public class AuditBean implements Serializable{
 
 	private Audit auditoria;
 	private DataModel listaAuditorias;
@@ -24,8 +25,14 @@ public class AuditBean {
 	private String usuarios;
 	private String salir;
 	
+	private List<Audit> listt;
 	
-	
+	public List<Audit> getListt() {
+		return listt = new AuditService().list();
+	}
+	public void setListt(List<Audit> listt) {
+		this.listt = listt;
+	}
 	public Audit getAuditoria() {
 		return auditoria;
 	}
@@ -102,5 +109,6 @@ public class AuditBean {
 		String res = "";
 		return res;
 	}
+	
 	
 }

@@ -42,6 +42,10 @@ public class UserBean {
 	public String getIngresarUsuario() {
 		return ingresarUsuario;
 	}
+	
+	public void generarNuevaContrasenia() {
+		
+	}
 
 	public void setIngresarUsuario(String usuario) {
 		this.ingresarUsuario = usuario;
@@ -190,18 +194,36 @@ public class UserBean {
 	}
 
 	public String modificarUsuario() {
+		prepararModificarUsuario();
 		UserService dao = new UserService();
-		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
 
+		String contraseniaNueva = generarContrasenia();
+		usuario.setActive("A");
+		String de = "calendario.fifa.uelbosque@gmail.com";
+		String clave = "patatafrita";
+		String asunto = "DESBLOQUEO DE USUARIO, CALENDARIO FIFA";
+		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usuario.getFullName() + "\n" + "\n"
+				+ "\n" + "\n" + "Se ha generado su nueva contraseña exitosamente"+ "\n" + "\n" + "\n    " + "usuario: "
+				+ usuario.getUserName() + "\n"+"Clave: " + contraseniaNueva + "\n " + "\n" + "\n" + "\n"
+				+ "Le solicitamos que una vez ingrese y cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+				+ "Att: administrador CalendarioFIFA";
+
+		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+		contraseniaNueva=Util.getStringMessageDigest(contraseniaNueva, Util.MD5);
+		System.out.println(contraseniaNueva);
+		usuario.setPassword(contraseniaNueva);
+		System.out.println(usuario.getPassword());
+		dao.update(usuario);
+		
+		Audit auditoria = new Audit();
 		auditoria.setUserId(usuario.getId());
 		auditoria.setOperation("U");
 		auditoria.setTableName("user");
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
-		as.update(auditoria);
-		dao.update(usuario);
-		return "inicio";
+		as.save(auditoria);
+		return "/Administrador/administrador";
 	}
 
 	public User getUsuario() {
