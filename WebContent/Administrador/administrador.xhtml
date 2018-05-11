@@ -34,12 +34,11 @@
 
 		</p:stack>
 
-		<p:dialog header="Parametro" widgetVar="parameter" modal="true"
-			height="100" showEffect="explode" hideEffect="bounce">
+		<p:dialog id="tbl" header="Parametro" widgetVar="parameter" modal="true"
+			height="100%" showEffect="explode" hideEffect="bounce">
 
 			<p:dataTable var="parameter"
-				value="#{parameterBean.listarParametros
-			}">
+				value="#{parameterBean.listarParametros}">
 
 				<p:column>
 					<f:facet name="header">
@@ -72,14 +71,20 @@
 					<h:outputText value="#{parameter.numberValue}" />
 				</p:column>
 			</p:dataTable>
-
+			<h:commandLink value="exportarPDF">
+   				<p:dataExporter type="pdf" target="tbl" fileName="Parametros" pageOnly="true"/>
+			</h:commandLink>
+					<h1> </h1>
+			<h:commandLink value="exportarEXl">
+		   		<p:dataExporter type="xls" target="tbl" fileName="Parametros" pageOnly="true" />
+		   </h:commandLink>
 		</p:dialog>
 
 
 		<p:dialog header="Auditorio" widgetVar="auditorio" modal="true"
-			height="100" showEffect="explode" hideEffect="bounce">
+			height="100%" showEffect="explode" hideEffect="bounce">
 
-			<p:dataTable var="audit" value="#{auditBean.listarAuditorias}">
+			<p:dataTable id="tbl1" var="audit" value="#{auditBean.listarAuditorias}">
 
 				<p:column>
 					<f:facet name="header">
@@ -118,12 +123,18 @@
 					<h:outputText value="#{audit.createDate}" />
 				</p:column>
 			</p:dataTable>
-
+			<h:commandLink value="exportarPDF">
+   				<p:dataExporter type="pdf" target="tbl1" fileName="Auditoria" pageOnly="true"/>
+			</h:commandLink>
+					<h1> </h1>
+			<h:commandLink value="exportarEXl">
+		   		<p:dataExporter type="xls" target="tbl1" fileName="Auditoria" pageOnly="true" />
+		   </h:commandLink>
 		</p:dialog>
 
 		<p:dialog header="Usuario" widgetVar="usuario" modal="true"
 			height="100%" showEffect="explode" hideEffect="bounce">
-			<p:dataTable var="user" value="#{userBean.listarUsuario}"
+			<p:dataTable id="tbl2" var="user" value="#{userBean.listarUsuario}"
 				widgetVar="dlg1">
 
 				<p:column>
@@ -196,6 +207,13 @@
 			<p:commandLink value="desbloquear" actionListener="#{userBean.modificarUsuario}"/>
 				</p:column>
 			</p:dataTable>
+			<h:commandLink value="exportarPDF">
+   				<p:dataExporter type="pdf" target="tbl2" fileName="Auditoria" pageOnly="true"/>
+			</h:commandLink>
+					<h1> </h1>
+			<h:commandLink value="exportarEXl">
+		   		<p:dataExporter type="xls" target="tbl2" fileName="Auditoria" pageOnly="true" />
+		   </h:commandLink>
 		</p:dialog>
 
 	</h:form>

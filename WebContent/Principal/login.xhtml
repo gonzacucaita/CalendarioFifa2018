@@ -28,6 +28,7 @@
 				border-radius: 30px;
 				background: rgba(131,149,183,0.7);
 			}
+		</style>
 	</h:head>
 	<h:body>
 		<h:form>
@@ -58,6 +59,9 @@
 						</table>
 					</td>
 				</tr>
+				<tr>
+		   				
+				</tr>
 				<tr><td valign="top">
 					<table align="center">
 						<tr>
@@ -67,6 +71,14 @@
 					</table>
 				</td></tr>
 			</table>
+			
+			<p:dialog id="tbl" header="Parametro" widgetVar="parameter" modal="true"
+			height="100%" showEffect="explode" hideEffect="bounce">
+			
+			<p:outputLabel>Su contraseña se ha enviado a su correo</p:outputLabel>
+			
+			</p:dialog>
+			
 		</h:form>
 
 	</h:body>

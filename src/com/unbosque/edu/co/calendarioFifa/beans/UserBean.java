@@ -24,6 +24,7 @@ import com.unbosque.edu.co.calendarioFifa.service.AuditService;
 import com.unbosque.edu.co.calendarioFifa.service.ParameterService;
 import com.unbosque.edu.co.calendarioFifa.service.UserService;
 import com.unbosque.edu.co.calendarioFifa.util.Correo;
+import com.unbosque.edu.co.calendarioFifa.util.DiferenciaFechas;
 import com.unbosque.edu.co.calendarioFifa.util.Util;
 
 @ManagedBean
@@ -31,20 +32,15 @@ import com.unbosque.edu.co.calendarioFifa.util.Util;
 public class UserBean {
 	private static int INTENTOS = 0;
 	private User usuario;
-	private Parameter parameter = new Parameter();
-	private ParameterService parameterService = new ParameterService();
 	private DataModel listaUsuarios;
 	private String ingresarUsuario;
 	private String contrasenia;
+	private String contraseniaNueva;
 
 	private static Logger log = Logger.getLogger(UserBean.class);
 
 	public String getIngresarUsuario() {
 		return ingresarUsuario;
-	}
-	
-	public void generarNuevaContrasenia() {
-		
 	}
 
 	public void setIngresarUsuario(String usuario) {
@@ -61,42 +57,70 @@ public class UserBean {
 
 	public String validarUsuario() {
 
+		UserService us = new UserService();
 		BasicConfigurator.configure();
 		String respuesta = "registro";
 		Iterator<User> aux = getListarUsuario().iterator();
 		boolean existe = false;
+		Audit auditoria = new Audit();
+		AuditService as = new AuditService();
 
-//		FacesMessage msg = new FacesMessage("Exito", "Bienvenido :" + usuario.getUserName());
-//		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 
 		while (aux.hasNext() && existe == false) {
 
 			usuario = aux.next();
+			ParameterService ps = new ParameterService();
+			String idUsuario = "";
+			int ingresos = 0;
+			long idParameter = 0;
+			int intentos = 0;
+			String fechaLimite = "";
+			List<Parameter> listap = ps.list();
+			boolean encontro = false;
+			for (int i = 0; i < listap.size() && encontro == false; i++) {
+				
+				if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
+					idUsuario = listap.get(i).getTextValue();
+					ingresos = Integer.parseInt(listap.get(i).getParameterCode());
+					idParameter = listap.get(i).getId();
+					intentos = listap.get(i).getNumberValue();
+					fechaLimite = listap.get(i).getParameterType();
+					encontro = true;
+					
+					ps.update(listap.get(i));
+				}
+			}
 
+			
 			boolean contra = usuario.getPassword().equals(contrasenia);
 
 			boolean use = usuario.getUserName().equals(ingresarUsuario);
 
-			int contador = 0;
-
 			if (contra && use && usuario.getActive().equals("A")) {
+		long fechaIngreso = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 				if (usuario.getUserType().equals("ADMIN")) {
 					respuesta = "/Administrador/administrador";
 				} else if (usuario.getUserType().equals("FUNCIONAL")) {
 					respuesta = "/UserFuncional/funcional";
-				} else {
-					respuesta = "/User/cliente";
+				} else if(usuario.getUserType().equals("cliente")){
+					
+					if(ingresos == 0 || fechaIngreso>= Integer.parseInt(fechaLimite)) {
+						respuesta = "/User/nuevaContraseña";
+					}
+					else {
+						
+						respuesta = "/User/cliente";
+					}
+				
 				}
 
-				Audit auditoria = new Audit();
-				AuditService as = new AuditService();
-
+				
 				auditoria.setUserId(usuario.getId());
 				auditoria.setOperation("E");
 				auditoria.setTableName("user");
-				auditoria.setTableId(1);
+				auditoria.setTableId(auditoria.getId());
 				auditoria.setCreateDate(new Date());
 				as.save(auditoria);
 				if (log.isInfoEnabled()) {
@@ -105,21 +129,30 @@ public class UserBean {
 				}
 				existe = true;
 
+				for (int i = 0; i < listap.size() && encontro == false; i++) {
+					
+					if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
+						listap.get(i).setParameterCode((ingresos +1)+"");
+					}
+				}
 			} else if (use && contra == false && usuario.getActive().equals("A")) {
 				INTENTOS++;
-				System.out.println(INTENTOS);
-				List<Parameter> lista = parameterService.list();
-				// for (int i = 0; i < lista.size() && existe==false; i++) {
-				if (INTENTOS == 3) {
-					System.out.println("entra");
+				if (INTENTOS == intentos) {
 					usuario.setActive("I");
+					us.update(usuario);
+					auditoria.setUserId(usuario.getId());
+					auditoria.setOperation("B");
+					auditoria.setTableName("user");
+					auditoria.setTableId(auditoria.getId());
+					auditoria.setCreateDate(new Date());
+					as.save(auditoria);
 					respuesta = "/Error/ErrorLogin";
+					INTENTOS = 0;
 					existe = true;
 				} else {
-					System.out.println("Hola");
 					respuesta = "/Principal/login";
 				}
-				// }
+				 
 
 			}
 		}
@@ -133,6 +166,7 @@ public class UserBean {
 		usuario.setActive("A");
 		usuario.setDateLastPassword(new Date());
 		usuario.setUserType("cliente");
+
 		return "registro";
 	}
 
@@ -145,7 +179,6 @@ public class UserBean {
 		User usuarioTemp = (User) (listaUsuarios.getRowData());
 		UserService dao = new UserService();
 		usuarioTemp.setActive("I");
-		// dao.remove(usuario);
 		dao.update(usuarioTemp);
 		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
@@ -156,12 +189,14 @@ public class UserBean {
 		auditoria.setCreateDate(new Date());
 		as.update(auditoria);
 		auditoria.setId(usuario.getId());
+
 		return "inicio";
 	}
 
 	public String adicionarUsuario() {
+
 		UserService dao = new UserService();
-		String contra = generarContrasenia();
+		String contra = getGenerarContrasenia();
 		usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
 		dao.save(usuario);
 		String de = "calendario.fifa.uelbosque@gmail.com";
@@ -184,12 +219,17 @@ public class UserBean {
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
 
-		parameter.setParameterType(usuario.getId() + "");
-		parameter.setTextValue("5");
+		Parameter parameter = new Parameter();
+		ParameterService ps = new ParameterService();
+		
+		String a =usuario.getId()+ "";
+		parameter.setTextValue(a);
+		parameter.setParameterType("2");
+		parameter.setDescriptionParameter(" ");
+		parameter.setParameterCode("0");
 		parameter.setNumberValue(3);
 
-		parameterService.save(parameter);
-
+		ps.save(parameter);
 		return "inicio";
 	}
 
@@ -198,7 +238,7 @@ public class UserBean {
 		UserService dao = new UserService();
 		AuditService as = new AuditService();
 
-		String contraseniaNueva = generarContrasenia();
+		String contraseniaNueva = getGenerarContrasenia();
 		usuario.setActive("A");
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
@@ -211,9 +251,7 @@ public class UserBean {
 
 		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 		contraseniaNueva=Util.getStringMessageDigest(contraseniaNueva, Util.MD5);
-		System.out.println(contraseniaNueva);
 		usuario.setPassword(contraseniaNueva);
-		System.out.println(usuario.getPassword());
 		dao.update(usuario);
 		
 		Audit auditoria = new Audit();
@@ -223,9 +261,20 @@ public class UserBean {
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
+		
+		ParameterService ps = new ParameterService();
+		List<Parameter> list = ps.list();
+		boolean a = false;
+		for (int i = 0; i < list.size() && a == false; i++) {
+			if(list.get(i).getTextValue().equals(usuario.getId()+"")) {
+				list.get(i).setParameterCode("0");
+				ps.update(list.get(i));
+				a = true;
+			}
+			
+		}
 		return "/Administrador/administrador";
 	}
-
 	public User getUsuario() {
 		return usuario;
 	}
@@ -240,7 +289,7 @@ public class UserBean {
 		return listaUsuarios;
 	}
 
-	public String generarContrasenia() {
+	public String getGenerarContrasenia() {
 
 		String contrasenia = "";
 		String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890";
@@ -253,5 +302,60 @@ public class UserBean {
 
 		return contrasenia;
 	}
+	
+	public String getSolicitarContrasenia() {
+		String de = "calendario.fifa.uelbosque@gmail.com";
+		String clave = "patatafrita";
+		String asunto = "DESBLOQUEO DE USUARIO, CALENDARIO FIFA";
+		String mensaje = "Para desbloquear al usuario :"+ usuario.getUserName();
+
+		Correo.enviarCorreo(de, de, clave, asunto, mensaje);
+		
+		return "/Principal/login";
+	}
+	
+	public String getOlvideContrasenia() {
+		INTENTOS = 0;
+		UserService us = new UserService();
+		String nueva = getGenerarContrasenia();
+		String de = "calendario.fifa.uelbosque@gmail.com";
+		String clave = "patatafrita";
+		String asunto = "NUEVA CONTRASEÑA, CALENDARIO FIFA";
+		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usuario.getFullName() + "\n" + "\n"
+				+ "\n" + "\n" + "Se ha generado su nueva contraseña exitosamente"+ "\n" + "\n" + "\n    " + "usuario: "
+				+ usuario.getUserName() + "\n"+"Clave: " + nueva + "\n " + "\n" + "\n" + "\n"
+				+ "Le solicitamos que una vez ingrese y cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+				+ "Att: administrador CalendarioFIFA";
+
+		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+		nueva=Util.getStringMessageDigest(nueva, Util.MD5);
+		usuario.setPassword(nueva);
+		us.update(usuario);
+		AuditService as = new AuditService();
+
+		Audit auditoria = new Audit();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("user");
+		auditoria.setTableId(1);
+		auditoria.setCreateDate(new Date());
+		as.save(auditoria);
+		
+		return "parameter";
+		
+	}
+
+	public String getContraseniaNueva() {
+		return contraseniaNueva;
+	}
+
+	public void setContraseniaNueva(String contraseniaNueva) {
+		this.contraseniaNueva = Util.getStringMessageDigest(contraseniaNueva, Util.MD5);
+		UserService dao = new UserService();
+		usuario.setPassword(this.contraseniaNueva);
+
+		dao.update(usuario);
+	}
+	
 
 }

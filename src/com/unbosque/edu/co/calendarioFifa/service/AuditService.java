@@ -13,7 +13,7 @@ private AuditDAOImpl dao = new AuditDAOImpl();
 		dao.save(auditoria);
 	}
 	
-	public Audit getEquipo(long id) {
+	public Audit getAuditoria(long id) {
 		return dao.getAudit(id);
 	}
 	

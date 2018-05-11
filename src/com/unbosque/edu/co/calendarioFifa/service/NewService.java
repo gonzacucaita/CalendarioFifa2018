@@ -14,7 +14,7 @@ private NewsDAOImpl dao = new NewsDAOImpl();
 		dao.save(noticia);
 	}
 	
-	public New getUsuario(long id) {
+	public New getNoticia(long id) {
 		return dao.getNews(id);
 	}
 	

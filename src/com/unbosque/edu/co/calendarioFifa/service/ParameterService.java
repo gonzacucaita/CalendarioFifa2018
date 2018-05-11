@@ -14,8 +14,12 @@ public class ParameterService {
 		dao.save(parametro);
 	}
 	
-	public Parameter getUsuario(long id) {
+	public Parameter getParametro(long id) {
 		return dao.getParameter(id);
+	}
+	
+	public Parameter getParametroPorUsuario(long idUsuario) {
+		return dao.getParameterFromUser(idUsuario+"");
 	}
 	
 	public List<Parameter> list(){

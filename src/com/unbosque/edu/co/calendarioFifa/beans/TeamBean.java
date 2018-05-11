@@ -18,7 +18,6 @@ public class TeamBean {
 	public Team getEquipo() {
 		return equipo;
 	}
-	
 
 	public void setEquipo(Team team) {
 		this.equipo = team;
@@ -28,7 +27,6 @@ public class TeamBean {
 		equipo = new Team();
 		equipo.setState("A");
 		return "team";
-		
 	}
 	
 	public String prepararModificarEquipo() {

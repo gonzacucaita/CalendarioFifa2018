@@ -14,7 +14,7 @@ public class GoalscorerService {
 		dao.save(goleador);
 	}
 	
-	public Goalscorer getUsuario(long id) {
+	public Goalscorer getGoleador(long id) {
 		return dao.getGoalscorer(id);
 	}
 	

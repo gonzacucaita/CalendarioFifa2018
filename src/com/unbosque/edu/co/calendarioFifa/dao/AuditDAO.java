@@ -10,7 +10,10 @@ public interface AuditDAO {
 
 	public List<Audit> list();
 
+
 	public Audit getAudit(long id);
+
+
 
 	public void update(Audit auditoria);
 }

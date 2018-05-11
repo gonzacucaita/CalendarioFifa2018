@@ -9,6 +9,8 @@ public interface ParameterDAO {
 	public void save(Parameter parametro);
 
 	public Parameter getParameter(long id);
+	
+	public Parameter getParameterFromUser(String idUser);
 
 	public List<Parameter> list();
 

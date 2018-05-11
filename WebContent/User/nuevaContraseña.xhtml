@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+<f:view>
+	<h:head>
+	<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		
+		<title>Cambio de contraseña</title>
+	</h:head>
+	<body>
+		<h:form>
+				<h:outputText value="Usuario : " />
+				<h:inputText value="#{userBean.usuario.userName}"
+					rendered="true" />
+				<h:outputText value="Nueva contraseña : " />				
+				<h:inputText value="#{userBean.contraseniaNueva}"
+					rendered="true" />
+				
+				<h:commandButton value="guardar"
+					action="/Principal/inicio" />
+		</h:form>
+	</body>
+</f:view>
+</html>
