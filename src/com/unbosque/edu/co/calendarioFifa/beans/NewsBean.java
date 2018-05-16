@@ -1,5 +1,6 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -16,6 +17,20 @@ public class NewsBean {
 
 	private New noticia;
 	private DataModel listaNoticia;
+	private List<String> imagenes;
+	
+	public void ponerImagenes() {
+		
+		imagenes = new ArrayList<String>();
+		for (int i = 0; i <= 5; i++) {
+			imagenes.add("noticias"+i+".png");
+		}
+		
+	}
+	
+	public List<String> getImagenes() {
+		return imagenes;
+	}
 	
 	public New getNoticia() {
 		return noticia;

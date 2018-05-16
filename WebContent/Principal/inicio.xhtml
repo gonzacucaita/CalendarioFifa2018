@@ -3,28 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <f:view>
-	<h:head>	
+	<h:head>
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloPrincipal}" /></title>
-		
+
 		<style type="text/css">
-			body{
-				background-image: url('../img/principal.jpg');
-				background-position: center center;	  
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-size: cover;
-			}
-		</style>
+body {
+	background-image: url('../img/principal.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+</style>
 	</h:head>
 	<h:body>
 		<h:form>
 			<p:commandButton value="#{principal.registrarse}"
-				action="#{userBean.prepararAdicionarUsuario}"  style="float:right;"  />
-			<p:commandButton value="#{principal.iniciarSesion}" style="float:right;" action="login" />	
+				action="#{userBean.prepararAdicionarUsuario}" style="float:right;" />
+			<p:commandButton value="#{principal.iniciarSesion}"
+				style="float:right;" action="login" />
+
+
+			<h2>Noticias</h2>
+			<p:imageSwitch effect="shuffle">
+				<ui:repeat var="img" varStatus="" value="#{newsBean.imagenes}">
+					<p:graphicImage name="/img/noticias/#{img}" />
+				</ui:repeat>
+			</p:imageSwitch>
+
 		</h:form>
+
+
+
+
 	</h:body>
 </f:view>
 </html>

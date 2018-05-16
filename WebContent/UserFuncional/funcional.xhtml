@@ -2,44 +2,104 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <f:view>
 	<h:head>
 		<title><h:outputText value="titulo ventana" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/fondoFuncional.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
+
 	</h:head>
 
 	<h:body>
 
 		<h:form>
+		
+		<p:dock position="bottom"  >
+		
+		<p:menuitem value="Ingresar Equipo" icon="/img/equipoIcono.png" />
+		<p:menuitem value="Ingresar Estadio" icon="/img/estadioIcono.png" />
+		<p:menuitem value="Ingresar Calendario" icon="/img/calendarioIcono.png"/>
+		<p:menuitem value="Ingresar Arbitro" icon="/img/arbitro.png" />
+		<p:menuitem value="Ingresar Noticia" icon="/img/noticiaIcono.png"/>
+		<p:menuitem value="Ingresar Goleador" icon="/img/goleadorIcono.png" />
+		
+		
+		</p:dock>
 
-			<h:panelGrid columns="2">
+			<table height="100%" width="100%">
 
-				<h:panelGrid columns="2">
-					<h:commandButton value="ingresarEquipo"
-						action="#{teamBean.prepararAdicionarEquipo}" />
-					<h:commandButton value="ingresarEstadio"
-						action="#{stadiumBean.prepararAdicionarEstadio}" />
-					<h:commandButton value="ingresarCalendario"
-						action="#{scheduleBean.prepararAdicionarCalendario}" />
-					<h:commandButton value="ingresarArbitro"
-						action="#{refereeBean.prepararAdicionarArbitro}" />
-					<h:commandButton value="ingresarParametro"
-						action="#{parameterBean.prepararAdicionarParametro}" />
-					<h:commandButton value="ingresarNoticia"
-						action="#{newsBean.prepararAdicionarNoticia}" />
-					<h:commandButton value="ingresarGoleador"
-						action="#{goalscorerBean.prepararAdicionarGoleador}" />
-					<h:commandButton value="ingresarAuditoria"
-						action="#{auditBean.prepararAdicionarAuditoria}" />
-				</h:panelGrid>
-				
-				<h:panelGrid>NOTICIAS</h:panelGrid>
+				<tr>
+					<td valign="middle">
 
-				<h:commandButton value="guardar"
-					action="#{newsBean.adicionarNoticia}" />
-			</h:panelGrid>
+						<table align="center" class="tabla2" width="30%" height="30%">
 
+							<tr>
+								<td colspan="2"></td>
+							</tr>
+
+							<tr align="center">
+								<td colspan="2"><H1>LOGIN</H1></td>
+							</tr>
+
+							<tr>
+								<td><p:commandButton
+										action="#{teamBean.prepararAdicionarEquipo}"
+										value="Ingresar Equipo" /></td>
+
+								<td><p:commandButton
+										action="#{stadiumBean.prepararAdicionarEstadio}"
+										value="Ingresar Estadio" /></td>
+							</tr>
+
+							<tr>
+								<td><p:commandButton
+										action="#{scheduleBean.prepararAdicionarCalendario}"
+										value="Ingresar Calendario" /></td>
+
+								<td><p:commandButton
+										action="#{refereeBean.prepararAdicionarArbitro}"
+										value="Ingresar Arbitro" /></td>
+							</tr>
+							
+							<tr>
+								<td><p:commandButton
+										action="#{scheduleBean.prepararAdicionarNoticia}"
+										value="Ingresar Noticia" /></td>
+
+								<td><p:commandButton
+										action="#{refereeBean.prepararAdicionarGoleador}"
+										value="Ingresar Goleador" /></td>
+							</tr>
+
+						</table>
+
+					</td>
+				</tr>
+
+			</table>
+					
 		</h:form>
 
 	</h:body>
