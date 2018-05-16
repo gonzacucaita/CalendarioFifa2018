@@ -6,17 +6,33 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+	<style type="text/css">
+		body {
+			background-image: url('../img/captura3.jpg');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		.tabla2{
+			border: solid 7px #4371CD;
+			border-radius: 30px;
+			background: rgba(131,149,183,0.7);
+		}
+	</style>
 </h:head>
-
 <h:body>
-	
 	<h:form>
-	
-		<p:outputLabel>Su usuario esta bloqueado o no existe </p:outputLabel>
-		<p:commandButton value="Regresar" action="/Principal/inicio" />
-	
+		<table width="100%" height="550">
+			<tr><td valign="middle">
+				<table align="center" class="tabla2" width="30%" height="30%">
+					<tr><td>
+						<p:outputLabel>Su usuario esta bloqueado o no existe </p:outputLabel>
+						<p:commandButton value="Regresar" action="/Principal/inicio" />
+					</td></tr>
+				</table>
+			</td></tr>
+		</table>
 	</h:form>
-
 </h:body>
 </html>
