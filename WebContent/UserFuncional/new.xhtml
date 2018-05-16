@@ -2,6 +2,7 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <f:view>
@@ -10,32 +11,36 @@
 	</h:head>
 
 	<h:body>
-	
+
 		<h:form>
-			
-			<h:panelGrid columns="2" >
-			
-				<h:outputText value= "La fecha de las noticias es: " />
-				<h:inputText value = "#{newsBean.noticia.dateNews}" />
-			
-				<h:outputText value= "la descripcion es: " />
-				<h:inputText value = "#{newsBean.noticia.shortDescription}" />
-				
-				<h:outputText value= "la descripcion larga es: " />
-				<h:inputText value = "#{newsBean.noticia.largeDescription}" />
-				
-				<h:outputText value= "La id del usuario es: " />
-				<h:inputText value = "#{newsBean.noticia.idUser}" />
-				
-				<h:outputText value= "el estado es: " />
-				<h:inputText value = "#{newsBean.noticia.state}" />
-				
-				<h:commandButton value="guardar"
-					action="#{newsBean.adicionarNoticia}" />
-			</h:panelGrid>
-			
+
+			<p:dataView var="car" value="1" rows="12" paginator="true"
+				rowsPerPageTemplate="6,12,16"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				gridIcon="fa fa-th-large" listIcon="fa fa-bars">
+
+				<p:dataViewGridItem>
+					<p:panel header="1" style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+
+							<h:outputText value="1" />
+
+							<p:commandLink update=":form:carDetail"
+								oncomplete="PF('carDialog').show()" title="View Detail">
+								<h:outputText styleClass="ui-icon ui-icon-search"
+									style="margin:0 auto;" />
+								<f:setPropertyActionListener value="2"
+									target="4" />
+							</p:commandLink>
+						</h:panelGrid>
+					</p:panel>
+				</p:dataViewGridItem>
+			</p:dataView>
+
+
 		</h:form>
-	
+
 	</h:body>
 </f:view>
 </html>

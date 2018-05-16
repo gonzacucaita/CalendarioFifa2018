@@ -35,71 +35,159 @@ body {
 	<h:body>
 
 		<h:form>
-		
-		<p:dock position="bottom"  >
-		
-		<p:menuitem value="Ingresar Equipo" icon="/img/equipoIcono.png" />
-		<p:menuitem value="Ingresar Estadio" icon="/img/estadioIcono.png" />
-		<p:menuitem value="Ingresar Calendario" icon="/img/calendarioIcono.png"/>
-		<p:menuitem value="Ingresar Arbitro" icon="/img/arbitro.png" />
-		<p:menuitem value="Ingresar Noticia" icon="/img/noticiaIcono.png"/>
-		<p:menuitem value="Ingresar Goleador" icon="/img/goleadorIcono.png" />
-		
-		
-		</p:dock>
 
-			<table height="100%" width="100%">
+			<p:panelGrid columns="1">
 
-				<tr>
-					<td valign="middle">
+				<p:commandButton value="Hola" />
 
-						<table align="center" class="tabla2" width="30%" height="30%">
+				<p:tabView orientation="left">
 
-							<tr>
-								<td colspan="2"></td>
-							</tr>
+					<p:tab title="Equipo">
 
-							<tr align="center">
-								<td colspan="2"><H1>LOGIN</H1></td>
-							</tr>
+						<p:dataTable var="equipo" value="#{teamBean.listarEquipos}">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{equipo.id}" />
+							</p:column>
 
-							<tr>
-								<td><p:commandButton
-										action="#{teamBean.prepararAdicionarEquipo}"
-										value="Ingresar Equipo" /></td>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="El pais del equipo es" />
+								</f:facet>
+								<h:outputText value="#{equipo.country}" />
+							</p:column>
 
-								<td><p:commandButton
-										action="#{stadiumBean.prepararAdicionarEstadio}"
-										value="Ingresar Estadio" /></td>
-							</tr>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="El pais del equipo es" />
+								</f:facet>
+								<h:outputText value="#{equipo.country}" />
+							</p:column>
 
-							<tr>
-								<td><p:commandButton
-										action="#{scheduleBean.prepararAdicionarCalendario}"
-										value="Ingresar Calendario" /></td>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="El pais del equipo es" />
+								</f:facet>
+								<h:outputText value="#{equipo.country}" />
+							</p:column>
 
-								<td><p:commandButton
-										action="#{refereeBean.prepararAdicionarArbitro}"
-										value="Ingresar Arbitro" /></td>
-							</tr>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Grupo" />
+								</f:facet>
+								<h:outputText value="#{equipo.group}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Goles encontra" />
+								</f:facet>
+								<h:outputText value="#{equipo.goalsAgainst}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Goles a Favor" />
+								</f:facet>
+								<h:outputText value="#{equipo.goalsFavor}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Jugadores del equipo" />
+								</f:facet>
+								<h:outputText value="#{equipo.playedGames}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Partidos ganados" />
+								</f:facet>
+								<h:outputText value="#{equipo.wonMatches}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Partidos perdidos" />
+								</f:facet>
+								<h:outputText value="#{equipo.lostMatches}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Partidos empatados" />
+								</f:facet>
+								<h:outputText value="#{equipo.tiedMatches}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Estado" />
+								</f:facet>
+								<h:outputText value="#{equipo.state}" />
+							</p:column>
+
+						</p:dataTable>
+
+
+					</p:tab>
+
+					<p:tab title="Estadio">
+
+						<p:dataTable var="estadio" value="#{stadiumBean.listarEstadios}">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{estadio.id}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="El pais del equipo es" />
+								</f:facet>
+								<h:outputText value="#{estadio.capacity}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="La bandera del equipo es" />
+								</f:facet>
+								<h:outputText value="#{equipo.city}" />
+							</p:column>
+
+						</p:dataTable>
+
+					</p:tab>
+
+					<p:tab title="Equipo">
+
+						<p:dataGrid var="car" value="#{teamBean.listarEquipos}" columns="3"
+							layout="grid" rows="12" paginator="true" id="cars"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="6,12,16">
 							
-							<tr>
-								<td><p:commandButton
-										action="#{scheduleBean.prepararAdicionarNoticia}"
-										value="Ingresar Noticia" /></td>
+							<p:panel header="car.country" style="text-align:center">
+							
+							<h:panelGrid columns="1" style="width:100%" > 
+							
+							<p:outputLabel value="#{car.flag}" />
+							<p:outputLabel value="#{car.goalsAgainst}" />
+							<p:outputLabel value="#{car.goalsFavor}" />
+							
+							</h:panelGrid>
+							
+							</p:panel>
+							
+							
+							</p:dataGrid>
+					</p:tab>
 
-								<td><p:commandButton
-										action="#{refereeBean.prepararAdicionarGoleador}"
-										value="Ingresar Goleador" /></td>
-							</tr>
 
-						</table>
-
-					</td>
-				</tr>
-
-			</table>
-					
+				</p:tabView>
+			</p:panelGrid>
 		</h:form>
 
 	</h:body>
