@@ -7,7 +7,8 @@
 
 <f:view>
 	<h:head>
-		<title><h:outputText value="titulo ventana" /></title>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
 
 		<style type="text/css">
 body {

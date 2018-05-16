@@ -24,15 +24,15 @@
 				position: fixed;
 			}
 			.tabla2{
-				border: solid 7px #4371CD;
+				border: solid 0.5px #ffffff;
 				border-radius: 30px;
-				background: rgba(131,149,183,0.7);
+				background: rgba(255,255,255,0.7);
 			}
 		</style>
 	</h:head>
 	<h:body>
 		<h:form>
-			<table height="100%" width="100%">
+			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
 						<table align="center" class="tabla2" width="30%" height="30%">
@@ -65,8 +65,8 @@
 				<tr><td valign="top">
 					<table align="center">
 						<tr>
-							<td><h:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
-							<td><h:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
+							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
+							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
 						</tr>
 					</table>
 				</td></tr>
