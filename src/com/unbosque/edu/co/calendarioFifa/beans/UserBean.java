@@ -87,7 +87,7 @@ public class UserBean {
 					intentos = listap.get(i).getNumberValue();
 					fechaLimite = listap.get(i).getParameterType();
 					encontro = true;
-					
+					listap.get(i).setParameterCode((ingresos+1)+"");
 					ps.update(listap.get(i));
 				}
 			}
@@ -110,7 +110,7 @@ public class UserBean {
 					}
 					else {
 						
-						respuesta = "/User/cliente";
+						respuesta = "/User/paginaInicio";
 					}
 				
 				}
