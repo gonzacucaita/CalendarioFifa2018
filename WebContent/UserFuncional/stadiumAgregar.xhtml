@@ -2,41 +2,65 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <f:view>
 	<h:head>
 		<title><h:outputText value="titulo ventana" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center center;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
+
 	</h:head>
 
 	<h:body>
-	
+
 		<h:form>
-			
-			<h:panelGrid columns="2" >
-			
-			
-				<h:outputText value= "La ciudad es: " />
-				<h:inputText value = "#{stadiumBean.estadio.city}" />
-			
-				<h:outputText value= "La capacidad es: " />
-				<h:inputText value = "#{stadiumBean.estadio.capacity}" />
-				
-				<h:outputText value= "La foto es: " />
-				<h:inputText value = "#{stadiumBean.estadio.photo}" />
-				
-				<h:outputText value= "La temperatura es: " />
-				<h:inputText value = "#{stadiumBean.estadio.temperature}" />
-				
-				<h:outputText value= "La population es: " />
-				<h:inputText value = "#{stadiumBean.estadio.population}" />
-				
-				<h:commandButton value="guardar"
+
+			<p:panelGrid columns="2">
+
+
+				<p:outputLabel value="La ciudad es: " />
+				<p:inputText value="#{stadiumBean.estadio.city}" />
+
+				<p:outputLabel value="La capacidad es: " />
+				<p:inputText value="#{stadiumBean.estadio.capacity}" />
+
+				<p:outputLabel value="La foto es: " />
+				<p:inputText value="#{stadiumBean.estadio.photo}" />
+
+				<p:outputLabel value="La temperatura es: " />
+				<p:inputText value="#{stadiumBean.estadio.temperature}" />
+
+				<p:outputLabel value="La population es: " />
+				<p:inputText value="#{stadiumBean.estadio.population}" />
+
+				<p:commandButton value="guardar"
 					action="#{stadiumBean.adicionarEstadio}" />
-			</h:panelGrid>
-			
+				<p:commandButton value="Cancelar" action="funcional" />
+				</p:panelGrid>
 		</h:form>
-	
+
 	</h:body>
 </f:view>
 </html>

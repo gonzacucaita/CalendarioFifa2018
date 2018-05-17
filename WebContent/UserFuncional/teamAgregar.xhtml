@@ -3,61 +3,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
 <f:view>
 	<h:head>
-	<f:loadBundle basename="com.mensajes.principal"	var="msjs" />
+		<f:loadBundle basename="com.mensajes.principal" var="msjs" />
 		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center center;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
+
 	</h:head>
 	<body>
 		<h:form>
-		
-			<h:panelGrid columns="2">
 
-				<h:outputText value="Pais: " />
-				<h:inputText value="#{teamBean.equipo.country}"
-					rendered="true" />
-					
-				<h:outputText value="Bandera: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.flag}"
-					rendered="true" />
-				
-				<h:outputText value="Grupo: " rendered="true"  />
-				<h:inputText  value="#{teamBean.equipo.group}"
-					rendered="true" />
-					
-				<h:outputText value="Juegos Jugados: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.playedGames}"
-				 rendered="true" />	
+			<p:panelGrid columns="2">
 
-				<h:outputText value="Juegos Ganados: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.wonMatches}"
-				 rendered="true" />
+				<p:outputLabel value="Pais: " />
+				<p:inputText value="#{teamBean.equipo.country}" rendered="true" />
 
-				<h:outputText value="Juegos Empadatados: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.tiedMatches}"
-				 rendered="true" />
+				<p:outputLabel value="Bandera: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.flag}" rendered="true" />
 
-				<h:outputText value="Goles a favor: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.goalsFavor}"
-				 rendered="true" />
+				<p:outputLabel value="Grupo: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.group}" rendered="true" />
 
-				<h:outputText value="Goles en contra: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.goalsAgainst}"
-				 rendered="true" />
+				<p:outputLabel value="Juegos Jugados: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.playedGames}" rendered="true" />
 
-				<h:outputText value="Estado: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.state}"
-				 rendered="true" />
+				<p:outputLabel value="Juegos Ganados: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.wonMatches}" rendered="true" />
 
-				 <h:outputText value="Juegos Perdidos: " rendered="true" />
-				<h:inputText  value="#{teamBean.equipo.lostMatches}"
-				 rendered="true" />
-				
-				<h:commandButton value="guardar"
+				<p:outputLabel value="Juegos Empadatados: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.tiedMatches}" rendered="true" />
+
+				<p:outputLabel value="Goles a favor: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.goalsFavor}" rendered="true" />
+
+				<p:outputLabel value="Goles en contra: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.goalsAgainst}" rendered="true" />
+
+				<p:outputLabel value="Estado: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.state}" rendered="true" />
+
+				<p:outputLabel value="Juegos Perdidos: " rendered="true" />
+				<p:inputText value="#{teamBean.equipo.lostMatches}" rendered="true" />
+
+				<p:commandButton value="guardar"
 					action="#{teamBean.adicionarEquipo}" />
+				<p:commandButton value="Cancelar" action="funcional" />
 
-			</h:panelGrid>
+			</p:panelGrid>
 		</h:form>
 	</body>
 </f:view>
