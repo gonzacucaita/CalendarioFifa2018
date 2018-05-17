@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
+
+		<style type="text/css">
+		body {
+			background-image: url('../img/captura3.jpg');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		</style>
+	</h:head>
+
+	<h:body>
+		<p:tab title="Estadio">
+
+			<p:dataGrid var="estadio" value="#{stadiumBean.listarEstadios}"
+				columns="2" layout="grid" rows="12" paginator="true" id="estadio"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="4,6,8">
+
+
+				<p:panel header="#{estadio.city}" style="text-align:center">
+
+					<h:panelGrid columns="2" style="width:100%">
+
+						<p:outputLabel value="Foto: " />
+						<p:outputLabel value="#{estadio.photo}" />
+
+						<p:outputLabel value="Capacidad: " />
+						<p:outputLabel value="#{estadio.capacity}" />
+						
+						<p:outputLabel value="Ciudad: " />
+						<p:outputLabel value="#{estadio.city}" />
+
+						<p:outputLabel value="Poblacion: " />
+						<p:outputLabel value="#{estadio.population}" />
+
+						<p:outputLabel value="Temperatura: " />
+						<p:outputLabel value="#{estadio.temperature}" />
+
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dataGrid>
+		</p:tab>
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
+
+		<style type="text/css">
+		body {
+			background-image: url('../img/captura3.jpg');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		</style>
+	</h:head>
+
+	<h:body>
+		<p:tab title="Equipo">
+			<p:dataGrid var="equipo" value="#{teamBean.listarEquipos}"
+				columns="2" layout="grid" rows="12" paginator="true" id="equipo"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="2,4,6">
+
+
+				<p:panel header="#{equipo.country}" style="text-align:center">
+
+					<h:panelGrid columns="2" style="width:100%">
+
+						<p:outputLabel value="Bandera: " />
+						<p:outputLabel value="#{equipo.flag}" />
+
+						<p:outputLabel value="Grupo: " />
+						<p:outputLabel value="#{equipo.group}" />
+
+						<p:outputLabel value="Jugadores: " />
+						<p:outputLabel value="#{equipo.playedGames}" />
+
+						<p:outputLabel value="Partidos ganados: " />
+						<p:outputLabel value="#{equipo.wonMatches}" />
+
+						<p:outputLabel value="Partidos empatados: " />
+						<p:outputLabel value="#{equipo.tiedMatches}" />
+
+						<p:outputLabel value="Partidos perdidos: " />
+						<p:outputLabel value="#{equipo.lostMatches}" />
+
+						<p:outputLabel value="Goles a favor: " />
+						<p:outputLabel value="#{equipo.goalsFavor}" />
+
+						<p:outputLabel value="Goles encontra: " />
+						<p:outputLabel value="#{equipo.goalsAgainst}" />
+					</h:panelGrid>
+
+				</p:panel>
+			</p:dataGrid>
+		</p:tab>
+
+	</h:body>
+</f:view>
+</html>
