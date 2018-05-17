@@ -11,19 +11,51 @@
 		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
 
 		<style type="text/css">
-		body {
-			background-image: url('../img/captura3.jpg');
-			background-position: center center;
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-size: cover;
-		}
-		</style>
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+</style>
 	</h:head>
 
 	<h:body>
-		
+
 		<h:form>
+
+			<p:tab title="Goleador">
+
+				<p:dataGrid var="gol" value="#{goalscorerBean.listarGoleadores}"
+					columns="2" layout="grid" rows="12" paginator="true" id="goleador"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="20,12,16">
+
+
+					<p:panel header="#{gol.fullName}" style="text-align:center">
+
+						<h:panelGrid columns="2" style="width:100%">
+
+							<p:outputLabel value="Goles: " />
+							<p:outputLabel value="#{gol.goals}" />
+
+							<p:outputLabel value="Foto: " />
+							<p:outputLabel value="#{gol.photo}" />
+
+							<p:outputLabel value="Equipo: " />
+							<p:outputLabel value="#{gol.team}" />
+
+							
+
+						</h:panelGrid>
+
+					</p:panel>
+
+
+				</p:dataGrid>
+			</p:tab>
+
 			<p:commandButton value="Regresar" action="paginaInicio" />
 		</h:form>
 	</h:body>

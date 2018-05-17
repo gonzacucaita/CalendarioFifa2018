@@ -27,12 +27,12 @@ public class GoalscorerBean {
 	}
 	public String prepararAdicionarGoleador() {
 		goleador = new Goalscorer();
-		return "goalscorer";
+		return "goalscorerAgregar";
 	}
 	
 	public String prepararModificarGoleador() {
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
-		return "goalscorer";
+		return "goalscorerModificar";
 	}
 	
 	public String eliminarGoleador() {
@@ -49,13 +49,13 @@ public class GoalscorerBean {
 	public String adicionarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
 		dao.save(goleador);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public String modificarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
 		dao.update(goleador);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public DataModel getListarGoleadores() {

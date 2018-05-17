@@ -39,13 +39,15 @@ body {
 
 			<p:panelGrid columns="1" style="text-align:center">
 
-				<p:panelGrid columns="3" style="text-align:center">
+				<p:panelGrid columns="4" style="text-align:center">
 					<p:commandButton value="Agregar Equipo"
 						action="#{teamBean.prepararAdicionarEquipo}" />
 					<p:commandButton value="Agregar Estadio"
 						action="#{stadiumBean.prepararAdicionarEstadio}" />
 					<p:commandButton value="Agregar Arbitro"
 						action="#{refereeBean.prepararAdicionarArbitro}" />
+					<p:commandButton value="Actualizar goleador"
+						action="#{goalscorerBean.prepararAdicionarGoleador}" />
 				</p:panelGrid>
 
 				<p:tabView orientation="center" style="text-align:center">
@@ -124,7 +126,8 @@ body {
 									<p:outputLabel value="Temperatura: " />
 									<p:outputLabel value="#{estadio.temperature}" />
 
-									<p:commandButton value="Modificar" action="#{stadiumBean.prepararModificarEstadio}"/>
+									<p:commandButton value="Modificar"
+										action="#{stadiumBean.prepararModificarEstadio}" />
 									<p:commandButton value="Eliminar" />
 
 								</h:panelGrid>
@@ -154,7 +157,41 @@ body {
 									<p:outputLabel value="Capacidad: " />
 									<p:outputLabel value="#{arbitro.state}" />
 
-									<p:commandButton value="Modificar" action="#{refereeBean.prepararModificarArbitro}" />
+									<p:commandButton value="Modificar"
+										action="#{refereeBean.prepararModificarArbitro}" />
+									<p:commandButton value="Eliminar" />
+
+								</h:panelGrid>
+
+							</p:panel>
+
+
+						</p:dataGrid>
+					</p:tab>
+					
+					<p:tab title="Goleador">
+
+						<p:dataGrid var="gol" value="#{goalscorerBean.listarGoleadores}"
+							columns="2" layout="grid" rows="12" paginator="true" id="goleador"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="20,12,16">
+
+
+							<p:panel header="#{gol.fullName}" style="text-align:center">
+
+								<h:panelGrid columns="2" style="width:100%">
+
+									<p:outputLabel value="Goles: " />
+									<p:outputLabel value="#{gol.goals}" />
+
+									<p:outputLabel value="Foto: " />
+									<p:outputLabel value="#{gol.photo}" />
+									
+									<p:outputLabel value="Equipo: " />
+									<p:outputLabel value="#{gol.team}" />
+
+									<p:commandButton value="Modificar"
+										action="#{goalscorerBean.prepararModificarGoleador}" />
 									<p:commandButton value="Eliminar" />
 
 								</h:panelGrid>
