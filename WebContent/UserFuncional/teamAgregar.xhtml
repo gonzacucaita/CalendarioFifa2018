@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+<f:view>
+	<h:head>
+	<f:loadBundle basename="com.mensajes.principal"	var="msjs" />
+		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
+	</h:head>
+	<body>
+		<h:form>
+		
+			<h:panelGrid columns="2">
+
+				<h:outputText value="Pais: " />
+				<h:inputText value="#{teamBean.equipo.country}"
+					rendered="true" />
+					
+				<h:outputText value="Bandera: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.flag}"
+					rendered="true" />
+				
+				<h:outputText value="Grupo: " rendered="true"  />
+				<h:inputText  value="#{teamBean.equipo.group}"
+					rendered="true" />
+					
+				<h:outputText value="Juegos Jugados: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.playedGames}"
+				 rendered="true" />	
+
+				<h:outputText value="Juegos Ganados: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.wonMatches}"
+				 rendered="true" />
+
+				<h:outputText value="Juegos Empadatados: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.tiedMatches}"
+				 rendered="true" />
+
+				<h:outputText value="Goles a favor: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.goalsFavor}"
+				 rendered="true" />
+
+				<h:outputText value="Goles en contra: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.goalsAgainst}"
+				 rendered="true" />
+
+				<h:outputText value="Estado: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.state}"
+				 rendered="true" />
+
+				 <h:outputText value="Juegos Perdidos: " rendered="true" />
+				<h:inputText  value="#{teamBean.equipo.lostMatches}"
+				 rendered="true" />
+				
+				<h:commandButton value="guardar"
+					action="#{teamBean.adicionarEquipo}" />
+
+			</h:panelGrid>
+		</h:form>
+	</body>
+</f:view>
+</html>

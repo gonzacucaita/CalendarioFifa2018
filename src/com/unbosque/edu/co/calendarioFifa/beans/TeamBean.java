@@ -26,7 +26,7 @@ public class TeamBean {
 	public String prepararAdicionarEquipo() {
 		equipo = new Team();
 		equipo.setState("A");
-		return "team";
+		return "teamAgregar";
 	}
 	
 	public String prepararModificarEquipo() {
@@ -45,13 +45,13 @@ public class TeamBean {
 	public String adicionarEquipo() {
 		TeamService dao = new TeamService();
 		dao.save(equipo);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public String modificarEquipo() {
 		TeamService dao = new TeamService();
 		dao.update(equipo);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public DataModel getListarEquipos() {
