@@ -26,20 +26,20 @@ public class StadiumBean {
 	}
 	public String prepararAdicionarEstadio() {
 		estadio = new Stadium();
-		return "stadium";
+		return "stadiumAgregar";
 	}
 	
 	
 	
 	public String prepararModificarEstadio() {
 		estadio = (Stadium) (listaEstadio.getRowData());
-		return "stadium";
+		return "stadiumModificar";
 	}
 	
 	public String adicionarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.save(estadio);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public String eliminarEstadio() {
@@ -50,7 +50,7 @@ public class StadiumBean {
 	public String modificarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.update(estadio);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public DataModel getListarEstadios() {

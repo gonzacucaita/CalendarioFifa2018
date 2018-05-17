@@ -28,12 +28,12 @@ public class RefereeBean {
 	 public String prepararAdicionarArbitro() {
 			arbitro = new Referee();
 			arbitro.setState("A");
-			return "referee";
+			return "refereeAgregar";
 		}
 		
 		public String prepararModificarArbitro() {
 			arbitro = (Referee) (listaArbitro.getRowData());
-			return "referee";
+			return "refereeModificar";
 		}
 		
 		public String eliminarArbitro() {
@@ -47,13 +47,13 @@ public class RefereeBean {
 		public String adicionarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.save(arbitro);
-			return "inicio";
+			return "funcional";
 		}
 		
 		public String modificarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.update(arbitro);
-			return "inicio";
+			return "funcional";
 		}
 		
 		public DataModel getListarArbitros() {

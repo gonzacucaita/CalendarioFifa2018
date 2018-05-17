@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+
+
+
+
+<f:view>
+	<h:head>
+		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
+
+	</h:head>
+	<body>
+		<h:form>
+
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="Nombre: " />
+				<p:inputText value="#{refereeBean.arbitro.fullName}" rendered="true" />
+
+				<p:outputLabel value="Nacionalidad: " rendered="true" />
+				<p:inputText value="#{refereeBean.arbitro.nationality}"
+					rendered="true" />
+
+				<p:outputLabel value="Estado: " rendered="true" />
+				<p:inputText value="#{refereeBean.arbitro.state}" rendered="true" />
+
+
+				<p:commandButton value="guardar"
+					action="#{refereeBean.modificarArbitro}" />
+				<p:commandButton value="Cancelar" action="funcional" />
+
+			</p:panelGrid>
+		</h:form>
+	</body>
+</f:view>
+</html>

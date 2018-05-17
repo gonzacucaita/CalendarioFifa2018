@@ -12,7 +12,7 @@
 
 		<style type="text/css">
 body {
-	background-image: url('../img/fondoFuncional.png');
+	background-image: url('../img/captura3.jpg');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -37,11 +37,16 @@ body {
 
 		<h:form>
 
-			<p:panelGrid columns="3" style="text-align:center">
+			<p:panelGrid columns="1" style="text-align:center">
 
-				<p:commandButton value="Agregar Equipo"  action="#{teamBean.prepararAdicionarEquipo}"/>
-				<p:commandButton value="Agregar Estadio"  action="#{stadiumBean.prepararAdicionarEstadio}"/>
-				<p:commandButton value="Agregar Arbitro"  action="#{refereeBean.prepararAdicionarArbitro}"/>
+				<p:panelGrid columns="3" style="text-align:center">
+					<p:commandButton value="Agregar Equipo"
+						action="#{teamBean.prepararAdicionarEquipo}" />
+					<p:commandButton value="Agregar Estadio"
+						action="#{stadiumBean.prepararAdicionarEstadio}" />
+					<p:commandButton value="Agregar Arbitro"
+						action="#{refereeBean.prepararAdicionarArbitro}" />
+				</p:panelGrid>
 
 				<p:tabView orientation="center" style="text-align:center">
 
@@ -117,21 +122,9 @@ body {
 									<p:outputLabel value="#{estadio.population}" />
 
 									<p:outputLabel value="Temperatura: " />
-									<p:outputLabel value="#{estadio.wonMatches}" />
+									<p:outputLabel value="#{estadio.temperature}" />
 
-									<p:outputLabel value="Partidos empatados: " />
-									<p:outputLabel value="#{estadio.tiedMatches}" />
-
-									<p:outputLabel value="Partidos perdidos: " />
-									<p:outputLabel value="#{equipo.lostMatches}" />
-
-									<p:outputLabel value="Goles a favor: " />
-									<p:outputLabel value="#{equipo.goalsFavor}" />
-
-									<p:outputLabel value="Goles encontra: " />
-									<p:outputLabel value="#{equipo.goalsAgainst}" />
-
-									<p:commandButton value="Modificar" />
+									<p:commandButton value="Modificar" action="#{stadiumBean.prepararModificarEstadio}"/>
 									<p:commandButton value="Eliminar" />
 
 								</h:panelGrid>
@@ -161,7 +154,7 @@ body {
 									<p:outputLabel value="Capacidad: " />
 									<p:outputLabel value="#{arbitro.state}" />
 
-									<p:commandButton value="Modificar" />
+									<p:commandButton value="Modificar" action="#{refereeBean.prepararModificarArbitro}" />
 									<p:commandButton value="Eliminar" />
 
 								</h:panelGrid>
