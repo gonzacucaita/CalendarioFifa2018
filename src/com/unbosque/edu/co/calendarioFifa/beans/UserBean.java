@@ -17,44 +17,44 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FlowEvent;
 
-import com.unbosque.edu.co.calendarioFifa.entity.Audit;
-import com.unbosque.edu.co.calendarioFifa.entity.Parameter;
-import com.unbosque.edu.co.calendarioFifa.entity.User;
-import com.unbosque.edu.co.calendarioFifa.service.AuditService;
-import com.unbosque.edu.co.calendarioFifa.service.ParameterService;
-import com.unbosque.edu.co.calendarioFifa.service.UserService;
-import com.unbosque.edu.co.calendarioFifa.util.Correo;
-import com.unbosque.edu.co.calendarioFifa.util.DiferenciaFechas;
-import com.unbosque.edu.co.calendarioFifa.util.Util;
+import com.unbosque.edu.co.calendarioFifa.entity.*;
+import com.unbosque.edu.co.calendarioFifa.service.*;
+import com.unbosque.edu.co.calendarioFifa.util.*;
+
 
 @ManagedBean
 @SessionScoped
 public class UserBean {
+	
+	/**
+	 * ATRIBUTOS PARA EL USUARIO EN GENERAL.
+	 */
 	private static int INTENTOS = 0;
 	private User usuario;
 	private DataModel listaUsuarios;
 	private String ingresarUsuario;
 	private String contrasenia;
 	private String contraseniaNueva;
-
+	private Audit auditoria = new Audit();
+	/**
+	 * ATRIBUTOS PARA EL USUARIO FUNCIONAL
+	 */
+	private Goalscorer goleador;
+	private New noticia;
+	private Referee arbitro;
+	private Schedule calendario;
+	private Stadium estadio;
+	private Team equipo;
+	
 	private static Logger log = Logger.getLogger(UserBean.class);
 
-	public String getIngresarUsuario() {
-		return ingresarUsuario;
-	}
-
-	public void setIngresarUsuario(String usuario) {
-		this.ingresarUsuario = usuario;
-	}
-
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
-	}
-
+	
+	/**
+	 * METODOS PARA LOS USUARIOS EN GENERAL (ADMINISTRADOR, FUNCIONAL, CLIENTE)
+	 * @return
+	 */
+	
+	
 	public String validarUsuario() {
 
 		UserService us = new UserService();
@@ -62,7 +62,6 @@ public class UserBean {
 		String respuesta = "registro";
 		Iterator<User> aux = getListarUsuario().iterator();
 		boolean existe = false;
-		Audit auditoria = new Audit();
 		AuditService as = new AuditService();
 
 
@@ -170,29 +169,6 @@ public class UserBean {
 		return "registro";
 	}
 
-	public String prepararModificarUsuario() {
-		usuario = (User) (listaUsuarios.getRowData());
-		return "registro";
-	}
-
-	public String eliminarUsuario() {
-		User usuarioTemp = (User) (listaUsuarios.getRowData());
-		UserService dao = new UserService();
-		usuarioTemp.setActive("I");
-		dao.update(usuarioTemp);
-		Audit auditoria = new Audit();
-		AuditService as = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("D");
-		auditoria.setTableName("user");
-		auditoria.setTableId(1);
-		auditoria.setCreateDate(new Date());
-		as.update(auditoria);
-		auditoria.setId(usuario.getId());
-
-		return "inicio";
-	}
-
 	public String adicionarUsuario() {
 
 		UserService dao = new UserService();
@@ -209,13 +185,13 @@ public class UserBean {
 				+ "Att: administrador CalendarioFIFA";
 
 		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
-		Audit auditoria = new Audit();
+		
 		AuditService as = new AuditService();
 
 		auditoria.setUserId(usuario.getId());
 		auditoria.setOperation("C");
 		auditoria.setTableName("user");
-		auditoria.setTableId(1);
+		auditoria.setTableId(usuario.getId());
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
 
@@ -233,6 +209,33 @@ public class UserBean {
 		return "inicio";
 	}
 
+	/**
+	 * METODOS PARA EL USUARIO FUNCIONAL
+	 * @return
+	 */
+	public String prepararModificarUsuario() {
+		usuario = (User) (listaUsuarios.getRowData());
+		return "registro";
+	}
+
+	public String eliminarUsuario() {
+		User usuarioTemp = (User) (listaUsuarios.getRowData());
+		UserService dao = new UserService();
+		usuarioTemp.setActive("I");
+		dao.update(usuarioTemp);
+		AuditService as = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("D");
+		auditoria.setTableName("user");
+		auditoria.setTableId(1);
+		auditoria.setCreateDate(new Date());
+		as.update(auditoria);
+		auditoria.setId(usuario.getId());
+
+		return "inicio";
+	}
+
+	
 	public String modificarUsuario() {
 		prepararModificarUsuario();
 		UserService dao = new UserService();
@@ -254,11 +257,10 @@ public class UserBean {
 		usuario.setPassword(contraseniaNueva);
 		dao.update(usuario);
 		
-		Audit auditoria = new Audit();
 		auditoria.setUserId(usuario.getId());
 		auditoria.setOperation("U");
 		auditoria.setTableName("user");
-		auditoria.setTableId(1);
+		auditoria.setTableId(usuario.getId());
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
 		
@@ -275,12 +277,221 @@ public class UserBean {
 		}
 		return "/Administrador/administrador";
 	}
+	
+	public String prepararAdicionarGoleador() {
+		goleador = new Goalscorer();
+		return "goalscorer";
+	}
+	
+	public void adicionarGoleador() {
+
+		GoalscorerService gls = new GoalscorerService();
+		gls.save(goleador);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("C");
+		auditoria.setTableName("goalscorer");
+		auditoria.setTableId(goleador.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+		
+	}
+	
+	public String prepararModificarGoleador() {
+		List<Goalscorer> goalscorer = new GoalscorerService().list();
+		DataModel listaGoleadores = new ListDataModel(goalscorer);
+		goleador = (Goalscorer)(listaGoleadores.getRowData());
+		return "pagina donde se modifica";
+	}
+	public void modificarGoleador() {
+		GoalscorerService gs = new GoalscorerService();
+		gs.update(goleador);
+
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("goalscorer");
+		auditoria.setTableId(goleador.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+	public String prepararAdicionarNoticia() {
+		noticia = new New();
+		return "new";
+	}
+	
+	public void adicionarNoticia() {
+		NewService ns = new NewService();
+		ns.save(noticia);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("C");
+		auditoria.setTableName("news");
+		auditoria.setTableId(noticia.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+public String prepararModificarNoticia() {
+	List<Goalscorer> goalscorer = new GoalscorerService().list();
+	DataModel listaGoleadores = new ListDataModel(goalscorer);
+	goleador = (Goalscorer)(listaGoleadores.getRowData());
+	return "pagina donde se modifica";
+	}
+public void modificarNoticia() {
+		NewService ns = new NewService();
+		ns.update(noticia);
+		
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("news");
+		auditoria.setTableId(noticia.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+	public String prepararAdicionarArbitro() {
+		arbitro = new Referee();
+		return "referee";
+	}
+	
+	public void adicionarArbitro() {
+		RefereeService rs = new RefereeService();
+		rs.save(arbitro);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("C");
+		auditoria.setTableName("referee");
+		auditoria.setTableId(arbitro.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+public String prepararModificarArbitro() {
+	List<Referee> referee = new RefereeService().list();
+	DataModel listaArbitros = new ListDataModel(referee);
+	arbitro = (Referee)(listaArbitros.getRowData());
+	return "pagina donde se modifica";
+	}
+public void modificarArbitro() {
+	RefereeService rs = new RefereeService();
+	rs.update(arbitro);
+	AuditService ad = new AuditService();
+	auditoria.setUserId(usuario.getId());
+	auditoria.setOperation("U");
+	auditoria.setTableName("referee");
+	auditoria.setTableId(arbitro.getId());
+	auditoria.setCreateDate(new Date());
+	ad.save(auditoria);
+	}
+	
+	public String prepararAdicionarCalendario() {
+		calendario = new Schedule();
+		return "schedule";
+	}
+	
+	public void adicionarCalendario() {
+		ScheduleService ss = new ScheduleService();
+		ss.save(calendario);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("C");
+		auditoria.setTableName("schedule");
+		auditoria.setTableId(calendario.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+public String prepararModificarCalendario() {
+	List<Schedule> schedule = new ScheduleService().list();
+	DataModel listaCalendario = new ListDataModel(schedule);
+	calendario = (Schedule)(listaCalendario.getRowData());
+	return "pagina donde se modifica";
+	}
+	
+public void modificarCalendario() {
+		ScheduleService ss = new ScheduleService();
+		ss.update(calendario);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("schedule");
+		auditoria.setTableId(calendario.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+	public String prepararAdicionarEstadio() {
+		estadio = new Stadium();
+		return "stadium";
+	}
+	
+	public void adicionarEstadio() {
+		StadiumService sts = new StadiumService();
+		sts.save(estadio);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("C");
+		auditoria.setTableName("stadium");
+		auditoria.setTableId(estadio.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+public String prepararModificarEstadio() {
+	List<Stadium> stadium = new StadiumService().list();
+	DataModel listaEstadios = new ListDataModel(stadium);
+	estadio = (Stadium)(listaEstadios.getRowData());
+	return "pagina donde se modifica";
+	}
+public void modificarEstadio() {
+		StadiumService ss = new StadiumService();
+		ss.update(estadio);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("stadium");
+		auditoria.setTableId(estadio.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+	public String prepararAdicionarEquipo() {
+		equipo = new Team();
+		return "team";
+	}
+	
+	public void adicionarEquipo() {
+		TeamService ts = new TeamService();
+		ts.save(equipo);
+		AuditService ad = new AuditService();
+		auditoria.setUserId(usuario.getId());
+		auditoria.setOperation("U");
+		auditoria.setTableName("team");
+		auditoria.setTableId(equipo.getId());
+		auditoria.setCreateDate(new Date());
+		ad.save(auditoria);
+	}
+	
+	public String prepararModificarEquipo() {
+		List<Team> team = new TeamService().list();
+		DataModel listaEquipos = new ListDataModel(team);
+		equipo = (Team)(listaEquipos.getRowData());
+		return "pagina donde se modifica";
+		}
+	public void modificarEquipo() {
+			TeamService tm = new TeamService();
+			tm.update(equipo);
+			AuditService ad = new AuditService();
+			auditoria.setUserId(usuario.getId());
+			auditoria.setOperation("U");
+			auditoria.setTableName("team");
+			auditoria.setTableId(equipo.getId());
+			auditoria.setCreateDate(new Date());
+			ad.save(auditoria);
+		}
 	public User getUsuario() {
 		return usuario;
-	}
-
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
 	}
 
 	public DataModel getListarUsuario() {
@@ -356,6 +567,29 @@ public class UserBean {
 
 		dao.update(usuario);
 	}
+	
+	public String getIngresarUsuario() {
+		return ingresarUsuario;
+	}
+
+	public void setIngresarUsuario(String usuario) {
+		this.ingresarUsuario = usuario;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
+
+	public void setUsuario(User usuario) {
+		
+		this.usuario = usuario;
+	}
+	
+
 	
 
 }
