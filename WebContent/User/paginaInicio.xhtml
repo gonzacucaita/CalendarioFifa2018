@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 0.5px #ffffff;
+	border-radius: 30px;
+	background: rgba(255, 255, 255, 0.7);
+}
+</style>
+	</h:head>
+	<h:body>
+		<h:form>
+			<table height="100%" width="100%">
+				<tr>
+					<td>
+						<TABLE align="center">
+							<tr>
+								<td><p:commandLink >
+										<h:graphicImage url="/img/arbitro.png" />
+									</p:commandLink></td>
+								<td><p:commandLink  >
+										<h:graphicImage url="/img/cancha.png" />
+									</p:commandLink></td>
+							</tr>
+							<tr>
+								<td><p:commandLink  >
+										<h:graphicImage url="/img/calendario.png" />
+									</p:commandLink></td>
+								<td><p:commandLink  >
+										<h:graphicImage url="/img/goleador.png" />
+									</p:commandLink></td>
+							</tr>
+							
+							<tr align="center">
+								<td colspan="2"><p:commandLink  >
+										<h:graphicImage url="/img/equipo.png" />
+									</p:commandLink></td>
+							</tr>
+							
+						</TABLE>
+					</td>
+					<td>
+						<TABLE align="center">
+							<h1>NOTICIAS</h1>
+							<p:contentFlow value="#{imageView.images}" var="image">
+								<p:graphicImage value="#{image}" styleClass="content" />
+							</p:contentFlow>
+						</TABLE>
+					</td>
+				</tr>
+			</table>
+		</h:form>
+	</h:body>
+</f:view>
+</html></html>
