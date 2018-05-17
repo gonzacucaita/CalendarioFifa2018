@@ -37,10 +37,10 @@ body {
 					<td>
 						<TABLE align="center">
 							<tr>
-								<td><p:commandLink >
+								<td><p:commandLink action="arbitroUsuario">
 										<h:graphicImage url="/img/arbitro.png" />
 									</p:commandLink></td>
-								<td><p:commandLink  >
+								<td><p:commandLink  action="estadioUsuario">
 										<h:graphicImage url="/img/cancha.png" />
 									</p:commandLink></td>
 							</tr>
@@ -54,7 +54,7 @@ body {
 							</tr>
 							
 							<tr align="center">
-								<td colspan="2"><p:commandLink  >
+								<td colspan="2"><p:commandLink action="equipoUsuario" >
 										<h:graphicImage url="/img/equipo.png" />
 									</p:commandLink></td>
 							</tr>
@@ -64,8 +64,10 @@ body {
 					<td>
 						<TABLE align="center">
 							<h1>NOTICIAS</h1>
-							<p:contentFlow value="#{imageView.images}" var="image">
-								<p:graphicImage value="#{image}" styleClass="content" />
+							<p:contentFlow value="#{imagesView.images}" var="image">
+								<h1>asd</h1>
+							    <p:graphicImage name="../demo/images/nature/#{image}" styleClass="content" />
+							    <div class="caption">#{image}</div>
 							</p:contentFlow>
 						</TABLE>
 					</td>
@@ -74,4 +76,4 @@ body {
 		</h:form>
 	</h:body>
 </f:view>
-</html></html>
+</html>
