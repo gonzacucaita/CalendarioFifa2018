@@ -37,28 +37,28 @@ body {
 					<td>
 						<TABLE align="center">
 							<tr>
-								<td><p:commandLink action="arbitroUsuario">
+								<td><p:commandLink action="arbitroUsuario" title="Arbitro">
 										<h:graphicImage url="/img/arbitro.png" />
 									</p:commandLink></td>
-								<td><p:commandLink  action="estadioUsuario">
+								<td><p:commandLink action="estadioUsuario" title="Estadio">
 										<h:graphicImage url="/img/cancha.png" />
 									</p:commandLink></td>
 							</tr>
 							<tr>
-								<td><p:commandLink action="calendarioUsuario">
+								<td><p:commandLink action="calendarioUsuario" title="Calendario">
 										<h:graphicImage url="/img/calendario.png" />
 									</p:commandLink></td>
-								<td><p:commandLink  action="goleadorUsuario">
+								<td><p:commandLink action="goleadorUsuario" title="Goleador">
 										<h:graphicImage url="/img/goleador.png" />
 									</p:commandLink></td>
 							</tr>
-							
+
 							<tr align="center">
-								<td colspan="2"><p:commandLink action="equipoUsuario" >
+								<td colspan="2"><p:commandLink action="equipoUsuario" title="Equipo">
 										<h:graphicImage url="/img/equipo.png" />
 									</p:commandLink></td>
 							</tr>
-							
+
 						</TABLE>
 					</td>
 					<td>
@@ -66,13 +66,17 @@ body {
 							<h1>NOTICIAS</h1>
 							<p:contentFlow value="#{imagesView.images}" var="image">
 								<h1>asd</h1>
-							    <p:graphicImage name="../demo/images/nature/#{image}" styleClass="content" />
-							    <div class="caption">#{image}</div>
+								<p:graphicImage name="../demo/images/nature/#{image}"
+									styleClass="content" />
+								<div class="caption">#{image}</div>
 							</p:contentFlow>
 						</TABLE>
 					</td>
 				</tr>
 			</table>
+
+			<p:commandButton action="/Principal/inicio" value="Cerrar sesion" />
+
 		</h:form>
 	</h:body>
 </f:view>

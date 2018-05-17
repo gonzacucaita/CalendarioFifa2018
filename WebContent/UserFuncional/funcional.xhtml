@@ -168,11 +168,12 @@ body {
 
 						</p:dataGrid>
 					</p:tab>
-					
+
 					<p:tab title="Goleador">
 
 						<p:dataGrid var="gol" value="#{goalscorerBean.listarGoleadores}"
-							columns="2" layout="grid" rows="12" paginator="true" id="goleador"
+							columns="2" layout="grid" rows="12" paginator="true"
+							id="goleador"
 							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 							rowsPerPageTemplate="20,12,16">
 
@@ -186,7 +187,7 @@ body {
 
 									<p:outputLabel value="Foto: " />
 									<p:outputLabel value="#{gol.photo}" />
-									
+
 									<p:outputLabel value="Equipo: " />
 									<p:outputLabel value="#{gol.team}" />
 
@@ -204,7 +205,7 @@ body {
 
 				</p:tabView>
 			</p:panelGrid>
-
+			<p:commandButton value="Regresar" action="/Principal/inicio" />
 
 		</h:form>
 
