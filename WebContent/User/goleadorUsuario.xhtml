@@ -22,28 +22,7 @@
 	</h:head>
 
 	<h:body>
-		<p:tab title="Arbitro">
-
-			<p:dataGrid var="arbitro" value="#{refereeBean.listarArbitros}"
-				columns="2" layout="grid" rows="12" paginator="true" id="arbitro"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="2,4,6">
-
-
-				<p:panel header="#{arbitro.fullName}" style="text-align:center">
-
-					<h:panelGrid columns="2" style="width:100%">
-
-						<p:outputLabel value="Foto: " />
-						<p:outputLabel value="#{arbitro.nationality}" />
-
-						<p:outputLabel value="Capacidad: " />
-						<p:outputLabel value="#{arbitro.state}" />
-					</h:panelGrid>
-
-				</p:panel>
-			</p:dataGrid>
-		</p:tab>
+		
 		<h:form>
 			<p:commandButton value="Regresar" action="paginaInicio" />
 		</h:form>
