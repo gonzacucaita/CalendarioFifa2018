@@ -30,10 +30,9 @@
 				background: rgba(255,255,255,0.7);
 			}
 		</style>
-
 	</h:head>
 	<body>
-		<h:form >
+		<h:form>
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
@@ -57,17 +56,30 @@
 							
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.telefono}" /></td>
-								<td><p:inputText value="#{userBean.usuario.phoneNumber}" rendered="true" /></td>
+								<td>
+								<p:inputText type="number" id="telefono" value="#{userBean.usuario.phoneNumber}" rendered="true" minlength="7" maxlength="10"/>
+								</td>
 							</tr>
 							
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.email}"/></td>
-								<td><p:inputText value="#{userBean.usuario.emailAddress}" rendered="true" /></td>
+								<td>
+								<p:inputText id="email" required="true" label="email" 
+									requiredMessage="Please enter your email address."
+									validatorMessage="Invalid email format"
+									value="#{userBean.usuario.emailAddress}">
+							
+								  <f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							
+								</p:inputText>
+								<p:watermark for="email" value=" " />
+								</td>
 							</tr>
 							
 							<tr rowspan="2"><td colspan="2"><br/></td></tr>
 							<tr align="center">
-								<td colspan="2" ><div class="g-recaptcha" data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K" rendered="true" required="true"></div></td>
+								<td colspan="2" ><div class="g-recaptcha" data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K" required="true"></div></td>
 							</tr>
 							<tr rowspan="2"><td colspan="2"><br/></td></tr>
 						</table>
@@ -80,7 +92,7 @@
 					<table align="center">
 						<tr>
 							<td><p:commandButton value="#{principal.btnRegistrar}"
-							action="#{userBean.adicionarUsuario}" /></td>
+							action="#{userBean.adicionarUsuario}"/></td>
 							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
 						</tr>
 					</table>
