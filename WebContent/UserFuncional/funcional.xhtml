@@ -37,9 +37,11 @@ body {
 
 		<h:form>
 
-			<p:panelGrid columns="1" style="text-align:center">
+			<p:panelGrid columns="3" style="text-align:center">
 
 				<p:commandButton value="Agregar Equipo"  action="#{teamBean.prepararAdicionarEquipo}"/>
+				<p:commandButton value="Agregar Estadio"  action="#{stadiumBean.prepararAdicionarEstadio}"/>
+				<p:commandButton value="Agregar Arbitro"  action="#{refereeBean.prepararAdicionarArbitro}"/>
 
 				<p:tabView orientation="center" style="text-align:center">
 
