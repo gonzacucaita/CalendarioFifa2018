@@ -26,13 +26,6 @@ body {
 				action="#{userBean.prepararAdicionarUsuario}" style="float:right;" />
 			<p:commandButton value="#{principal.iniciarSesion}"
 				style="float:right;" action="login" />
-
- 
-			<p:contentFlow value="#{imageView.images}" var="image">
-				  <p:graphicImage name="demo/images/nature/#{image}" styleClass="content" />
-				   <div class="caption">#{image}</div>
-			</p:contentFlow>
-
 		</h:form>
 	</h:body>
 </f:view>
