@@ -9,38 +9,37 @@
 	<h:head>
 		<title><h:outputText value="titulo ventana" /></title>
 	</h:head>
-
 	<h:body>
-
 		<h:form>
+			<table align="center">
+				<tr>
+					<td>
+						<p:dataView var="car" value="1" rows="12" paginator="true"
+							rowsPerPageTemplate="6,12,16"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							gridIcon="fa fa-th-large" listIcon="fa fa-bars">
 
-			<p:dataView var="car" value="1" rows="12" paginator="true"
-				rowsPerPageTemplate="6,12,16"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				gridIcon="fa fa-th-large" listIcon="fa fa-bars">
+							<p:dataViewGridItem>
+								<p:panel header="1" style="text-align:center">
+									<h:panelGrid columns="1" style="width:100%">
+										<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
 
-				<p:dataViewGridItem>
-					<p:panel header="1" style="text-align:center">
-						<h:panelGrid columns="1" style="width:100%">
-							<p:graphicImage name="demo/images/car/#{car.brand}.gif" />
+										<h:outputText value="1" />
 
-							<h:outputText value="1" />
-
-							<p:commandLink update=":form:carDetail"
-								oncomplete="PF('carDialog').show()" title="View Detail">
-								<h:outputText styleClass="ui-icon ui-icon-search"
-									style="margin:0 auto;" />
-								<f:setPropertyActionListener value="2"
-									target="4" />
-							</p:commandLink>
-						</h:panelGrid>
-					</p:panel>
-				</p:dataViewGridItem>
-			</p:dataView>
-
-
+										<p:commandLink update=":form:carDetail"
+											oncomplete="PF('carDialog').show()" title="View Detail">
+											<h:outputText styleClass="ui-icon ui-icon-search"
+												style="margin:0 auto;" />
+											<f:setPropertyActionListener value="2" target="4" />
+										</p:commandLink>
+									</h:panelGrid>
+								</p:panel>
+							</p:dataViewGridItem>
+						</p:dataView>
+					</td>
+				</tr>
+			</table>
 		</h:form>
-
 	</h:body>
 </f:view>
 </html>
