@@ -31,48 +31,56 @@ body {
 	background: rgba(131, 149, 183, 0.7);
 }
 </style>
-
 	</h:head>
 	<body>
 		<h:form>
+			<table align="center">
+				<tr>
+					<td><p:panelGrid columns="2">
 
-			<p:panelGrid columns="2">
+							<p:outputLabel value="Pais: " />
+							<p:inputText value="#{teamBean.equipo.country}" rendered="true" />
 
-				<p:outputLabel value="Pais: " />
-				<p:inputText value="#{teamBean.equipo.country}" rendered="true" />
+							<p:outputLabel value="Bandera: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.flag}" rendered="true" />
 
-				<p:outputLabel value="Bandera: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.flag}" rendered="true" />
+							<p:outputLabel value="Grupo: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.group}" rendered="true" />
 
-				<p:outputLabel value="Grupo: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.group}" rendered="true" />
+							<p:outputLabel value="Juegos Jugados: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.playedGames}"
+								rendered="true" />
 
-				<p:outputLabel value="Juegos Jugados: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.playedGames}" rendered="true" />
+							<p:outputLabel value="Juegos Ganados: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.wonMatches}"
+								rendered="true" />
 
-				<p:outputLabel value="Juegos Ganados: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.wonMatches}" rendered="true" />
+							<p:outputLabel value="Juegos Empadatados: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.tiedMatches}"
+								rendered="true" />
 
-				<p:outputLabel value="Juegos Empadatados: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.tiedMatches}" rendered="true" />
+							<p:outputLabel value="Goles a favor: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.goalsFavor}"
+								rendered="true" />
 
-				<p:outputLabel value="Goles a favor: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.goalsFavor}" rendered="true" />
+							<p:outputLabel value="Goles en contra: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.goalsAgainst}"
+								rendered="true" />
 
-				<p:outputLabel value="Goles en contra: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.goalsAgainst}" rendered="true" />
+							<p:outputLabel value="Estado: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.state}" rendered="true" />
 
-				<p:outputLabel value="Estado: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.state}" rendered="true" />
+							<p:outputLabel value="Juegos Perdidos: " rendered="true" />
+							<p:inputText value="#{teamBean.equipo.lostMatches}"
+								rendered="true" />
 
-				<p:outputLabel value="Juegos Perdidos: " rendered="true" />
-				<p:inputText value="#{teamBean.equipo.lostMatches}" rendered="true" />
+							<p:commandButton value="guardar"
+								action="#{teamBean.adicionarEquipo}" />
+							<p:commandButton value="Cancelar" action="funcional" />
 
-				<p:commandButton value="guardar"
-					action="#{teamBean.adicionarEquipo}" />
-				<p:commandButton value="Cancelar" action="funcional" />
-
-			</p:panelGrid>
+						</p:panelGrid></td>
+				</tr>
+			</table>
 		</h:form>
 	</body>
 </f:view>
