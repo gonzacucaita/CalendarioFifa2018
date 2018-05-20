@@ -28,11 +28,17 @@ body {
 	border-radius: 30px;
 	background: rgba(255, 255, 255, 0.7);
 }
+.contentFlow {
+	background-color: rgba(255, 255, 255, 0.05);
+	width: 100%;
+}
 </style>
 	</h:head>
 	<h:body>
 		<h:form>
-			<table height="100%" width="100%">
+			<p:commandButton action="/Principal/inicio" value="Cerrar sesion"
+				style="float:right;" />
+			<table height="100%" width="100%" align="center">
 				<tr>
 					<td>
 						<TABLE align="center">
@@ -45,16 +51,19 @@ body {
 									</p:commandLink></td>
 							</tr>
 							<tr>
-								<td><p:commandLink action="calendarioUsuario" title="Calendario">
+								<td><p:commandLink action="calendarioUsuario"
+										title="Calendario">
 										<h:graphicImage url="/img/calendario.png" />
 									</p:commandLink></td>
-								<td><p:commandLink action="goleadorUsuario" title="Goleador">
+								<td><p:commandLink action="goleadorUsuario"
+										title="Goleador">
 										<h:graphicImage url="/img/goleador.png" />
 									</p:commandLink></td>
 							</tr>
 
 							<tr align="center">
-								<td colspan="2"><p:commandLink action="equipoUsuario" title="Equipo">
+								<td colspan="2"><p:commandLink action="equipoUsuario"
+										title="Equipo">
 										<h:graphicImage url="/img/equipo.png" />
 									</p:commandLink></td>
 							</tr>
@@ -62,20 +71,20 @@ body {
 						</TABLE>
 					</td>
 					<td>
-						<TABLE align="center">
+						<TABLE align="left">
 							<h1>NOTICIAS</h1>
-							<p:contentFlow value="#{imagesView.images}" var="image">
-								<h1>asd</h1>
-								<p:graphicImage name="../demo/images/nature/#{image}"
+							<p:contentFlow value="#{userBean.images}" var="image"
+								styleClass="contentFlow">
+								<p:graphicImage value="/demo/images/nature/#{image}"
 									styleClass="content" />
-								<div class="caption">#{image}</div>
+
 							</p:contentFlow>
 						</TABLE>
 					</td>
 				</tr>
 			</table>
 
-			<p:commandButton action="/Principal/inicio" value="Cerrar sesion" />
+
 
 		</h:form>
 	</h:body>

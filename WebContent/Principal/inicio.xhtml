@@ -18,14 +18,64 @@ body {
 	background-attachment: fixed;
 	background-size: cover;
 }
+
+.contentFlow {
+	background-color: rgba(222,1,36, 0.005);
+	background-size: 0.005%;
+	border: 1px solid transparent;
+	width: 80%;
+}
+
+.sidenav {
+	height: 100%;
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	overflow-x: hidden;
+}
+
+.content {margin-right 20px;
+	padding-right: 200x;
+}
 </style>
 	</h:head>
 	<h:body>
 		<h:form>
-			<p:commandButton value="#{principal.registrarse}"
-				action="#{userBean.prepararAdicionarUsuario}" style="float:right;" />
-			<p:commandButton value="#{principal.iniciarSesion}"
-				style="float:right;" action="login" />
+
+			<div class="sidenav" columns="2" >
+				<p:commandButton value="#{principal.registrarse}"
+					action="#{userBean.prepararAdicionarUsuario}" style="float:right;" />
+				<p:commandButton value="#{principal.iniciarSesion}"
+					style="float:right;" action="login" />
+
+			</div>
+
+			<div class="content">
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br>
+				<p:contentFlow value="#{userBean.images}" var="image"
+					styleClass="contentFlow">
+					<p:graphicImage value="/demo/images/nature/#{image}"
+						styleClass="content" />
+
+				</p:contentFlow>
+
+			</div>
+
+
+
+
 		</h:form>
 	</h:body>
 </f:view>

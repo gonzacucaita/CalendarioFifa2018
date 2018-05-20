@@ -44,7 +44,7 @@
 							
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.nombreUsuario}" /></td>
-								<td><p:inputText value="#{userBean.usuario.userName}" rendered="true" /> </td>
+								<td><p:inputText value="#{userBean.usuario.userName}" rendered="true" title="De 6 a 8 caracteres" /> </td>
 							</tr>
 							
 							<tr><td colspan="2"></td></tr>
@@ -88,14 +88,16 @@
 				<tr>
 		   				
 				</tr>
-				<tr><td valign="top">
+				<tr>
+				<td>
 					<table align="center">
 						<tr>
 							<td><p:commandButton value="#{principal.btnRegistrar}" action="#{userBean.adicionarUsuario}"/></td>
 							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
 						</tr>
 					</table>
-				</td></tr>
+				</td>
+			</tr>
 			</table>
 
 		</h:form>
