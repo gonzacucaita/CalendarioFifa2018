@@ -23,7 +23,7 @@ body {
 
 #mail {
 	width: 100%;
-	position: fixed;
+	position: relative;
 }
 
 .tabla2 {
@@ -31,6 +31,13 @@ body {
 	border-radius: 30px;
 	background: rgba(255, 255, 255, 0.7);
 }
+
+.messa {
+	color: rgba(255, 255, 255);
+	font-size: 200%;
+	font: bolder;
+	
+	}
 </style>
 	</h:head>
 	<body>
@@ -79,13 +86,14 @@ body {
 								<td><p:outputLabel value="#{principal.email}" /></td>
 								<td><p:inputText id="email" required="true" label="email"
 										requiredMessage="Please enter your email address."
-										validatorMessage="Invalid email format"
-										value="#{userBean.usuario.emailAddress}">
+										validatorMessage="Ingrese un correo valido"
+										value="#{userBean.usuario.emailAddress}" >
 
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
-									</p:inputText> <p:watermark for="email" value=" " /></td>
+									</p:inputText> <p:watermark for="email" value="fghjk"/> 
+									</td>
 							</tr>
 
 							<tr rowspan="2">
@@ -115,8 +123,17 @@ body {
 										action="#{userBean.adicionarUsuario}"
 										onclick="PF('bar').show()" /></td>
 								<td><p:commandButton value="#{principal.btnRegresar}"
-										action="inicio" /></td>
+										action="inicio" onclick="PF('bar').show()" /></td>
 							</tr>
+							<tr >
+								<td colspan="2">
+						
+								<h:message for="email" styleClass="messa" />
+							
+										
+								</td>
+							</tr>
+
 						</table>
 					</td>
 				</tr>
