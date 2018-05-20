@@ -13,23 +13,25 @@
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
 
 		<style type="text/css">
-		body{
-				background-image: url('../img/fondo2.gif');
-				background-position: center center;	  
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-size: cover;
-			}
-			#mail {
-				width: 100%;
-				position: fixed;
-			}
-			.tabla2{
-				border: solid 0.5px #ffffff;
-				border-radius: 30px;
-				background: rgba(255,255,255,0.7);
-			}
-		</style>
+body {
+	background-image: url('../img/fondo2.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 0.5px #ffffff;
+	border-radius: 30px;
+	background: rgba(255, 255, 255, 0.7);
+}
+</style>
 	</h:head>
 	<body>
 		<h:form>
@@ -37,67 +39,87 @@
 				<tr>
 					<td valign="middle">
 						<table align="center" class="tabla2" width="45%" height="30%">
-							<tr><td colspan="2"></td></tr>
+							<tr>
+								<td colspan="2"></td>
+							</tr>
 							<tr align="center">
 								<td colspan="2"><H1>LOGIN</H1></td>
 							</tr>
-							
+
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.nombreUsuario}" /></td>
-								<td><p:inputText value="#{userBean.usuario.userName}" rendered="true" title="De 6 a 8 caracteres" /> </td>
+								<td><p:inputText id="focus"
+										title="El usuario debe contener entre 6 a 8 caracteres"
+										value="#{userBean.usuario.userName}" /> <p:tooltip
+										id="toolTipFocus" for="focus" showEvent="focus"
+										hideEvent="blur" position="right" /></td>
 							</tr>
-							
-							<tr><td colspan="2"></td></tr>
-							
+
+							<tr>
+								<td colspan="2"></td>
+							</tr>
+
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.nombre}" /></td>
-								<td><p:inputText value="#{userBean.usuario.fullName}" rendered="true" /></td>
+								<td><p:inputText value="#{userBean.usuario.fullName}"
+										rendered="true" /></td>
 							</tr>
-							
+
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.telefono}" /></td>
-								<td>
-								<p:inputText type="number" id="telefono" value="#{userBean.usuario.phoneNumber}" rendered="true" minlength="7" maxlength="10"/>
-								</td>
+								<td><p:inputText type="number" id="telefono"
+										value="#{userBean.usuario.phoneNumber}" rendered="true"
+										minlength="7" maxlength="10"
+										title="El telefono debe contener entre 7 a 10 digitos" /> <p:tooltip
+										id="tooTipFocus" for="telefono" showEvent="focus"
+										hideEvent="blur" position="right" /></td>
 							</tr>
-							
+
 							<tr align="center">
-								<td><p:outputLabel value="#{principal.email}"/></td>
-								<td>
-								<p:inputText id="email" required="true" label="email" 
-									requiredMessage="Please enter your email address."
-									validatorMessage="Invalid email format"
-									value="#{userBean.usuario.emailAddress}">
-							
-								  <f:validateRegex
-									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-							
-								</p:inputText>
-								<p:watermark for="email" value=" " />
-								</td>
+								<td><p:outputLabel value="#{principal.email}" /></td>
+								<td><p:inputText id="email" required="true" label="email"
+										requiredMessage="Please enter your email address."
+										validatorMessage="Invalid email format"
+										value="#{userBean.usuario.emailAddress}">
+
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+									</p:inputText> <p:watermark for="email" value=" " /></td>
 							</tr>
-							
-							<tr rowspan="2"><td colspan="2"><br/></td></tr>
+
+							<tr rowspan="2">
+								<td colspan="2"><br /></td>
+							</tr>
 							<tr align="center">
-								<td colspan="2" ><div class="g-recaptcha" data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K" required="true"></div></td>
+								<td colspan="2"><div class="g-recaptcha"
+										data-sitekey="6Ldrx1MUAAAAAOnSl4hnblILEArZ5FDqUZj_iM3K"
+										required="true"></div></td>
 							</tr>
-							<tr rowspan="2"><td colspan="2"><br/></td></tr>
+							<tr rowspan="2">
+								<td colspan="2"><br /></td>
+							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr>
-		   				
+
 				</tr>
 				<tr>
-				<td>
-					<table align="center">
-						<tr>
-							<td><p:commandButton value="#{principal.btnRegistrar}" action="#{userBean.adicionarUsuario}"/></td>
-							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
-						</tr>
-					</table>
-				</td>
-			</tr>
+					<td>
+						<table align="center">
+							<tr>
+
+
+								<td><p:commandButton value="#{principal.btnRegistrar}"
+										action="#{userBean.adicionarUsuario}"
+										onclick="PF('bar').show()" /></td>
+								<td><p:commandButton value="#{principal.btnRegresar}"
+										action="inicio" /></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
 			</table>
 
 		</h:form>

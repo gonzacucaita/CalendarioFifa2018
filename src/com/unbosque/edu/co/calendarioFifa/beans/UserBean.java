@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -199,6 +200,8 @@ public class UserBean {
 
 		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 		
+		
+		
 		AuditService as = new AuditService();
 
 		auditoria.setUserId(usuario.getId());
@@ -219,6 +222,8 @@ public class UserBean {
 		parameter.setNumberValue(3);
 
 		ps.save(parameter);
+		
+		
 		return "inicio";
 	}
 

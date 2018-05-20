@@ -23,12 +23,12 @@ body {
 	background-color: rgba(222,1,36, 0.005);
 	background-size: 0.005%;
 	border: 1px solid transparent;
-	width: 80%;
+	width: 100%;
 }
 
 .sidenav {
 	height: 100%;
-	width: 200px;
+	width: 300px;
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -36,20 +36,36 @@ body {
 	overflow-x: hidden;
 }
 
-.content {margin-right 20px;
-	padding-right: 200x;
+.content {
+	margin-right: 20px;
+	padding-right: 200px;
 }
 </style>
 	</h:head>
 	<h:body>
 		<h:form>
 
-			<div class="sidenav" columns="2" >
+			<div class="sidenav"  >
+			
+			<table>
+			<tr>
+			<td>
+			
 				<p:commandButton value="#{principal.registrarse}"
 					action="#{userBean.prepararAdicionarUsuario}" style="float:right;" />
+			
+			</td>
+			<td>
+			
 				<p:commandButton value="#{principal.iniciarSesion}"
 					style="float:right;" action="login" />
-
+			
+			
+			</td>
+			</tr>
+			</table>
+			
+			
 			</div>
 
 			<div class="content">
