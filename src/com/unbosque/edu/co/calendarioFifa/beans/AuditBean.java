@@ -24,7 +24,7 @@ public class AuditBean implements Serializable{
 	private String auditorias;
 	private String usuarios;
 	private String salir;
-	
+	  
 	private List<Audit> listt;
 	
 	public List<Audit> getListt() {
