@@ -36,177 +36,188 @@ body {
 	<h:body>
 
 		<h:form>
+			<table align="center">
 
-			<p:panelGrid columns="1" style="text-align:center">
+				<tr>
+					<td><p:panelGrid columns="1" style="text-align:center">
 
-				<p:panelGrid columns="4" style="text-align:center">
-					<p:commandButton value="Agregar Equipo"
-						action="#{teamBean.prepararAdicionarEquipo}" />
-					<p:commandButton value="Agregar Estadio"
-						action="#{stadiumBean.prepararAdicionarEstadio}" />
-					<p:commandButton value="Agregar Arbitro"
-						action="#{refereeBean.prepararAdicionarArbitro}" />
-					<p:commandButton value="Actualizar goleador"
-						action="#{goalscorerBean.prepararAdicionarGoleador}" />
-				</p:panelGrid>
+							<p:panelGrid columns="4" style="text-align:center">
+								<p:commandButton value="Agregar Equipo"
+									action="#{teamBean.prepararAdicionarEquipo}" />
+								<p:commandButton value="Agregar Estadio"
+									action="#{stadiumBean.prepararAdicionarEstadio}" />
+								<p:commandButton value="Agregar Arbitro"
+									action="#{refereeBean.prepararAdicionarArbitro}" />
+								<p:commandButton value="Actualizar goleador"
+									action="#{goalscorerBean.prepararAdicionarGoleador}" />
+							</p:panelGrid>
 
-				<p:tabView orientation="center" style="text-align:center">
+							<p:tabView orientation="center" style="text-align:center">
 
 
-					<p:tab title="Equipo">
+								<p:tab title="Equipo">
 
-						<p:dataGrid var="equipo" value="#{teamBean.listarEquipos}"
-							columns="2" layout="grid" rows="12" paginator="true" id="equipo"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="20,12,16">
+									<p:dataGrid var="equipo" value="#{teamBean.listarEquipos}"
+										columns="2" layout="grid" rows="12" paginator="true"
+										id="equipo"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="20,12,16">
 
 
-							<p:panel header="#{equipo.country}" style="text-align:center">
+										<p:panel header="#{equipo.country}" style="text-align:center">
 
-								<h:panelGrid columns="2" style="width:100%">
+											<h:panelGrid columns="2" style="width:100%">
 
-									<p:outputLabel value="Bandera: " />
-									<p:outputLabel value="#{equipo.flag}" />
+												<p:outputLabel value="Bandera: " />
+												<p:outputLabel value="#{equipo.flag}" />
 
-									<p:outputLabel value="Grupo: " />
-									<p:outputLabel value="#{equipo.group}" />
+												<p:outputLabel value="Grupo: " />
+												<p:outputLabel value="#{equipo.group}" />
 
-									<p:outputLabel value="Jugadores: " />
-									<p:outputLabel value="#{equipo.playedGames}" />
+												<p:outputLabel value="Jugadores: " />
+												<p:outputLabel value="#{equipo.playedGames}" />
 
-									<p:outputLabel value="Partidos ganados: " />
-									<p:outputLabel value="#{equipo.wonMatches}" />
+												<p:outputLabel value="Partidos ganados: " />
+												<p:outputLabel value="#{equipo.wonMatches}" />
 
-									<p:outputLabel value="Partidos empatados: " />
-									<p:outputLabel value="#{equipo.tiedMatches}" />
+												<p:outputLabel value="Partidos empatados: " />
+												<p:outputLabel value="#{equipo.tiedMatches}" />
 
-									<p:outputLabel value="Partidos perdidos: " />
-									<p:outputLabel value="#{equipo.lostMatches}" />
+												<p:outputLabel value="Partidos perdidos: " />
+												<p:outputLabel value="#{equipo.lostMatches}" />
 
-									<p:outputLabel value="Goles a favor: " />
-									<p:outputLabel value="#{equipo.goalsFavor}" />
+												<p:outputLabel value="Goles a favor: " />
+												<p:outputLabel value="#{equipo.goalsFavor}" />
 
-									<p:outputLabel value="Goles encontra: " />
-									<p:outputLabel value="#{equipo.goalsAgainst}" />
+												<p:outputLabel value="Goles encontra: " />
+												<p:outputLabel value="#{equipo.goalsAgainst}" />
 
-									<p:commandButton value="Modificar"
-										action="#{teamBean.prepararModificarEquipo}" />
-									<p:commandButton value="Eliminar" />
+												<p:commandButton value="Modificar"
+													action="#{teamBean.prepararModificarEquipo}" />
+												<p:commandButton value="Eliminar" />
 
-								</h:panelGrid>
+											</h:panelGrid>
 
-							</p:panel>
+										</p:panel>
 
 
-						</p:dataGrid>
-					</p:tab>
+									</p:dataGrid>
+								</p:tab>
 
 
-					<p:tab title="Estadio">
+								<p:tab title="Estadio">
 
-						<p:dataGrid var="estadio" value="#{stadiumBean.listarEstadios}"
-							columns="2" layout="grid" rows="12" paginator="true" id="estadio"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="20,12,16">
+									<p:dataGrid var="estadio" value="#{stadiumBean.listarEstadios}"
+										columns="2" layout="grid" rows="12" paginator="true"
+										id="estadio"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="20,12,16">
 
 
-							<p:panel header="#{estadio.city}" style="text-align:center">
+										<p:panel header="#{estadio.city}" style="text-align:center">
 
-								<h:panelGrid columns="2" style="width:100%">
+											<h:panelGrid columns="2" style="width:100%">
 
-									<p:outputLabel value="Foto: " />
-									<p:outputLabel value="#{estadio.photo}" />
+												<p:outputLabel value="Foto: " />
+												<p:outputLabel value="#{estadio.photo}" />
 
-									<p:outputLabel value="Capacidad: " />
-									<p:outputLabel value="#{estadio.capacity}" />
+												<p:outputLabel value="Capacidad: " />
+												<p:outputLabel value="#{estadio.capacity}" />
 
-									<p:outputLabel value="Poblacion: " />
-									<p:outputLabel value="#{estadio.population}" />
+												<p:outputLabel value="Poblacion: " />
+												<p:outputLabel value="#{estadio.population}" />
 
-									<p:outputLabel value="Temperatura: " />
-									<p:outputLabel value="#{estadio.temperature}" />
+												<p:outputLabel value="Temperatura: " />
+												<p:outputLabel value="#{estadio.temperature}" />
 
-									<p:commandButton value="Modificar"
-										action="#{stadiumBean.prepararModificarEstadio}" />
-									<p:commandButton value="Eliminar" />
+												<p:commandButton value="Modificar"
+													action="#{stadiumBean.prepararModificarEstadio}" />
+												<p:commandButton value="Eliminar" />
 
-								</h:panelGrid>
+											</h:panelGrid>
 
-							</p:panel>
+										</p:panel>
 
 
-						</p:dataGrid>
-					</p:tab>
+									</p:dataGrid>
+								</p:tab>
 
 
-					<p:tab title="Arbitro">
+								<p:tab title="Arbitro">
 
-						<p:dataGrid var="arbitro" value="#{refereeBean.listarArbitros}"
-							columns="2" layout="grid" rows="12" paginator="true" id="arbitro"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="20,12,16">
+									<p:dataGrid var="arbitro" value="#{refereeBean.listarArbitros}"
+										columns="2" layout="grid" rows="12" paginator="true"
+										id="arbitro"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="20,12,16">
 
 
-							<p:panel header="#{arbitro.fullName}" style="text-align:center">
+										<p:panel header="#{arbitro.fullName}"
+											style="text-align:center">
 
-								<h:panelGrid columns="2" style="width:100%">
+											<h:panelGrid columns="2" style="width:100%">
 
-									<p:outputLabel value="Foto: " />
-									<p:outputLabel value="#{arbitro.nationality}" />
+												<p:outputLabel value="Foto: " />
+												<p:outputLabel value="#{arbitro.nationality}" />
 
-									<p:outputLabel value="Capacidad: " />
-									<p:outputLabel value="#{arbitro.state}" />
+												<p:outputLabel value="Capacidad: " />
+												<p:outputLabel value="#{arbitro.state}" />
 
-									<p:commandButton value="Modificar"
-										action="#{refereeBean.prepararModificarArbitro}" />
-									<p:commandButton value="Eliminar" />
+												<p:commandButton value="Modificar"
+													action="#{refereeBean.prepararModificarArbitro}" />
+												<p:commandButton value="Eliminar" />
 
-								</h:panelGrid>
+											</h:panelGrid>
 
-							</p:panel>
+										</p:panel>
 
 
-						</p:dataGrid>
-					</p:tab>
+									</p:dataGrid>
+								</p:tab>
 
-					<p:tab title="Goleador">
+								<p:tab title="Goleador">
 
-						<p:dataGrid var="gol" value="#{goalscorerBean.listarGoleadores}"
-							columns="2" layout="grid" rows="12" paginator="true"
-							id="goleador"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="20,12,16">
+									<p:dataGrid var="gol"
+										value="#{goalscorerBean.listarGoleadores}" columns="2"
+										layout="grid" rows="12" paginator="true" id="goleador"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="20,12,16">
 
 
-							<p:panel header="#{gol.fullName}" style="text-align:center">
+										<p:panel header="#{gol.fullName}" style="text-align:center">
 
-								<h:panelGrid columns="2" style="width:100%">
+											<h:panelGrid columns="2" style="width:100%">
 
-									<p:outputLabel value="Goles: " />
-									<p:outputLabel value="#{gol.goals}" />
+												<p:outputLabel value="Goles: " />
+												<p:outputLabel value="#{gol.goals}" />
 
-									<p:outputLabel value="Foto: " />
-									<p:outputLabel value="#{gol.photo}" />
+												<p:outputLabel value="Foto: " />
+												<p:outputLabel value="#{gol.photo}" />
 
-									<p:outputLabel value="Equipo: " />
-									<p:outputLabel value="#{gol.team}" />
+												<p:outputLabel value="Equipo: " />
+												<p:outputLabel value="#{gol.team}" />
 
-									<p:commandButton value="Modificar"
-										action="#{goalscorerBean.prepararModificarGoleador}" />
-									<p:commandButton value="Eliminar" />
+												<p:commandButton value="Modificar"
+													action="#{goalscorerBean.prepararModificarGoleador}" />
+												<p:commandButton value="Eliminar" />
 
-								</h:panelGrid>
+											</h:panelGrid>
 
-							</p:panel>
+										</p:panel>
 
 
-						</p:dataGrid>
-					</p:tab>
+									</p:dataGrid>
+								</p:tab>
 
-				</p:tabView>
-			</p:panelGrid>
-			<p:commandButton value="Regresar" action="/Principal/inicio" />
+							</p:tabView>
+						</p:panelGrid> <p:commandButton value="Regresar" action="/Principal/inicio" />
 
+
+
+					</td>
+				</tr>
+
+			</table>
 		</h:form>
 
 	</h:body>

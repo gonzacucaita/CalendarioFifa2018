@@ -44,6 +44,13 @@ public class TeamBean {
 	
 	public String adicionarEquipo() {
 		TeamService dao = new TeamService();
+		equipo.setState("A");
+		equipo.setGoalsAgainst(0);
+		equipo.setGoalsFavor(0);
+		equipo.setLostMatches(0);
+		equipo.setWonMatches(0);
+		equipo.setTiedMatches(0);
+		equipo.setPlayedGames(0);
 		dao.save(equipo);
 		return "funcional";
 	}
