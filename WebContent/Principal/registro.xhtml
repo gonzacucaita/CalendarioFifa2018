@@ -13,35 +13,35 @@
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
 
 		<style type="text/css">
-body {
-	background-image: url('../img/fondo2.gif');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-}
-
-#mail {
-	width: 100%;
-	position: relative;
-}
-
-.tabla2 {
-	border: solid 0.5px #ffffff;
-	border-radius: 30px;
-	background: rgba(255, 255, 255, 0.7);
-}
-
-.messa {
-	color: rgba(255, 255, 255);
-	font-size: 200%;
-	font: bolder;
-	
-	}
-</style>
+			body {
+				background-image: url('../img/fondo2.gif');
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+			
+			#mail {
+				width: 100%;
+				position: relative;
+			}
+			
+			.tabla2 {
+				border: solid 0.5px #ffffff;
+				border-radius: 30px;
+				background: rgba(255, 255, 255, 0.7);
+			}
+			
+			.messa {
+				color: rgba(255, 255, 255);
+				font-size: 200%;
+				font: bolder;
+				
+				}
+		</style>
 	</h:head>
 	<body>
-		<h:form>
+		<h:form action="inicio">
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
@@ -50,7 +50,7 @@ body {
 								<td colspan="2"></td>
 							</tr>
 							<tr align="center">
-								<td colspan="2"><H1>LOGIN</H1></td>
+								<td colspan="2"><H1>REGISTRO</H1></td>
 							</tr>
 
 							<tr align="center">
@@ -111,26 +111,19 @@ body {
 					</td>
 				</tr>
 				<tr>
-
 				</tr>
 				<tr>
 					<td>
 						<table align="center">
 							<tr>
-
-
 								<td><p:commandButton value="#{principal.btnRegistrar}"
 										action="#{userBean.adicionarUsuario}"
 										onclick="PF('bar').show()" /></td>
-								<td><p:commandButton value="#{principal.btnRegresar}"
-										action="inicio" onclick="PF('bar').show()" /></td>
+								<td><input type="submit" value="#{principal.btnRegresar}" ></td>
 							</tr>
 							<tr >
 								<td colspan="2">
-						
 								<h:message for="email" styleClass="messa" />
-							
-										
 								</td>
 							</tr>
 
