@@ -6,39 +6,43 @@
 	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
 <f:view>
 	<h:head>
-	<f:loadBundle basename="com.mensajes.mensajeLogin" var="msjs" />
+		<f:loadBundle basename="com.mensajes.mensajeLogin" var="msjs" />
 		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
 	</h:head>
 	<body>
 		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputText value="Nombre equipo: " />
-				<h:inputText value="#{scheduleBean.calendario.localTeam}"
-					rendered="true" />
-				<h:outputText value="Goles: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.localGoals}"
-					rendered="true" />
-				<h:outputText value="Equipo viditante: " rendered="true"  />
-				<h:inputText  value="#{scheduleBean.calendario.visitTeam}"
-					rendered="true" />
-				<h:outputText value="Goles visitantes: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.visitGoals}"
-				 rendered="true" />	
-				<h:outputText value="Fecha de juego: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.gameDate}"
-				 rendered="true" />
-				<h:outputText value="Estadio: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.idStadium}"
-				 rendered="true" />
-				<h:outputText value="idReferi: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.idReferee}"
-				 rendered="true" />
-				<h:outputText value="Estado: " rendered="true" />
-				<h:inputText  value="#{scheduleBean.calendario.state}"
-				 rendered="true" />
-				<h:commandButton value="guardar"
-					action="#{scheduleBean.adicionarCalendario}" />
-			</h:panelGrid>
+			<table align="center">
+				<tr>
+					<td><h:panelGrid columns="2">
+							<h:outputText value="Nombre equipo: " />
+							<h:inputText value="#{scheduleBean.calendario.localTeam}"
+								rendered="true" />
+							<h:outputText value="Goles: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.localGoals}"
+								rendered="true" />
+							<h:outputText value="Equipo viditante: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.visitTeam}"
+								rendered="true" />
+							<h:outputText value="Goles visitantes: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.visitGoals}"
+								rendered="true" />
+							<h:outputText value="Fecha de juego: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.gameDate}"
+								rendered="true" />
+							<h:outputText value="Estadio: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.idStadium}"
+								rendered="true" />
+							<h:outputText value="idReferi: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.idReferee}"
+								rendered="true" />
+							<h:outputText value="Estado: " rendered="true" />
+							<h:inputText value="#{scheduleBean.calendario.state}"
+								rendered="true" />
+							<h:commandButton value="guardar"
+								action="#{scheduleBean.adicionarCalendario}" />
+						</h:panelGrid></td>
+				</tr>
+			</table>
 		</h:form>
 	</body>
 </f:view>

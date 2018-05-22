@@ -2,6 +2,7 @@ package com.unbosque.edu.co.calendarioFifa.beans;
 
 import javax.faces.application.FacesMessage;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -25,6 +27,9 @@ import com.unbosque.edu.co.calendarioFifa.util.*;
 @ManagedBean
 @SessionScoped
 public class UserBean {
+	
+	 private List<String> images;
+	
 	
 	/**
 	 * ATRIBUTOS PARA EL USUARIO EN GENERAL.
@@ -47,6 +52,15 @@ public class UserBean {
 	private Team equipo;
 	
 	private static Logger log = Logger.getLogger(UserBean.class);
+	
+	public UserBean()
+	{
+		 images = new ArrayList<String>();
+       for (int i = 1; i <= 4; i++) {
+           images.add("noti" + i + ".jpg");
+       }
+       
+	}
 
 	
 	/**
@@ -178,13 +192,15 @@ public class UserBean {
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
 		String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
-		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usuario.getFullName() + "\n" + "\n"
-				+ "\n" + "\n" + "su cuenta se ha generado exitosamente \n" + "\n" + "\n    " + "usuario: "
+		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" +"BIENVENIDO "+ usuario.getFullName() + "\n" + "\n"
+				+ "\n" + "\n" + "tu cuenta se ha generado exitosamente \n" + "\n" + "\n    " + "usuario: "
 				+ usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n" + "\n"
-				+ "Le solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
-				+ "Att: administrador CalendarioFIFA";
+				+ "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+				+ "Att: administrador CalendarioFIFA"+"\n"+"Por favor no contestes este correo";
 
 		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+		
+		
 		
 		AuditService as = new AuditService();
 
@@ -206,6 +222,8 @@ public class UserBean {
 		parameter.setNumberValue(3);
 
 		ps.save(parameter);
+		
+		
 		return "inicio";
 	}
 
@@ -587,6 +605,16 @@ public void modificarEstadio() {
 	public void setUsuario(User usuario) {
 		
 		this.usuario = usuario;
+	}
+
+
+	public List<String> getImages() {
+		return images;
+	}
+
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 	
 

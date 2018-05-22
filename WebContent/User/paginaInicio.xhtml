@@ -10,73 +10,354 @@
 		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
 
 		<style type="text/css">
-body {
-	background-image: url('../img/captura3.jpg');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-}
-
-#mail {
-	width: 100%;
-	position: fixed;
-}
-
-.tabla2 {
-	border: solid 0.5px #ffffff;
-	border-radius: 30px;
-	background: rgba(255, 255, 255, 0.7);
-}
+			* {
+				box-sizing: border-box;
+			}
+			
+			body {
+				background-image: url('../img/captura3.jpg');
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				background-size: cover;
+			}
+			
+			.contentFlow {
+				background-color: rgba(222, 1, 36, 0.005);
+				background-size: 0.000005%;
+				border: 1px solid transparent;
+				width: 250%;
+				height: 100%;
+				position: relative;
+				z-index: 0;
+				top: 100px;
+				right: 550px;
+				overflow-x: hidden;
+				position: relative;
+			}
+			
+			.column {
+				float: left;
+				padding: 10px;
+				height: 300px; /* Should be removed. Only for demonstration */
+			}
+			
+			/* Left and right column */
+			.column.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column.middle {
+				width: 50%;
+			}
+			
+			.column
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			.middle {
+				width: 50%;
+			}
+			
+			.column .middle { width: 50%; } .column .side { width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .middle {
+				width: 50%; } .column .side { width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .middle {
+				width: 50%; } .column .side { width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .middle {
+				width: 50%; } .column .side { width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .middle {
+				width: 50%; } .column .side { width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%; } .column .side {
+				width: 50%; }
+				/* Middle column */ .column .middle { width: 50%;
+			}
+			
+			.column
+			.side
+			{
+			width
+			:
+			50%;
+			}
+			
+			/* Middle column */
+			.column
+			.middle
+			{
+			width
+			:
+			50%;
+			}
+			.column
+			
+			
+			.side
+			{
+			width
+			:
+			50%;
+			}
+			
+			/* Middle column */
+			.column
+			
+			
+			.middle
+			{
+			width
+			:
+			50%;
+			}
+			.column
+				.middle {
+				width: 50%;
+			}
+			
+			.column .side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			
+			
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			
+			
+			.middle {
+				width: 50%;
+			}
+			
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column .side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column .side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column .side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column .side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column .middle {
+				width: 50%;
+			}
+			
+			.column
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			
+			
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			
+			
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			
+				
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			 
+			.side {
+				width: 50%;
+			}
+			/* Middle column */
+			.column
+			 
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			
+			
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			
+			
+			.middle {
+				width: 50%;
+			}
+			
+			.column
+			
+			
+			
+			
+			.side {
+				width: 50%;
+			}
+			
+			/* Middle column */
+			.column
+			
+			
+			
+			
+			.middle {
+				width: 50%;
+			}
+			
+			/* Clear floats after the columns */
+			.row:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+			
+			/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+			@media ( max-width : 600px) {
+				.column.side, .column.middle {
+					width: 100%;
+				}
+			}
 </style>
 	</h:head>
 	<h:body>
 		<h:form>
-			<table height="100%" width="100%">
-				<tr>
-					<td>
-						<TABLE align="center">
-							<tr>
-								<td><p:commandLink action="arbitroUsuario" title="Arbitro">
-										<h:graphicImage url="/img/arbitro.png" />
-									</p:commandLink></td>
-								<td><p:commandLink action="estadioUsuario" title="Estadio">
-										<h:graphicImage url="/img/cancha.png" />
-									</p:commandLink></td>
-							</tr>
-							<tr>
-								<td><p:commandLink action="calendarioUsuario" title="Calendario">
-										<h:graphicImage url="/img/calendario.png" />
-									</p:commandLink></td>
-								<td><p:commandLink action="goleadorUsuario" title="Goleador">
-										<h:graphicImage url="/img/goleador.png" />
-									</p:commandLink></td>
-							</tr>
+			<p:commandButton action="/Principal/inicio" value="Cerrar sesion"
+				style="float:right;" />
+			<div class="row">
 
-							<tr align="center">
-								<td colspan="2"><p:commandLink action="equipoUsuario" title="Equipo">
-										<h:graphicImage url="/img/equipo.png" />
-									</p:commandLink></td>
-							</tr>
 
-						</TABLE>
-					</td>
-					<td>
-						<TABLE align="center">
-							<h1>NOTICIAS</h1>
-							<p:contentFlow value="#{imagesView.images}" var="image">
-								<h1>asd</h1>
-								<p:graphicImage name="../demo/images/nature/#{image}"
-									styleClass="content" />
-								<div class="caption">#{image}</div>
-							</p:contentFlow>
-						</TABLE>
-					</td>
-				</tr>
-			</table>
+				<div class="column side">
 
-			<p:commandButton action="/Principal/inicio" value="Cerrar sesion" />
+					<TABLE align="center">
+						<tr>
+							<td><p:commandLink action="arbitroUsuario" title="Arbitro">
+									<h:graphicImage url="/img/btnarbitro.png" />
+								</p:commandLink></td>
+								
+							<td><p:commandLink action="estadioUsuario" title="Estadio">
+									<h:graphicImage url="/img/btncanchas.png" />
+								</p:commandLink></td>
+						</tr>
+						
+						<tr>
+							<td><p:commandLink action="calendarioUsuario" title="Calendario">
+									<h:graphicImage url="/img/btncalendario.png" />
+								</p:commandLink></td>
+								
+							<td><p:commandLink action="goleadorUsuario" title="Goleador">
+									<h:graphicImage url="/img/btngoleador.png" />
+								</p:commandLink></td>
+						</tr>
 
+						<tr align="center">
+							<td colspan="2"><p:commandLink action="equipoUsuario"
+									title="Equipo">
+									<h:graphicImage url="/img/btnequipo.png" />
+								</p:commandLink></td>
+						</tr>
+
+					</TABLE>
+
+
+				</div>
+
+
+				<div class="column middle">
+
+					<p:contentFlow value="#{userBean.images}" var="image"
+						styleClass="contentFlow">
+						<p:graphicImage value="/demo/images/nature/#{image}"
+							styleClass="content" />
+
+					</p:contentFlow>
+
+
+				</div>
+
+
+
+			</div>
 		</h:form>
 	</h:body>
 </f:view>

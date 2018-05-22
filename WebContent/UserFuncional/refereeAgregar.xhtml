@@ -36,25 +36,29 @@ body {
 	</h:head>
 	<body>
 		<h:form>
+			<table align="center">
+				<tr>
+					<td><p:panelGrid columns="2">
 
-			<p:panelGrid columns="2">
+							<p:outputLabel value="Nombre: " />
+							<p:inputText value="#{refereeBean.arbitro.fullName}"
+								rendered="true" />
 
-				<p:outputLabel value="Nombre: " />
-				<p:inputText value="#{refereeBean.arbitro.fullName}" rendered="true" />
+							<p:outputLabel value="Nacionalidad: " rendered="true" />
+							<p:inputText value="#{refereeBean.arbitro.nationality}"
+								rendered="true" />
 
-				<p:outputLabel value="Nacionalidad: " rendered="true" />
-				<p:inputText value="#{refereeBean.arbitro.nationality}"
-					rendered="true" />
-
-				<p:outputLabel value="Estado: " rendered="true" />
-				<p:inputText value="#{refereeBean.arbitro.state}" rendered="true" />
+							<p:outputLabel value="Estado: " rendered="true" />
+							<p:inputText value="#{refereeBean.arbitro.state}" rendered="true" />
 
 
-				<p:commandButton value="guardar"
-					action="#{refereeBean.adicionarArbitro}" />
-				<p:commandButton value="Cancelar" action="funcional" />
+							<p:commandButton value="Guardar"
+								action="#{refereeBean.adicionarArbitro}" />
+							<p:commandButton value="Cancelar" action="funcional" />
 
-			</p:panelGrid>
+						</p:panelGrid></td>
+				</tr>
+			</table>
 		</h:form>
 	</body>
 </f:view>
