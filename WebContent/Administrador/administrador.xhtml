@@ -6,15 +6,29 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+
+	<title><h:outputText value="Administrador" /></title>
+
 	<style type="text/css">
-	body {
-		background-image: url('../img/captura3.jpg');
-		background-position: center center;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
-	}
-	</style>
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
 </h:head>
 
 <h:body>
@@ -30,12 +44,110 @@
 			<p:menuitem value="parameter" icon="/img/organizar.png"
 				onclick="PF('parameter').show();" />
 
-			<p:menuitem value="Salir" icon="/img/cerrar.png" action="/Principal/inicio" />
+			<p:menuitem value="Salir" icon="/img/cerrar.png"
+				action="/Principal/inicio" />
 
 		</p:stack>
 
-		<p:dialog id="tbl" header="Parametro" widgetVar="parameter" modal="true"
-			height="100%" showEffect="explode">
+		<table align="center">
+
+			<tr>
+				<td><p:panelGrid columns="1" style="text-align:center">
+
+						<p:panelGrid columns="4" style="text-align:center">
+
+						</p:panelGrid>
+
+						<p:tabView orientation="center" style="text-align:center">
+
+							<p:tab title="Auditoria">
+
+								<p:dataGrid var="auditoria"
+									value="#{auditBean.listarAuditorias}" columns="2" layout="grid"
+									rows="6" paginator="true" id="equipo"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="2,6,10">
+
+									<p:panel header="#{auditoria.operation}"
+										style="text-align:center">
+										<p:panelGrid columns="2" style="width:100%">
+
+											<p:outputLabel value="ID de la tabla: " />
+											<p:outputLabel value="#{auditoria.tableId}" />
+
+											<p:outputLabel value="Nombre de la tabla: " />
+											<p:outputLabel value="#{auditoria.tableName}" />
+
+											<p:outputLabel value="ID del usuario: " />
+											<p:outputLabel value="#{auditoria.userId}" />
+
+											<p:outputLabel value="Operacion: " />
+											<p:outputLabel value="Crear"
+												rendered="#{'C' eq auditoria.operation}" />
+											<p:outputLabel value="Eliminar"
+												rendered="#{'E' eq auditoria.operation}" />
+
+											<p:outputLabel value="Fecha de modificacion: " />
+											<p:outputLabel value="#{auditoria.createDate}" />
+
+										</p:panelGrid>
+
+
+									</p:panel>
+
+								</p:dataGrid>
+
+							</p:tab>
+
+							<p:tab title="Usuarios">
+
+								<p:dataGrid var="usuario"
+									value="#{userBean.listarUsuario}" columns="2" layout="grid"
+									rows="6" paginator="true" id="equipo"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="2,6,10">
+
+									<p:panel header="#{usuario.fullName}"
+										style="text-align:center">
+										<p:panelGrid columns="2" style="width:100%">
+
+											<p:outputLabel value="Nombre de usuario: " />
+											<p:outputLabel value="#{usuario.userName}" />
+											
+											<p:outputLabel value="Telefono: " />
+											<p:outputLabel value="#{usuario.phoneNumber}"/>
+											
+											<p:outputLabel value="Correo: " />
+											<p:outputLabel value="#{usuario.emailAddress}"/>
+											
+											<p:outputLabel value="Tipo de usuario: " />
+											<p:outputLabel value="#{usuario.userType}"/>
+											
+											<p:outputLabel value="Estado: " />
+											<p:outputLabel value="Activo" rendered="#{'A' eq usuario.active}" />
+											<p:outputLabel value="InActivo" rendered="#{'I' eq usuario.active}" />
+											
+											<p:commandButton action="#{userBean.eliminarUsuario}" value="Bloquear" />
+											<p:commandButton action="#{userBean.modificarUsuario}" value="Desbloquear" />
+
+										</p:panelGrid>
+									</p:panel>
+								</p:dataGrid>
+							</p:tab>
+
+
+						</p:tabView>
+
+					</p:panelGrid></td>
+			</tr>
+		</table>
+
+
+
+
+
+		<p:dialog id="tbl" header="Parametro" widgetVar="parameter"
+			modal="true" height="100%" showEffect="explode">
 
 			<p:dataTable var="parameter"
 				value="#{parameterBean.listarParametros}">
@@ -72,19 +184,20 @@
 				</p:column>
 			</p:dataTable>
 			<h:commandLink value="exportarPDF">
-   				<p:dataExporter type="pdf" target="tbl" fileName="Parametros" pageOnly="true"/>
+				<p:dataExporter type="pdf" target="tbl" fileName="Parametros"
+					pageOnly="true" />
 			</h:commandLink>
-					<h1> </h1>
+			<h1></h1>
 			<h:commandLink value="exportarEXl">
-		   		<p:dataExporter type="xls" target="tbl" fileName="Parametros" pageOnly="true" />
-		   </h:commandLink>
+				<p:dataExporter type="xls" target="tbl" fileName="Parametros"
+					pageOnly="true" />
+			</h:commandLink>
 		</p:dialog>
-
-
 		<p:dialog header="Auditorio" widgetVar="auditorio" modal="true"
 			height="100%" showEffect="explode">
 
-			<p:dataTable id="tbl1" var="audit" value="#{auditBean.listarAuditorias}">
+			<p:dataTable id="tbl1" var="audit"
+				value="#{auditBean.listarAuditorias}">
 
 				<p:column>
 					<f:facet name="header">
@@ -111,7 +224,7 @@
 					<h:outputText value="#{audit.tableName}" />
 				</p:column>
 				<p:column>
-				
+
 					<f:facet name="header">
 						<h:outputText value="Id de la tabla" />
 					</f:facet>
@@ -125,14 +238,15 @@
 				</p:column>
 			</p:dataTable>
 			<h:commandLink value="exportarPDF">
-   				<p:dataExporter type="pdf" target="tbl1" fileName="Auditoria" pageOnly="true"/>
+				<p:dataExporter type="pdf" target="tbl1" fileName="Auditoria"
+					pageOnly="true" />
 			</h:commandLink>
-					<h1> </h1>
+			<h1></h1>
 			<h:commandLink value="exportarEXl">
-		   		<p:dataExporter type="xls" target="tbl1" fileName="Auditoria" pageOnly="true" />
-		   </h:commandLink>
+				<p:dataExporter type="xls" target="tbl1" fileName="Auditoria"
+					pageOnly="true" />
+			</h:commandLink>
 		</p:dialog>
-
 		<p:dialog header="Usuario" widgetVar="usuario" modal="true"
 			height="100%" showEffect="explode">
 			<p:dataTable id="tbl2" var="user" value="#{userBean.listarUsuario}"
@@ -201,22 +315,24 @@
 					<f:facet name="header">
 						<h:outputText value="Eliminar" />
 					</f:facet>
-						<h:commandButton action="#{userBean.eliminarUsuario}"
-							value="Eliminar" />
+					<h:commandButton action="#{userBean.eliminarUsuario}"
+						value="Eliminar" />
 				</p:column>
 				<p:column>
-			<p:commandLink value="desbloquear" actionListener="#{userBean.modificarUsuario}"/>
+					<p:commandLink value="desbloquear"
+						actionListener="#{userBean.modificarUsuario}" />
 				</p:column>
 			</p:dataTable>
 			<h:commandLink value="exportarPDF">
-   				<p:dataExporter type="pdf" target="tbl2" fileName="Auditoria" pageOnly="true"/>
+				<p:dataExporter type="pdf" target="tbl2" fileName="Auditoria"
+					pageOnly="true" />
 			</h:commandLink>
-					<h1> </h1>
+			<h1></h1>
 			<h:commandLink value="exportarEXl">
-		   		<p:dataExporter type="xls" target="tbl2" fileName="Auditoria" pageOnly="true" />
-		   </h:commandLink>
+				<p:dataExporter type="xls" target="tbl2" fileName="Auditoria"
+					pageOnly="true" />
+			</h:commandLink>
 		</p:dialog>
-
 	</h:form>
 </h:body>
 </html>
