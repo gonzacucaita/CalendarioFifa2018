@@ -34,21 +34,6 @@ body {
 <h:body>
 
 	<h:form>
-		<p:stack icon="/img/canasta.png" expanded="true">
-			<p:menuitem value="Auditoria" icon="/img/auditoria.png"
-				onclick="PF('auditorio').show();" />
-
-			<p:menuitem value="Usuarios" icon="/img/usuarios.png"
-				onclick="PF('usuario').show();" />
-
-			<p:menuitem value="parameter" icon="/img/organizar.png"
-				onclick="PF('parameter').show();" />
-
-			<p:menuitem value="Salir" icon="/img/cerrar.png"
-				action="/Principal/inicio" />
-
-		</p:stack>
-
 		<table align="center">
 
 			<tr>
@@ -101,238 +86,47 @@ body {
 
 							<p:tab title="Usuarios">
 
-								<p:dataGrid var="usuario"
-									value="#{userBean.listarUsuario}" columns="2" layout="grid"
-									rows="6" paginator="true" id="equipo"
+								<p:dataGrid var="usuario" value="#{userBean.listarUsuario}"
+									columns="2" layout="grid" rows="6" paginator="true" id="usuario"
 									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 									rowsPerPageTemplate="2,6,10">
 
-									<p:panel header="#{usuario.fullName}"
-										style="text-align:center">
+									<p:panel header="#{usuario.fullName}" style="text-align:center">
 										<p:panelGrid columns="2" style="width:100%">
 
 											<p:outputLabel value="Nombre de usuario: " />
 											<p:outputLabel value="#{usuario.userName}" />
-											
+
 											<p:outputLabel value="Telefono: " />
-											<p:outputLabel value="#{usuario.phoneNumber}"/>
-											
+											<p:outputLabel value="#{usuario.phoneNumber}" />
+
 											<p:outputLabel value="Correo: " />
-											<p:outputLabel value="#{usuario.emailAddress}"/>
-											
+											<p:outputLabel value="#{usuario.emailAddress}" />
+
 											<p:outputLabel value="Tipo de usuario: " />
-											<p:outputLabel value="#{usuario.userType}"/>
-											
+											<p:outputLabel value="#{usuario.userType}" />
+
 											<p:outputLabel value="Estado: " />
-											<p:outputLabel value="Activo" rendered="#{'A' eq usuario.active}" />
-											<p:outputLabel value="InActivo" rendered="#{'I' eq usuario.active}" />
-											
-											<p:commandButton action="#{userBean.eliminarUsuario}" value="Bloquear" />
-											<p:commandButton action="#{userBean.modificarUsuario}" value="Desbloquear" />
+											<p:outputLabel value="Activo"
+												rendered="#{'A' eq usuario.active}" />
+											<p:outputLabel value="InActivo"
+												rendered="#{'I' eq usuario.active}" />
+
+											<p:commandButton action="#{userBean.eliminarUsuario}"
+												value="Bloquear" />
+											<p:commandButton action="#{userBean.modificarUsuario}"
+												value="Desbloquear" />
 
 										</p:panelGrid>
 									</p:panel>
 								</p:dataGrid>
 							</p:tab>
-
-
 						</p:tabView>
 
 					</p:panelGrid></td>
 			</tr>
 		</table>
 
-
-
-
-
-		<p:dialog id="tbl" header="Parametro" widgetVar="parameter"
-			modal="true" height="100%" showEffect="explode">
-
-			<p:dataTable var="parameter"
-				value="#{parameterBean.listarParametros}">
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Id" />
-					</f:facet>
-					<h:outputText value="#{parameter.id}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Id usuario" />
-					</f:facet>
-					<h:outputText value="#{parameter.parameterType}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="días cambio de contraseña" />
-					</f:facet>
-					<h:outputText value="#{parameter.parameterCode}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="limite días cambio contraseña" />
-					</f:facet>
-					<h:outputText value="#{parameter.textValue}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="intentos" />
-					</f:facet>
-					<h:outputText value="#{parameter.numberValue}" />
-				</p:column>
-			</p:dataTable>
-			<h:commandLink value="exportarPDF">
-				<p:dataExporter type="pdf" target="tbl" fileName="Parametros"
-					pageOnly="true" />
-			</h:commandLink>
-			<h1></h1>
-			<h:commandLink value="exportarEXl">
-				<p:dataExporter type="xls" target="tbl" fileName="Parametros"
-					pageOnly="true" />
-			</h:commandLink>
-		</p:dialog>
-		<p:dialog header="Auditorio" widgetVar="auditorio" modal="true"
-			height="100%" showEffect="explode">
-
-			<p:dataTable id="tbl1" var="audit"
-				value="#{auditBean.listarAuditorias}">
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Id" />
-					</f:facet>
-					<h:outputText value="#{audit.id}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Id de usuarios" />
-					</f:facet>
-					<h:outputText value="#{audit.userId}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Operacion" />
-					</f:facet>
-					<h:outputText value="#{audit.operation}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="nombre de la tabla" />
-					</f:facet>
-					<h:outputText value="#{audit.tableName}" />
-				</p:column>
-				<p:column>
-
-					<f:facet name="header">
-						<h:outputText value="Id de la tabla" />
-					</f:facet>
-					<h:outputText value="#{audit.tableId}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Fecha" />
-					</f:facet>
-					<h:outputText value="#{audit.createDate}" />
-				</p:column>
-			</p:dataTable>
-			<h:commandLink value="exportarPDF">
-				<p:dataExporter type="pdf" target="tbl1" fileName="Auditoria"
-					pageOnly="true" />
-			</h:commandLink>
-			<h1></h1>
-			<h:commandLink value="exportarEXl">
-				<p:dataExporter type="xls" target="tbl1" fileName="Auditoria"
-					pageOnly="true" />
-			</h:commandLink>
-		</p:dialog>
-		<p:dialog header="Usuario" widgetVar="usuario" modal="true"
-			height="100%" showEffect="explode">
-			<p:dataTable id="tbl2" var="user" value="#{userBean.listarUsuario}"
-				widgetVar="dlg1">
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputLabel value="Id" />
-					</f:facet>
-					<h:outputText value="#{user.id}" />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Nombre del usuario" />
-					</f:facet>
-					<h:outputText value="#{user.userName}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Contraseña" />
-					</f:facet>
-					<h:outputText value="*******" />
-
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Nombre Completo" />
-					</f:facet>
-					<h:outputText value="#{user.fullName}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Correo" />
-					</f:facet>
-					<h:outputText value="#{user.emailAddress}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Telefono" />
-					</f:facet>
-					<h:outputText value="#{user.phoneNumber}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Fecha de contraseña" />
-					</f:facet>
-					<h:outputText value="#{user.dateLastPassword}" />
-				</p:column>
-				<p:column>
-
-					<f:facet name="header">
-						<h:outputText value="Estado" />
-					</f:facet>
-					<h:outputText value="Activo" rendered="#{'A' eq user.active}" />
-					<h:outputText value="InActivo" rendered="#{'I' eq user.active}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Tipo de usuario" />
-					</f:facet>
-					<h:outputText value="#{user.userType}" />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Eliminar" />
-					</f:facet>
-					<h:commandButton action="#{userBean.eliminarUsuario}"
-						value="Eliminar" />
-				</p:column>
-				<p:column>
-					<p:commandLink value="desbloquear"
-						actionListener="#{userBean.modificarUsuario}" />
-				</p:column>
-			</p:dataTable>
-			<h:commandLink value="exportarPDF">
-				<p:dataExporter type="pdf" target="tbl2" fileName="Auditoria"
-					pageOnly="true" />
-			</h:commandLink>
-			<h1></h1>
-			<h:commandLink value="exportarEXl">
-				<p:dataExporter type="xls" target="tbl2" fileName="Auditoria"
-					pageOnly="true" />
-			</h:commandLink>
-		</p:dialog>
 	</h:form>
 </h:body>
 </html>
