@@ -38,6 +38,13 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
+	public User verificarUsuario(String userName, String password) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return  (User) session.createQuery("from User WHERE userName = '" + userName + "' AND password = '"+password+"'").uniqueResult();
+
+	}
+	
+	@Override
 	public void remove(User usuario) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
@@ -52,5 +59,6 @@ public class UserDAOImpl implements UserDAO{
 		session.update(usuario);
 		t.commit();
 	}
+
 
 }

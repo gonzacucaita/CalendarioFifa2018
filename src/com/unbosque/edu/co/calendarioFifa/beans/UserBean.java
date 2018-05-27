@@ -53,14 +53,14 @@ public class UserBean {
 	
 	private static Logger log = Logger.getLogger(UserBean.class);
 	
-	public UserBean()
-	{
-		 images = new ArrayList<String>();
-       for (int i = 1; i <= 4; i++) {
-           images.add("noti" + i + ".jpg");
-       }
-       
-	}
+//	public UserBean()
+//	{
+//		 images = new ArrayList<String>();
+//       for (int i = 1; i <= 4; i++) {
+//           images.add("noti" + i + ".jpg");
+//       }
+//       
+//	}
 
 	
 	/**
@@ -71,107 +71,122 @@ public class UserBean {
 	
 	public String validarUsuario() {
 
-		UserService us = new UserService();
-		BasicConfigurator.configure();
-		String respuesta = "registro";
-		Iterator<User> aux = getListarUsuario().iterator();
-		boolean existe = false;
-		AuditService as = new AuditService();
-
-
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
-
-		while (aux.hasNext() && existe == false) {
-
-			usuario = aux.next();
-			ParameterService ps = new ParameterService();
-			String idUsuario = "";
-			int ingresos = 0;
-			long idParameter = 0;
-			int intentos = 0;
-			String fechaLimite = "";
-			List<Parameter> listap = ps.list();
-			boolean encontro = false;
-			for (int i = 0; i < listap.size() && encontro == false; i++) {
-				
-				if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
-					idUsuario = listap.get(i).getTextValue();
-					ingresos = Integer.parseInt(listap.get(i).getParameterCode());
-					idParameter = listap.get(i).getId();
-					intentos = listap.get(i).getNumberValue();
-					fechaLimite = listap.get(i).getParameterType();
-					encontro = true;
-					listap.get(i).setParameterCode((ingresos+1)+"");
-					ps.update(listap.get(i));
-				}
-			}
-
-			
-			boolean contra = usuario.getPassword().equals(contrasenia);
-
-			boolean use = usuario.getUserName().equals(ingresarUsuario);
-
-			if (contra && use && usuario.getActive().equals("A")) {
-		long fechaIngreso = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
-				if (usuario.getUserType().equals("ADMIN")) {
-					respuesta = "/Administrador/administrador";
-				} else if (usuario.getUserType().equals("FUNCIONAL")) {
-					respuesta = "/UserFuncional/funcional";
-				} else if(usuario.getUserType().equals("cliente")){
-					
-					if(ingresos == 0 || fechaIngreso>= Integer.parseInt(fechaLimite)) {
-						respuesta = "/User/nuevaContraseña";
-					}
-					else {
-						
-						respuesta = "/User/paginaInicio";
-					}
-				
-				}
-
-				
-				auditoria.setUserId(usuario.getId());
-				auditoria.setOperation("E");
-				auditoria.setTableName("user");
-				auditoria.setTableId(auditoria.getId());
-				auditoria.setCreateDate(new Date());
-				as.save(auditoria);
-				if (log.isInfoEnabled()) {
-					log.info("Ingreso de usuario correcto : Usuario: " + usuario.getUserName() + " tipo: "
-							+ usuario.getUserType());
-				}
-				existe = true;
-
-				for (int i = 0; i < listap.size() && encontro == false; i++) {
-					
-					if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
-						listap.get(i).setParameterCode((ingresos +1)+"");
-					}
-				}
-			} else if (use && contra == false && usuario.getActive().equals("A")) {
-				INTENTOS++;
-				if (INTENTOS == intentos) {
-					usuario.setActive("I");
-					us.update(usuario);
-					auditoria.setUserId(usuario.getId());
-					auditoria.setOperation("B");
-					auditoria.setTableName("user");
-					auditoria.setTableId(auditoria.getId());
-					auditoria.setCreateDate(new Date());
-					as.save(auditoria);
-					respuesta = "/Error/ErrorLogin";
-					INTENTOS = 0;
-					existe = true;
-				} else {
-					respuesta = "/Principal/login";
-				}
-				 
-
-			}
+		UserService us = new UserService();
+		usuario = us.verificarUsuario(ingresarUsuario, contrasenia);
+		
+		if(usuario != null) {
+		if(usuario.getUserType().equals("ADMIN")) {
+			return "/Administrador/administrador";
 		}
+		else if( usuario.getUserType().equals("FUNCIONAL")) {
+			return "/UserFuncional/funcional";
+		}
+		else if(usuario.getUserType().equals("cliente")){
+			return "/User/paginaInicio";
+		}
+		}
+//		UserService us = new UserService();
+//		BasicConfigurator.configure();
+//		String respuesta = "registro";
+//		Iterator<User> aux = getListarUsuario().iterator();
+//		boolean existe = false;
+//		AuditService as = new AuditService();
+//
+//
+//		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
+//
+//		while (aux.hasNext() && existe == false) {
+//
+//			usuario = aux.next();
+//			ParameterService ps = new ParameterService();
+//			String idUsuario = "";
+//			int ingresos = 0;
+//			long idParameter = 0;
+//			int intentos = 0;
+//			String fechaLimite = "";
+//			List<Parameter> listap = ps.list();
+//			boolean encontro = false;
+//			for (int i = 0; i < listap.size() && encontro == false; i++) {
+//				
+//				if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
+//					idUsuario = listap.get(i).getTextValue();
+//					ingresos = Integer.parseInt(listap.get(i).getParameterCode());
+//					idParameter = listap.get(i).getId();
+//					intentos = listap.get(i).getNumberValue();
+//					fechaLimite = listap.get(i).getParameterType();
+//					encontro = true;
+//					listap.get(i).setParameterCode((ingresos+1)+"");
+//					ps.update(listap.get(i));
+//				}
+//			}
+//
+//			
+//			boolean contra = usuario.getPassword().equals(contrasenia);
+//
+//			boolean use = usuario.getUserName().equals(ingresarUsuario);
+//
+//			if (contra && use && usuario.getActive().equals("A")) {
+//		long fechaIngreso = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
+//				if (usuario.getUserType().equals("ADMIN")) {
+//					respuesta = "/Administrador/administrador";
+//				} else if (usuario.getUserType().equals("FUNCIONAL")) {
+//					respuesta = "/UserFuncional/funcional";
+//				} else if(usuario.getUserType().equals("cliente")){
+//					
+//					if(ingresos == 0 || fechaIngreso>= Integer.parseInt(fechaLimite)) {
+//						respuesta = "/User/nuevaContraseña";
+//					}
+//					else {
+//						
+//						respuesta = "/User/paginaInicio";
+//					}
+//				
+//				}
+//
+//				
+//				auditoria.setUserId(usuario.getId());
+//				auditoria.setOperation("E");
+//				auditoria.setTableName("user");
+//				auditoria.setTableId(auditoria.getId());
+//				auditoria.setCreateDate(new Date());
+//				as.save(auditoria);
+//				if (log.isInfoEnabled()) {
+//					log.info("Ingreso de usuario correcto : Usuario: " + usuario.getUserName() + " tipo: "
+//							+ usuario.getUserType());
+//				}
+//				existe = true;
+//
+//				for (int i = 0; i < listap.size() && encontro == false; i++) {
+//					
+//					if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
+//						listap.get(i).setParameterCode((ingresos +1)+"");
+//					}
+//				}
+//			} else if (use && contra == false && usuario.getActive().equals("A")) {
+//				INTENTOS++;
+//				if (INTENTOS == intentos) {
+//					usuario.setActive("I");
+//					us.update(usuario);
+//					auditoria.setUserId(usuario.getId());
+//					auditoria.setOperation("B");
+//					auditoria.setTableName("user");
+//					auditoria.setTableId(auditoria.getId());
+//					auditoria.setCreateDate(new Date());
+//					as.save(auditoria);
+//					respuesta = "/Error/ErrorLogin";
+//					INTENTOS = 0;
+//					existe = true;
+//				} else {
+//					respuesta = "/Principal/login";
+//				}
+//				 
+//
+//			}
+//		}
 		contrasenia = "";
 		ingresarUsuario = "";
-		return respuesta;
+		return "/Principal/registro";
 	}
 
 	public String prepararAdicionarUsuario() {
@@ -180,13 +195,13 @@ public class UserBean {
 		usuario.setDateLastPassword(new Date());
 		usuario.setUserType("cliente");
 
-		return "registro";
+		return "/Principal/registro";
 	}
 
 	public String adicionarUsuario() {
 
 		UserService dao = new UserService();
-		String contra = getGenerarContrasenia();
+		String contra = DiferenciaFechas.getGenerarContrasenia();
 		usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
 		dao.save(usuario);
 		String de = "calendario.fifa.uelbosque@gmail.com";
@@ -259,7 +274,7 @@ public class UserBean {
 		UserService dao = new UserService();
 		AuditService as = new AuditService();
 
-		String contraseniaNueva = getGenerarContrasenia();
+		String contraseniaNueva = DiferenciaFechas.getGenerarContrasenia();
 		usuario.setActive("A");
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
@@ -518,20 +533,7 @@ public void modificarEstadio() {
 		return listaUsuarios;
 	}
 
-	public String getGenerarContrasenia() {
-
-		String contrasenia = "";
-		String caracteres = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz1234567890";
-
-		for (int i = 0; i < 8; i++) {
-			char a = caracteres.charAt((int) (Math.random() * caracteres.length()));
-			contrasenia += a;
-
-		}
-
-		return contrasenia;
-	}
-	
+		
 	public String getSolicitarContrasenia() {
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
@@ -546,7 +548,7 @@ public void modificarEstadio() {
 	public String getOlvideContrasenia() {
 		INTENTOS = 0;
 		UserService us = new UserService();
-		String nueva = getGenerarContrasenia();
+		String nueva = DiferenciaFechas.getGenerarContrasenia();
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
 		String asunto = "NUEVA CONTRASEÑA, CALENDARIO FIFA";

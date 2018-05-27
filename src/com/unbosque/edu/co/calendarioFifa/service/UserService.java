@@ -27,4 +27,9 @@ public class UserService {
 	public void update(User usuario) {
 		dao.update(usuario);
 	}
+	
+	public User verificarUsuario(String userName, String password) {
+		
+		return dao.verificarUsuario(userName, password);
+	}
 }
