@@ -28,8 +28,8 @@ public class UserService {
 		dao.update(usuario);
 	}
 	
-	public User verificarUsuario(String userName, String password) {
+	public User verificarUsuario(String userName) {
 		
-		return dao.verificarUsuario(userName, password);
+		return dao.verificarUsuario(userName);
 	}
 }

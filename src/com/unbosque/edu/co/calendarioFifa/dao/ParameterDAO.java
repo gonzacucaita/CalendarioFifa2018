@@ -17,5 +17,7 @@ public interface ParameterDAO {
 	public void remove(Parameter parametro);
 
 	public void update(Parameter parametro);
+	
+	public Parameter verificarParametro(String textValue);
 }
 

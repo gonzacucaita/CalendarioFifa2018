@@ -14,7 +14,7 @@ public interface UserDAO {
 	
 	public void remove(User usuario);
 	
-	public User verificarUsuario(String userName, String password); 
+	public User verificarUsuario(String userName); 
 	
 	public void update(User usuario);
 	

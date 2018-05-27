@@ -38,9 +38,9 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public User verificarUsuario(String userName, String password) {
+	public User verificarUsuario(String userName) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		return  (User) session.createQuery("from User WHERE userName = '" + userName + "' AND password = '"+password+"'").uniqueResult();
+		return  (User) session.createQuery("from User WHERE userName = '" + userName + "'").uniqueResult();
 
 	}
 	

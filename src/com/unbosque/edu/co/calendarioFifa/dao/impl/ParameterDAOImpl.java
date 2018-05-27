@@ -62,4 +62,10 @@ public class ParameterDAOImpl implements ParameterDAO {
 		t.commit();
 	}
 
+	@Override
+	public Parameter verificarParametro(String textValue) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return (Parameter) session.createQuery("from Parameter WHERE textValue = '"+ textValue+ "'").uniqueResult();
+	}
+
 }

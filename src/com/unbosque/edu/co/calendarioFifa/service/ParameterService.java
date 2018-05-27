@@ -33,4 +33,8 @@ public class ParameterService {
 	public void update(Parameter parametro) {
 		dao.update(parametro);
 	}
+	
+	public Parameter verificarParametros(String idUsuario) {
+		return dao.verificarParametro(idUsuario);
+	}
 }
