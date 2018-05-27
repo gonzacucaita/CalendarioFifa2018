@@ -1,6 +1,5 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
-
-import javax.faces.application.FacesMessage;
+	
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.context.FacesContext;
@@ -75,28 +74,30 @@ public class UserBean {
 		ingresarUsuario = "";
 		ParameterService ps = new ParameterService();
 		if (usuario != null) {
-			Parameter pa =  ps.verificarParametros(usuario.getId()+"");
-			
+			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
 				// mandar mensaje de que se equivoco
-				if(usuario.getUserType().equals("cliente")) {
+				if (usuario.getUserType().equals("cliente")) {
 					INTENTOS++;
-					if(INTENTOS == pa.getNumberValue() ) {
+					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
-						us.save(usuario);
+						us.update(usuario);
 						INTENTOS = 0;
 						auditoria.setUserId(usuario.getId());
 						auditoria.setOperation("B");
 						auditoria.setTableId(usuario.getId());
 						auditoria.setCreateDate(new Date());
+						auditoria.setTableName("User");
 						auditService.save(auditoria);
 						return "/Error/ErrorLogin";
 					}
-					
+					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "CONTRASEÑA INCORRECTA");
+			        FacesContext.getCurrentInstance().addMessage(null, message);
+
 				}
 				return "/Principal/login";
-			} else if(usuario.getActive().equals("A")) {
+			} else if (usuario.getActive().equals("A")) {
 				if (usuario.getUserType().equals("ADMIN")) {
 
 					return "/Administrador/administrador";
@@ -107,12 +108,12 @@ public class UserBean {
 				} else if (usuario.getUserType().equals("cliente")) {
 					long diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					int ingresos = Integer.parseInt(pa.getParameterCode());
-					if(ingresos == 0|| diasDif >= Integer.parseInt(pa.getParameterType())) {
-						pa.setParameterCode((ingresos + 1)+"");
+					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
-						return "/User/nuevaContraseña"; 
+						return "/User/nuevaContraseña";
 					}
-					pa.setParameterCode((ingresos + 1)+"");
+					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
 					
 					return "/User/paginaInicio";
@@ -123,7 +124,8 @@ public class UserBean {
 				auditoria.setTableId(usuario.getId());
 				auditoria.setCreateDate(new Date());
 				auditService.save(auditoria);
-			}else {
+			} else {
+				
 				return "/Error/ErrorLogin";
 			}
 		}
@@ -229,6 +231,9 @@ public class UserBean {
 		// }
 		contrasenia = "";
 		ingresarUsuario = "";
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "USUARIO NO EXISTE");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
 		return "/Principal/registro";
 	}
 
@@ -237,6 +242,7 @@ public class UserBean {
 		usuario.setActive("A");
 		usuario.setDateLastPassword(new Date());
 		usuario.setUserType("cliente");
+		usuario.setPhoneNumber(" ");
 
 		return "/Principal/registro";
 	}
@@ -244,46 +250,54 @@ public class UserBean {
 	public String adicionarUsuario() {
 
 		UserService dao = new UserService();
-		String contra = DiferenciaFechas.getGenerarContrasenia();
-		usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
-		dao.save(usuario);
-		String de = "calendario.fifa.uelbosque@gmail.com";
-		String clave = "patatafrita";
-		String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
-		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "BIENVENIDO " + usuario.getFullName() + "\n" + "\n"
-				+ "\n" + "\n" + "tu cuenta se ha generado exitosamente \n" + "\n" + "\n    " + "usuario: "
-				+ usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n" + "\n"
-				+ "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
-				+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
+		User existe = dao.verificarUsuario(usuario.getUserName());
+		if (existe == null) {
+			String contra = DiferenciaFechas.getGenerarContrasenia();
+			usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
+			dao.save(usuario);
+			String de = "calendario.fifa.uelbosque@gmail.com";
+			String clave = "patatafrita";
+			String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
+			String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "BIENVENIDO " + usuario.getFullName() + "\n"
+					+ "\n" + "\n" + "\n" + "tu cuenta se ha generado exitosamente \n" + "\n" + "\n    " + "usuario: "
+					+ usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n" + "\n"
+					+ "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+					+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
 
-		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 
-		AuditService as = new AuditService();
+			AuditService as = new AuditService();
 
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("user");
-		auditoria.setTableId(usuario.getId());
-		auditoria.setCreateDate(new Date());
-		as.save(auditoria);
+			auditoria.setUserId(usuario.getId());
+			auditoria.setOperation("C");
+			auditoria.setTableName("user");
+			auditoria.setTableId(usuario.getId());
+			auditoria.setCreateDate(new Date());
+			as.save(auditoria);
 
-		Parameter parameter = new Parameter();
-		ParameterService ps = new ParameterService();
+			Parameter parameter = new Parameter();
+			ParameterService ps = new ParameterService();
 
-		String a = usuario.getId() + "";
-		parameter.setTextValue(a);
-		// numero de dias para cambiar contraseña
-		parameter.setParameterType("9");
-		// no sirve para nada pero no deja agregar si no se llena el campo
-		parameter.setDescriptionParameter(" ");
-		// numero de ingresos
-		parameter.setParameterCode("0");
-		// numero de intentos de error
-		parameter.setNumberValue(3);
+			String a = usuario.getId() + "";
+			parameter.setTextValue(a);
+			// numero de dias para cambiar contraseña
+			parameter.setParameterType("9");
+			// no sirve para nada pero no deja agregar si no se llena el campo
+			parameter.setDescriptionParameter(" ");
+			// numero de ingresos
+			parameter.setParameterCode("0");
+			// numero de intentos de error
+			parameter.setNumberValue(3);
 
-		ps.save(parameter);
+			ps.save(parameter);
 
-		return "inicio";
+			return "inicio";
+		}
+		
+		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "ESTE USUARIO YA EXISTE");
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+
+		return "registro";
 	}
 
 	/**
