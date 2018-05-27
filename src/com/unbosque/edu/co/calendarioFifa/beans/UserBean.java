@@ -111,6 +111,7 @@ public class UserBean {
 						return "/User/nuevaContraseña"; 
 					}
 					pa.setParameterCode((ingresos + 1)+"");
+					ps.update(pa);
 					
 					return "/User/paginaInicio";
 
