@@ -10,359 +10,583 @@
 		<title><h:outputText value="#{principal.tituloFuncional}" /></title>
 
 		<style type="text/css">
-			* {
-				box-sizing: border-box;
-			}
-			
-			body {
-				background-image: url('../img/captura3.jpg');
-				background-position: center center;
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-size: cover;
-			}
-			
-			.contentFlow {
-				background-color: rgba(222, 1, 36, 0.005);
-				background-size: 0.000005%;
-				border: 1px solid transparent;
-				width: 250%;
-				height: 100%;
-				position: relative;
-				z-index: 0;
-				top: 100px;
-				right: 550px;
-				overflow-x: hidden;
-				position: relative;
-			}
-			
-			.column {
-				float: left;
-				padding: 10px;
-				height: 300px; /* Should be removed. Only for demonstration */
-			}
-			
-			/* Left and right column */
-			.column.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column.middle {
-				width: 50%;
-			}
-			
-			.column
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.contentFlow {
+	background-color: rgba(222, 1, 36, 0.005);
+	background-size: 0.000005%;
+	border: 1px solid transparent;
+	width: 250%;
+	height: 100%;
+	position: relative;
+	z-index: 0;
+	top: 100px;
+	right: 550px;
+	overflow-x: hidden;
+	position: relative;
+}
+
+.column {
+	float: left;
+	padding: 10px;
+	height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Left and right column */
+.column.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column.middle {
+	width: 50%;
+}
+
+.column
 			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			.middle {
-				width: 50%;
-			}
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column
+			.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column
+			.middle {
+	width: 50%;
+}
+
+.column
 			
-			.column .middle { width: 50%; } .column .side { width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .middle {
-				width: 50%; } .column .side { width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .middle {
-				width: 50%; } .column .side { width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .middle {
-				width: 50%; } .column .side { width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .middle {
-				width: 50%; } .column .side { width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%; } .column .side {
-				width: 50%; }
-				/* Middle column */ .column .middle { width: 50%;
-			}
 			
-			.column
-			.side
-			{
-			width
-			:
-			50%;
-			}
-			
-			/* Middle column */
-			.column
-			.middle
-			{
-			width
-			:
-			50%;
-			}
-			.column
+			.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			
 			
-			.side
-			{
-			width
-			:
-			50%;
-			}
-			
-			/* Middle column */
-			.column
-			
-			
-			.middle
-			{
-			width
-			:
-			50%;
-			}
-			.column
+			.middle {
+	width: 50%;
+}
+
+.column
 				.middle {
-				width: 50%;
-			}
-			
-			.column .side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column
 			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			.middle {
-				width: 50%;
-			}
-			
-			.column
-			
-			
-			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
-			
-			
-			.middle {
-				width: 50%;
-			}
-			
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column .side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column .side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column .side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column .side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column .middle {
-				width: 50%;
-			}
-			
-			.column
-			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
-			.middle {
-				width: 50%;
-			}
-			
-			.column
+	width: 50%;
+}
+
+.column
 			
 			
 			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			
 			
 			.middle {
-				width: 50%;
-			}
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column .side {
+	width: 50%;
+}
+/* Middle column */
+.column .middle {
+	width: 50%;
+}
+
+.column
+			.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column
+			.middle {
+	width: 50%;
+}
+
+.column
 			
-			.column
+			
+			.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column
+			
+			
+			.middle {
+	width: 50%;
+}
+
+.column
 			
 				
 			.middle {
-				width: 50%;
-			}
-			
-			.column
+	width: 50%;
+}
+
+.column
 			 
 			.side {
-				width: 50%;
-			}
-			/* Middle column */
-			.column
+	width: 50%;
+}
+/* Middle column */
+.column
 			 
 			.middle {
-				width: 50%;
-			}
-			
-			.column
-			
-			
-			.side {
-				width: 50%;
-			}
-			
-			/* Middle column */
-			.column
-			
-			
-			.middle {
-				width: 50%;
-			}
-			
-			.column
-			
-			
+	width: 50%;
+}
+
+.column
 			
 			
 			.side {
-				width: 50%;
-			}
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			
-			/* Middle column */
-			.column
+			
+			.middle {
+	width: 50%;
+}
+
+.column
+			
+			
+			
+			
+			.side {
+	width: 50%;
+}
+
+/* Middle column */
+.column
 			
 			
 			
 			
 			.middle {
-				width: 50%;
-			}
-			
-			/* Clear floats after the columns */
-			.row:after {
-				content: "";
-				display: table;
-				clear: both;
-			}
-			
-			/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-			@media ( max-width : 600px) {
-				.column.side, .column.middle {
-					width: 100%;
-				}
-			}
+	width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media ( max-width : 600px) {
+	.column.side, .column.middle {
+		width: 100%;
+	}
+}
 </style>
 	</h:head>
 	<h:body>
-		<h:form>
-		
-		
-		
-		
-			<p:commandButton action="/Principal/inicio" value="Cerrar sesion"
-				style="float:right;" />
-			<div class="row">
 
+		<p:layout fullPage="true">
 
-				<div class="column side">
-
-					<TABLE align="center">
-						<tr>
-							<td><p:commandLink action="arbitroUsuario" title="Arbitro">
-									<h:graphicImage url="/img/btnarbitro.png" />
-								</p:commandLink></td>
-								
-							<td><p:commandLink action="estadioUsuario" title="Estadio">
-									<h:graphicImage url="/img/btncanchas.png" />
-								</p:commandLink></td>
-						</tr>
-						
-						<tr>
-							<td><p:commandLink action="calendarioUsuario" title="Calendario">
-									<h:graphicImage url="/img/btncalendario.png" />
-								</p:commandLink></td>
-								
-							<td><p:commandLink action="goleadorUsuario" title="Goleador">
-									<h:graphicImage url="/img/btngoleador.png" />
-								</p:commandLink></td>
-						</tr>
-
-						<tr align="center">
-							<td colspan="2"><p:commandLink action="equipoUsuario"
-									title="Equipo">
-									<h:graphicImage url="/img/btnequipo.png" />
-								</p:commandLink></td>
-						</tr>
-
-					</TABLE>
-
-
-				</div>
-
-
-				<div class="column middle">
-
-					<p:contentFlow value="#{userBean.images}" var="image"
-						styleClass="contentFlow">
-						<p:graphicImage value="/demo/images/nature/#{image}"
-							styleClass="content" />
-
-					</p:contentFlow>
-
-
-				</div>
+			<p:layoutUnit position="north" size="100" header="Top"
+				resizable="true" collapsible="true">
 
 
 
-			</div>
-		</h:form>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="100" header="Bottom"
+				resizable="true" collapsible="true">
+				<h:outputText value="South unit content." />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="200" header="Informacion"
+				resizable="true" collapsible="true">
+
+				<h:form id="form1">
+					<p:commandButton value="Editar usuario" orientation="center"
+						style="text-align:center" />
+					<p:commandButton value="Cerrar sesion" orientation="center"
+						style="text-align:center" action="/Principal/inicio"/>
+				</h:form>
+
+			</p:layoutUnit>
+
+			<p:layoutUnit position="east" size="200" header="Noticias"
+				resizable="true" collapsible="true" effect="drop">
+
+				<h:form id="form2">
+					<p:panelGrid columns="1">
+
+						<p:imageSwitch effect="fade" id="fadeEffect"
+							value="#{userBean.images}" var="image">
+							<p:graphicImage value="/demo/images/nature/#{image}"
+								styleClass="content" />
+						</p:imageSwitch>
+
+
+
+
+					</p:panelGrid>
+				</h:form>
+
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+
+				<h:form id="form">
+					<p:tabView orientation="center" style="text-align:center">
+
+
+						<p:tab title="Equipo">
+
+							<p:dataGrid var="equipo" value="#{teamBean.listarEquipos}"
+								columns="2" layout="grid" rows="12" paginator="true" id="equipo"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="20,12,16">
+
+
+								<p:panel header="#{equipo.country}" style="text-align:center">
+
+									<h:panelGrid columns="2" style="width:100%">
+
+										<p:outputLabel value="Bandera: " />
+										<p:outputLabel value="#{equipo.flag}" />
+
+										<p:outputLabel value="Grupo: " />
+										<p:outputLabel value="#{equipo.group}" />
+
+										<p:outputLabel value="Jugadores: " />
+										<p:outputLabel value="#{equipo.playedGames}" />
+
+										<p:outputLabel value="Partidos ganados: " />
+										<p:outputLabel value="#{equipo.wonMatches}" />
+
+										<p:outputLabel value="Partidos empatados: " />
+										<p:outputLabel value="#{equipo.tiedMatches}" />
+
+										<p:outputLabel value="Partidos perdidos: " />
+										<p:outputLabel value="#{equipo.lostMatches}" />
+
+										<p:outputLabel value="Goles a favor: " />
+										<p:outputLabel value="#{equipo.goalsFavor}" />
+
+										<p:outputLabel value="Goles encontra: " />
+										<p:outputLabel value="#{equipo.goalsAgainst}" />
+
+
+									</h:panelGrid>
+
+								</p:panel>
+							</p:dataGrid>
+						</p:tab>
+
+						<p:tab title="Estadio">
+
+							<p:dataGrid var="estadio" value="#{stadiumBean.listarEstadios}"
+								columns="2" layout="grid" rows="12" paginator="true"
+								id="estadio"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="20,12,16">
+
+
+								<p:panel header="#{estadio.city}" style="text-align:center">
+
+									<h:panelGrid columns="2" style="width:100%">
+
+										<p:outputLabel value="Foto: " />
+										<p:outputLabel value="#{estadio.photo}" />
+
+										<p:outputLabel value="Capacidad: " />
+										<p:outputLabel value="#{estadio.capacity}" />
+
+										<p:outputLabel value="Poblacion: " />
+										<p:outputLabel value="#{estadio.population}" />
+
+										<p:outputLabel value="Temperatura: " />
+										<p:outputLabel value="#{estadio.temperature}" />
+
+									</h:panelGrid>
+
+								</p:panel>
+
+
+							</p:dataGrid>
+						</p:tab>
+
+
+						<p:tab title="Arbitro">
+
+							<p:dataGrid var="arbitro" value="#{refereeBean.listarArbitros}"
+								columns="2" layout="grid" rows="12" paginator="true"
+								id="arbitro"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="20,12,16">
+
+
+								<p:panel header="#{arbitro.fullName}" style="text-align:center">
+
+									<h:panelGrid columns="2" style="width:100%">
+
+										<p:outputLabel value="Nacionalidad: " />
+										<p:outputLabel value="#{arbitro.nationality}" />
+
+										<p:outputLabel value="Estado: " />
+										<p:outputLabel value="#{arbitro.state}" />
+
+										<p:commandButton value="Modificar"
+											action="#{refereeBean.prepararModificarArbitro}" />
+										<p:commandButton value="Eliminar" />
+
+									</h:panelGrid>
+
+								</p:panel>
+
+
+							</p:dataGrid>
+						</p:tab>
+
+						<p:tab title="Goleador">
+
+							<p:dataGrid var="gol" value="#{goalscorerBean.listarGoleadores}"
+								columns="2" layout="grid" rows="12" paginator="true"
+								id="goleador"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="20,12,16">
+
+
+								<p:panel header="#{gol.fullName}" style="text-align:center">
+
+									<h:panelGrid columns="2" style="width:100%">
+
+										<p:outputLabel value="Goles: " />
+										<p:outputLabel value="#{gol.goals}" />
+
+										<p:outputLabel value="Foto: " />
+										<p:outputLabel value="#{gol.photo}" />
+
+										<p:outputLabel value="Equipo: " />
+										<p:outputLabel value="#{gol.team}" />
+
+									</h:panelGrid>
+
+								</p:panel>
+
+
+							</p:dataGrid>
+						</p:tab>
+					</p:tabView>
+
+
+				</h:form>
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+
 	</h:body>
 </f:view>
 </html>

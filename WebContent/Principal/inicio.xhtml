@@ -89,6 +89,13 @@
 						styleClass="content" />
 
 				</p:contentFlow>
+				
+				<p:imageSwitch effect="fade" id="fadeEffect"
+						value="#{userBean.images}" var="image">
+						<p:graphicImage value="/demo/images/nature/#{image}"
+							styleClass="content" />
+					</p:imageSwitch>
+				
 			</div>
 			</table>
 		</h:form>
