@@ -72,6 +72,7 @@ public class UserBean {
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 		UserService us = new UserService();
 		usuario = us.verificarUsuario(ingresarUsuario);
+		ingresarUsuario = "";
 		ParameterService ps = new ParameterService();
 		if (usuario != null) {
 			Parameter pa =  ps.verificarParametros(usuario.getId()+"");
@@ -81,7 +82,6 @@ public class UserBean {
 				// mandar mensaje de que se equivoco
 				if(usuario.getUserType().equals("cliente")) {
 					INTENTOS++;
-					System.out.println(INTENTOS);
 					if(INTENTOS == pa.getNumberValue() ) {
 						usuario.setActive("I");
 						us.save(usuario);
@@ -108,6 +108,8 @@ public class UserBean {
 					long diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					int ingresos = Integer.parseInt(pa.getParameterCode());
 					if(ingresos == 0|| diasDif >= Integer.parseInt(pa.getParameterType())) {
+						pa.setParameterCode((ingresos + 1)+"");
+						ps.update(pa);
 						return "/User/nuevaContraseña"; 
 					}
 					pa.setParameterCode((ingresos + 1)+"");
