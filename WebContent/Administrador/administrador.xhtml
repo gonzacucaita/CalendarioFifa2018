@@ -34,96 +34,89 @@ body {
 <h:body>
 
 	<h:form>
+
 		<table align="center">
 
 			<tr>
-				<td><p:panelGrid columns="1" style="text-align:center">
+				<td><p:tabView orientation="center" style="text-align:center">
 
-						<p:panelGrid columns="4" style="text-align:center">
+						<p:tab title="Auditoria">
 
-						</p:panelGrid>
+							<p:dataGrid var="auditoria" value="#{auditBean.listarAuditorias}"
+								columns="2" layout="grid" rows="6" paginator="true" id="equipo"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="2,6,10">
 
-						<p:tabView orientation="center" style="text-align:center">
+								<p:panel header="#{auditoria.operation}"
+									style="text-align:center">
+									<p:panelGrid columns="2" style="width:100%">
 
-							<p:tab title="Auditoria">
+										<p:outputLabel value="ID de la tabla: " />
+										<p:outputLabel value="#{auditoria.tableId}" />
 
-								<p:dataGrid var="auditoria"
-									value="#{auditBean.listarAuditorias}" columns="2" layout="grid"
-									rows="6" paginator="true" id="equipo"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="2,6,10">
+										<p:outputLabel value="Nombre de la tabla: " />
+										<p:outputLabel value="#{auditoria.tableName}" />
 
-									<p:panel header="#{auditoria.operation}"
-										style="text-align:center">
-										<p:panelGrid columns="2" style="width:100%">
+										<p:outputLabel value="ID del usuario: " />
+										<p:outputLabel value="#{auditoria.userId}" />
 
-											<p:outputLabel value="ID de la tabla: " />
-											<p:outputLabel value="#{auditoria.tableId}" />
+										<p:outputLabel value="Operacion: " />
+										<p:outputLabel value="Crear"
+											rendered="#{'C' eq auditoria.operation}" />
+										<p:outputLabel value="Eliminar"
+											rendered="#{'E' eq auditoria.operation}" />
 
-											<p:outputLabel value="Nombre de la tabla: " />
-											<p:outputLabel value="#{auditoria.tableName}" />
+										<p:outputLabel value="Fecha de modificacion: " />
+										<p:outputLabel value="#{auditoria.createDate}" />
 
-											<p:outputLabel value="ID del usuario: " />
-											<p:outputLabel value="#{auditoria.userId}" />
-
-											<p:outputLabel value="Operacion: " />
-											<p:outputLabel value="Crear"
-												rendered="#{'C' eq auditoria.operation}" />
-											<p:outputLabel value="Eliminar"
-												rendered="#{'E' eq auditoria.operation}" />
-
-											<p:outputLabel value="Fecha de modificacion: " />
-											<p:outputLabel value="#{auditoria.createDate}" />
-
-										</p:panelGrid>
+									</p:panelGrid>
 
 
-									</p:panel>
+								</p:panel>
 
-								</p:dataGrid>
+							</p:dataGrid>
 
-							</p:tab>
+						</p:tab>
 
-							<p:tab title="Usuarios">
+						<p:tab title="Usuarios">
 
-								<p:dataGrid var="usuario" value="#{userBean.listarUsuario}"
-									columns="2" layout="grid" rows="6" paginator="true" id="usuario"
-									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="2,6,10">
+							<p:dataGrid var="usuario" value="#{userBean.listarUsuario}"
+								columns="2" layout="grid" rows="6" paginator="true" id="usuario"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="2,6,10">
 
-									<p:panel header="#{usuario.fullName}" style="text-align:center">
-										<p:panelGrid columns="2" style="width:100%">
+								<p:panel header="#{usuario.fullName}" style="text-align:center">
+									<p:panelGrid columns="2" style="width:100%">
 
-											<p:outputLabel value="Nombre de usuario: " />
-											<p:outputLabel value="#{usuario.userName}" />
+										<p:outputLabel value="Nombre de usuario: " />
+										<p:outputLabel value="#{usuario.userName}" />
 
-											<p:outputLabel value="Telefono: " />
-											<p:outputLabel value="#{usuario.phoneNumber}" />
+										<p:outputLabel value="Telefono: " />
+										<p:outputLabel value="#{usuario.phoneNumber}" />
 
-											<p:outputLabel value="Correo: " />
-											<p:outputLabel value="#{usuario.emailAddress}" />
+										<p:outputLabel value="Correo: " />
+										<p:outputLabel value="#{usuario.emailAddress}" />
 
-											<p:outputLabel value="Tipo de usuario: " />
-											<p:outputLabel value="#{usuario.userType}" />
+										<p:outputLabel value="Tipo de usuario: " />
+										<p:outputLabel value="#{usuario.userType}" />
 
-											<p:outputLabel value="Estado: " />
-											<p:outputLabel value="Activo"
-												rendered="#{'A' eq usuario.active}" />
-											<p:outputLabel value="InActivo"
-												rendered="#{'I' eq usuario.active}" />
+										<p:outputLabel value="Estado: " />
+										<p:outputLabel value="Activo"
+											rendered="#{'A' eq usuario.active}" />
+										<p:outputLabel value="InActivo"
+											rendered="#{'I' eq usuario.active}" />
 
-											<p:commandButton action="#{userBean.eliminarUsuario}"
-												value="Bloquear" />
-											<p:commandButton action="#{userBean.modificarUsuario}"
-												value="Desbloquear" />
+										<p:commandButton action="#{userBean.eliminarUsuario}"
+											value="Bloquear" />
+										<p:commandButton action="#{userBean.modificarUsuario}"
+											value="Desbloquear" />
 
-										</p:panelGrid>
-									</p:panel>
-								</p:dataGrid>
-							</p:tab>
-						</p:tabView>
-
-					</p:panelGrid></td>
+									</p:panelGrid>
+								</p:panel>
+							</p:dataGrid>
+						</p:tab>
+					</p:tabView></td>
+					<p:commandButton value="Salir" action="/Principal/inicio" />
 			</tr>
 		</table>
 
