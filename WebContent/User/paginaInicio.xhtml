@@ -387,8 +387,9 @@ body {
 </style>
 	</h:head>
 	<h:body>
+	<h:outputLabel value = "NO SE A INICIADO SESIÓN" rendered = "#{userBean.usuario.userType eq cliente}"/>
 
-		<p:layout fullPage="true">
+		<p:layout fullPage="true" rendered="#{userBean.verifica eq true}">
 
 			<p:layoutUnit position="north" size="100" header="Top"
 				resizable="true" collapsible="true">

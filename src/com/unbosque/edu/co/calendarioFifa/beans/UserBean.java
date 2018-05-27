@@ -1,11 +1,8 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 	
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -14,9 +11,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.primefaces.event.FlowEvent;
 
 import com.unbosque.edu.co.calendarioFifa.entity.*;
 import com.unbosque.edu.co.calendarioFifa.service.*;
@@ -39,6 +34,7 @@ public class UserBean {
 	private String contraseniaNueva;
 	private Audit auditoria = new Audit();
 	private AuditService auditService = new AuditService();
+	private boolean verifica = false;
 	/**
 	 * ATRIBUTOS PARA EL USUARIO FUNCIONAL
 	 */
@@ -97,6 +93,7 @@ public class UserBean {
 				}
 				return "/Principal/login";
 			} else if (usuario.getActive().equals("A")) {
+				
 				if (usuario.getUserType().equals("ADMIN")) {
 
 					return "/Administrador/administrador";
@@ -114,6 +111,7 @@ public class UserBean {
 					}
 					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
+					setVerifica(true);
 					
 					return "/User/paginaInicio";
 
@@ -124,7 +122,6 @@ public class UserBean {
 				auditoria.setCreateDate(new Date());
 				auditService.save(auditoria);
 			} else {
-				
 				
 				return "/Error/ErrorLogin";
 			}
@@ -582,4 +579,13 @@ public class UserBean {
 		this.images = images;
 	}
 
+	public boolean isVerifica() {
+		return verifica;
+	}
+
+	public void setVerifica(boolean verifica) {
+		this.verifica = verifica;
+	}
+
+	
 }
