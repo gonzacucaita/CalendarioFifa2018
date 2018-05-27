@@ -77,7 +77,6 @@ public class UserBean {
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				// mandar mensaje de que se equivoco
 				if (usuario.getUserType().equals("cliente")) {
 					INTENTOS++;
 					if (INTENTOS == pa.getNumberValue()) {
@@ -129,107 +128,7 @@ public class UserBean {
 				return "/Error/ErrorLogin";
 			}
 		}
-		// UserService us = new UserService();
-		// BasicConfigurator.configure();
-		// String respuesta = "registro";
-		// Iterator<User> aux = getListarUsuario().iterator();
-		// boolean existe = false;
-		// AuditService as = new AuditService();
-		//
-		//
-		// contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
-		//
-		// while (aux.hasNext() && existe == false) {
-		//
-		// usuario = aux.next();
-		// ParameterService ps = new ParameterService();
-		// String idUsuario = "";
-		// int ingresos = 0;
-		// long idParameter = 0;
-		// int intentos = 0;
-		// String fechaLimite = "";
-		// List<Parameter> listap = ps.list();
-		// boolean encontro = false;
-		// for (int i = 0; i < listap.size() && encontro == false; i++) {
-		//
-		// if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
-		// idUsuario = listap.get(i).getTextValue();
-		// ingresos = Integer.parseInt(listap.get(i).getParameterCode());
-		// idParameter = listap.get(i).getId();
-		// intentos = listap.get(i).getNumberValue();
-		// fechaLimite = listap.get(i).getParameterType();
-		// encontro = true;
-		// listap.get(i).setParameterCode((ingresos+1)+"");
-		// ps.update(listap.get(i));
-		// }
-		// }
-		//
-		//
-		// boolean contra = usuario.getPassword().equals(contrasenia);
-		//
-		// boolean use = usuario.getUserName().equals(ingresarUsuario);
-		//
-		// if (contra && use && usuario.getActive().equals("A")) {
-		// long fechaIngreso = DiferenciaFechas.DifeenciaFechas(new Date(),
-		// usuario.getDateLastPassword());
-		// if (usuario.getUserType().equals("ADMIN")) {
-		// respuesta = "/Administrador/administrador";
-		// } else if (usuario.getUserType().equals("FUNCIONAL")) {
-		// respuesta = "/UserFuncional/funcional";
-		// } else if(usuario.getUserType().equals("cliente")){
-		//
-		// if(ingresos == 0 || fechaIngreso>= Integer.parseInt(fechaLimite)) {
-		// respuesta = "/User/nuevaContraseña";
-		// }
-		// else {
-		//
-		// respuesta = "/User/paginaInicio";
-		// }
-		//
-		// }
-		//
-		//
-		// auditoria.setUserId(usuario.getId());
-		// auditoria.setOperation("E");
-		// auditoria.setTableName("user");
-		// auditoria.setTableId(auditoria.getId());
-		// auditoria.setCreateDate(new Date());
-		// as.save(auditoria);
-		// if (log.isInfoEnabled()) {
-		// log.info("Ingreso de usuario correcto : Usuario: " + usuario.getUserName() +
-		// " tipo: "
-		// + usuario.getUserType());
-		// }
-		// existe = true;
-		//
-		// for (int i = 0; i < listap.size() && encontro == false; i++) {
-		//
-		// if(listap.get(i).getTextValue().equals(usuario.getId()+"")) {
-		// listap.get(i).setParameterCode((ingresos +1)+"");
-		// }
-		// }
-		// } else if (use && contra == false && usuario.getActive().equals("A")) {
-		// INTENTOS++;
-		// if (INTENTOS == intentos) {
-		// usuario.setActive("I");
-		// us.update(usuario);
-		// auditoria.setUserId(usuario.getId());
-		// auditoria.setOperation("B");
-		// auditoria.setTableName("user");
-		// auditoria.setTableId(auditoria.getId());
-		// auditoria.setCreateDate(new Date());
-		// as.save(auditoria);
-		// respuesta = "/Error/ErrorLogin";
-		// INTENTOS = 0;
-		// existe = true;
-		// } else {
-		// respuesta = "/Principal/login";
-		// }
-		//
-		//
-		// }
-		// }
-		contrasenia = "";
+			contrasenia = "";
 		ingresarUsuario = "";
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "USUARIO NO EXISTE");
         FacesContext.getCurrentInstance().addMessage(null, message);
