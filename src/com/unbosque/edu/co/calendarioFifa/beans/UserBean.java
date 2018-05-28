@@ -289,8 +289,10 @@ public class UserBean {
 		List<Goalscorer> goalscorer = new GoalscorerService().list();
 		DataModel listaGoleadores = new ListDataModel(goalscorer);
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
-		return "pagina donde se modifica";
+		return "editarUsuario";
 	}
+	
+	
 
 	public void modificarGoleador() {
 		GoalscorerService gs = new GoalscorerService();
@@ -506,6 +508,19 @@ public class UserBean {
 
 		return "/Principal/login";
 	}
+	
+	
+	public String prepararModificarUsuarioNormal() {
+		usuario = (User) (listaUsuarios.getRowData());
+		return "editarUsuario";
+	}
+	
+	public String modificarUsuarioNormal() {
+		UserService dao = new UserService();
+		dao.update(usuario);
+		return "paginaInicio";
+	}
+	
 
 	public String getOlvideContrasenia() {
 		INTENTOS = 0;

@@ -387,7 +387,8 @@ body {
 </style>
 	</h:head>
 	<h:body>
-	<h:outputLabel value = "NO SE A INICIADO SESIÓN" rendered = "#{userBean.usuario.userType eq cliente}"/>
+		<h:outputLabel value="NO SE A INICIADO SESIÓN"
+			rendered="#{userBean.usuario.userType eq cliente}" />
 
 		<p:layout fullPage="true" rendered="#{userBean.verifica eq true}">
 
@@ -407,10 +408,10 @@ body {
 				resizable="true" collapsible="true">
 
 				<h:form id="form1">
-					<p:commandButton value="Editar usuario" orientation="center"
+					<p:commandButton value="Editar usuario" action="#{userBean.prepararModificarUsuarioNormal}" orientation="center"
 						style="text-align:center" />
 					<p:commandButton value="Cerrar sesion" orientation="center"
-						style="text-align:center" action="/Principal/inicio"/>
+						style="text-align:center" action="/Principal/inicio" />
 				</h:form>
 
 			</p:layoutUnit>
@@ -578,6 +579,37 @@ body {
 
 							</p:dataGrid>
 						</p:tab>
+
+						<p:tab title="Noticias">
+
+							<p:dataGrid var="news" value="#{newsBean.listarNoticias}"
+								columns="2" layout="grid" rows="12" paginator="true" id="new"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="4,12,20">
+
+
+								<p:panel header="#{news.shortDescription}"
+									style="text-align:center">
+
+									<h:panelGrid columns="2" style="width:100%">
+
+										<p:outputLabel value="Pequeña descripcion " />
+										<p:outputLabel value="#{news.shortDescription}" />
+
+										<p:outputLabel value="Descripcion larga: " />
+										<p:outputLabel value="#{news.largeDescription}" />
+
+										<p:outputLabel value="Fecha: " />
+										<p:outputLabel value="#{news.dateNews}" />
+
+									</h:panelGrid>
+
+								</p:panel>
+
+
+							</p:dataGrid>
+						</p:tab>
+
 					</p:tabView>
 
 
