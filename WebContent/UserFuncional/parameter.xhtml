@@ -11,7 +11,11 @@
 		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
 	</h:head>
 	<body>
-		<h:form>
+	
+	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
+	
+		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}>
 		
 			<h:panelGrid columns="2">
 

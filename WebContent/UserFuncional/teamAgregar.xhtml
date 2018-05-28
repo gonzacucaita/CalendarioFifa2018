@@ -33,7 +33,12 @@ body {
 </style>
 	</h:head>
 	<body>
-		<h:form>
+		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
+
+	
+		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}">
+
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
