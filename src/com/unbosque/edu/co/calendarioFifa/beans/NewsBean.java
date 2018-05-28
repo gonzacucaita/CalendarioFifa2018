@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import java.util.Collection;
 
 import com.unbosque.edu.co.calendarioFifa.entity.New;
 import com.unbosque.edu.co.calendarioFifa.service.NewService;
@@ -77,5 +78,9 @@ public class NewsBean {
 		List<New> lista = new NewService().list();
 		listaNoticia = new ListDataModel(lista);
 		return listaNoticia;
+	}
+	public List<New> getListar(){
+		List<New> lista = new NewService().list();
+		return lista;
 	}
 }

@@ -11,7 +11,9 @@
 
 <h:body>
 
-	<p:dataTable var="audit" value="#{auditBean.listarAuditorias}" >
+	<h:outputLabel value = "NO SE A INICIADO SESIÓN" rendered = "#{userBean.usuario.userType eq ADMIN}"/>
+
+	<p:dataTable var="audit" value="#{auditBean.listarAuditorias}" rendered="#{userBean.verifica eq true}" >
 	
 		<p:column>
 					<f:facet name="header">

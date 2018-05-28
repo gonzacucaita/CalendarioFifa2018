@@ -43,7 +43,7 @@ public class New implements Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "createDate" ,length =19)
+	@Column(name = "dateNews" ,length =19)
 	public Date getDateNews() {
 		return this.dateNews;
 	}
@@ -52,7 +52,7 @@ public class New implements Serializable {
 		this.dateNews = dateNews;
 	}
 
-	@Column(name = "userId", nullable = false, length = 8)
+	@Column(name = "idUser", nullable = false, length = 8)
 	public int getIdUser() {
 		return this.idUser;
 	}
