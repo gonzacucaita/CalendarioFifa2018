@@ -87,5 +87,4 @@ public class Audit implements Serializable {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-
 }

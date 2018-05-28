@@ -145,6 +145,8 @@ public class UserBean {
 	}
 
 	public String adicionarUsuario() {
+//		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		UserService dao = new UserService();
 		User existe = dao.verificarUsuario(usuario.getUserName());

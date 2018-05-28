@@ -66,6 +66,9 @@
 					<table align="center">
 						<tr>
 							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
+							<td> <p:messages showDetail="true"/>
+								<p:commandButton value="#{principal.btnIngresar}" actionListener="#{userBean.validarUsuario}" ajax="false"/>
+							</td>
 							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
 						</tr>
 						<tr>
