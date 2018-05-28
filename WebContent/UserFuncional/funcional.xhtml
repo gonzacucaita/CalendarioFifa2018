@@ -223,6 +223,48 @@ body {
 
 								</p:dataGrid>
 							</p:tab>
+							
+							<p:tab title="Noticias">
+
+								<f:facet name="actions">
+									<p:menuButton value="Opciones">
+										<p:menuitem value="Agregar noticia"
+											action="#{newsBean.prepararAdicionarNoticia}" />
+									</p:menuButton>
+								</f:facet>
+
+								<p:dataGrid var="news" value="#{newsBean.listarNoticias}"
+									columns="2" layout="grid" rows="12" paginator="true"
+									id="noticia"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="4,12,20">
+
+
+									<p:panel header="#{news.shortDescription}" style="text-align:center">
+
+										<h:panelGrid columns="2" style="width:100%">
+
+											<p:outputLabel value="Pequeña descripcion " />
+											<p:outputLabel value="#{news.shortDescription}" />
+
+											<p:outputLabel value="Descripcion larga: " />
+											<p:outputLabel value="#{news.largeDescription}" />
+
+											<p:outputLabel value="Fecha: " />
+											<p:outputLabel value="#{news.dateNews}" />
+
+											<p:commandButton value="Modificar"
+												action="#{news.prepararModificarNoticia}" />
+											<p:commandButton value="Eliminar" />
+
+										</h:panelGrid>
+
+									</p:panel>
+
+
+								</p:dataGrid>
+							</p:tab>
+							
 
 						</p:tabView> <p:commandButton value="Regresar" action="/Principal/inicio" />
 

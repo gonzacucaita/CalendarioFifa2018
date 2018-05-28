@@ -1,6 +1,7 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -43,6 +44,7 @@ public class NewsBean {
 	public String prepararAdicionarNoticia() {
 		noticia = new New();
 		noticia.setState("A");
+		noticia.setDateNews(new Date());
 		return "new";
 	}
 	
@@ -71,7 +73,7 @@ public class NewsBean {
 		return "inicio";
 	}
 	
-	public DataModel getListarEquipos() {
+	public DataModel getListarNoticias() {
 		List<New> lista = new NewService().list();
 		listaNoticia = new ListDataModel(lista);
 		return listaNoticia;
