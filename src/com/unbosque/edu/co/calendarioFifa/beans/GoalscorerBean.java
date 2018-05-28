@@ -7,6 +7,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import org.apache.log4j.Logger;
+
 import com.unbosque.edu.co.calendarioFifa.entity.Audit;
 import com.unbosque.edu.co.calendarioFifa.entity.Goalscorer;
 import com.unbosque.edu.co.calendarioFifa.service.AuditService;
@@ -16,8 +18,11 @@ import com.unbosque.edu.co.calendarioFifa.service.GoalscorerService;
 @SessionScoped
 public class GoalscorerBean {
 
+	final static Logger log = Logger.getLogger(GoalscorerBean.class);
+	
 	private Goalscorer goleador;
 	private DataModel listaGoleadores;
+	
 
 	public Goalscorer getGoleador() {
 		return goleador;

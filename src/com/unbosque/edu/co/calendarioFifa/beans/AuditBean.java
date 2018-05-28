@@ -8,6 +8,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import org.apache.log4j.Logger;
+
 import com.unbosque.edu.co.calendarioFifa.dao.impl.AuditDAOImpl;
 import com.unbosque.edu.co.calendarioFifa.entity.Audit;
 import com.unbosque.edu.co.calendarioFifa.entity.Team;
@@ -19,6 +21,8 @@ import com.unbosque.edu.co.calendarioFifa.service.TeamService;
 @SessionScoped
 public class AuditBean implements Serializable{
 
+	final static Logger log = Logger.getLogger(AuditBean.class);
+	
 	private Audit auditoria;
 	private DataModel listaAuditorias;
 	private String auditorias;
@@ -72,11 +76,18 @@ public class AuditBean implements Serializable{
 	
 	public String prepararAdicionarAuditoria() {
 		auditoria = new Audit();
+		if(log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+		}
 		return "audit";
 	}
 	
 	public String prepararModificarAuditoria() {
 		auditoria = (Audit) (listaAuditorias.getRowData());
+		
+		if(log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR LA AUDITORIA");
+		}
 		return "audit";
 	}
 	
@@ -84,24 +95,36 @@ public class AuditBean implements Serializable{
 		Audit auditoriaTemp = (Audit)(listaAuditorias.getRowData());
 		AuditService dao = new AuditService();
 		dao.update(auditoriaTemp);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA ELIMINADO LA AUDITORIA");
+		}
 		return "inicio";
 	}
 	
 	public String adicionarAuditoria() {
 		AuditService dao = new AuditService();
 		dao.save(auditoria);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA ADICIONADO LA AUDITORIA");
+		}
 		return "inicio";
 	}
 	
 	public String modificarAuditoria() {
 		AuditService dao = new AuditService();
 		dao.update(auditoria);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA MODIFICADO LA AUDITORIA");
+		}
 		return "inicio";
 	}
 	
 	public DataModel getListarAuditorias() {
 		List<Audit> lista = new AuditService().list();
 		listaAuditorias = new ListDataModel(lista);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA LISTADO LA AUDITORIA");
+		}
 		return listaAuditorias;
 	}
 	
