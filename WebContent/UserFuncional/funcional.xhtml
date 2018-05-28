@@ -169,7 +169,8 @@ body {
 											<p:outputLabel value="#{arbitro.nationality}" />
 
 											<p:outputLabel value="Estado: " />
-											<p:outputLabel value="#{arbitro.state}" />
+											<p:outputLabel value="Activo" rendered="#{'A' eq arbitro.state}"/>
+											<p:outputLabel value="InActivo" rendered="#{'I' eq arbitro.state}"/>
 
 											<p:commandButton value="Modificar"
 												action="#{refereeBean.prepararModificarArbitro}" />
@@ -223,7 +224,7 @@ body {
 
 								</p:dataGrid>
 							</p:tab>
-							
+
 							<p:tab title="Noticias">
 
 								<f:facet name="actions">
@@ -240,7 +241,8 @@ body {
 									rowsPerPageTemplate="4,12,20">
 
 
-									<p:panel header="#{news.shortDescription}" style="text-align:center">
+									<p:panel header="#{news.shortDescription}"
+										style="text-align:center">
 
 										<h:panelGrid columns="2" style="width:100%">
 
@@ -254,8 +256,8 @@ body {
 											<p:outputLabel value="#{news.dateNews}" />
 
 											<p:commandButton value="Modificar"
-												action="#{news.prepararModificarNoticia}" />
-												
+												action="#{newsBean.prepararModificarNoticia}" />
+
 											<p:commandButton value="Eliminar" />
 
 										</h:panelGrid>
@@ -264,9 +266,8 @@ body {
 
 								</p:dataGrid>
 							</p:tab>
-							
-						</p:tabView> <p:commandButton value="Regresar" action="/Principal/inicio" />
 
+						</p:tabView> <p:commandButton value="Regresar" action="/Principal/inicio" />
 
 
 					</td>

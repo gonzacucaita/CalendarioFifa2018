@@ -46,12 +46,13 @@ public class NewsBean {
 		noticia = new New();
 		noticia.setState("A");
 		noticia.setDateNews(new Date());
-		return "new";
+		return "newsAgregar";
 	}
 	
 	public String prepararModificarNoticia() {
 		noticia = (New) (listaNoticia.getRowData());
-		return "new";
+		noticia.setDateNews(new Date());
+		return "newsModificar";
 	}
 	
 	public String eliminarNoticia() {
@@ -65,13 +66,13 @@ public class NewsBean {
 	public String adicionarNoticia() {
 		NewService dao = new NewService();
 		dao.save(noticia);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public String modificarEquipo() {
 		NewService dao = new NewService();
 		dao.update(noticia);
-		return "inicio";
+		return "funcional";
 	}
 	
 	public DataModel getListarNoticias() {

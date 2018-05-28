@@ -25,6 +25,12 @@ public class TeamBean {
 	
 	public String prepararAdicionarEquipo() {
 		equipo = new Team();
+		equipo.setGoalsAgainst(0);
+		equipo.setGoalsFavor(0);
+		equipo.setLostMatches(0);
+		equipo.setTiedMatches(0);
+		equipo.setWonMatches(0);
+		equipo.setPlayedGames(0);
 		equipo.setState("A");
 		return "teamAgregar";
 	}

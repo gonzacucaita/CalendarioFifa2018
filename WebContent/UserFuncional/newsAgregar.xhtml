@@ -8,7 +8,7 @@
 <f:view>
 	<h:head>
 		<f:loadBundle basename="com.mensajes.principal" var="msjs" />
-		<title><h:outputText value="Agregar Equipo" /></title>
+		<title><h:outputText value="Agregar noticias" /></title>
 
 		<style type="text/css">
 body {
@@ -31,26 +31,24 @@ body {
 	background: rgba(131, 149, 183, 0.7);
 }
 </style>
+
 	</h:head>
 	<body>
 		<h:form>
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
+							<p:outputLabel value="Descripcion corta: " />
+							<p:inputText value="#{newsBean.noticia.shortDescription}"
+								rendered="true" />
 
-							<p:outputLabel value="Pais: " />
-							<p:inputText value="#{teamBean.equipo.country}" rendered="true" />
-
-							<p:outputLabel value="Bandera: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.flag}" rendered="true" />
-
-							<p:outputLabel value="Grupo: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.group}" rendered="true" />
+							<p:outputLabel value="Descipcion larga: "/>
+							<p:inputText value="#{newsBean.noticia.largeDescription}"
+								rendered="true" />
 
 							<p:commandButton value="guardar"
-								action="#{teamBean.adicionarEquipo}" />
+								action="#{newsBean.adicionarNoticia}" />
 							<p:commandButton value="Cancelar" action="funcional" />
-
 						</p:panelGrid></td>
 				</tr>
 			</table>
