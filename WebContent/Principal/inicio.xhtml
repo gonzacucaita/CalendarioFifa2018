@@ -76,12 +76,18 @@ body {
 						<p:graphicImage value="/demo/images/nature/#{image}"
 							styleClass="content" />
 					</p:imageSwitch>
-				-->
 					
 					<p:galleria value="#{newsBean.listar}" var="noticia"
-						panelWidth="500" panelHeight="313" showCaption="true">
+						 showCaption="true">
 						<p:graphicImage name="#{noticia.shortDescription}"
-							alt="#{noticia.largeDescription}" title="" />
+							alt="#{noticia.shortDescription}" title="#{noticia.shortDescription}" />
+					</p:galleria>
+				-->
+				
+					<p:galleria value="#{newsBean.imagenes}" var="noticia"
+						 showCaption="true">
+						<p:graphicImage name="/demo/images/nature/#{noticia}"
+							alt="sirve" title="sirve" />
 					</p:galleria>
 				</div>
 			</table>

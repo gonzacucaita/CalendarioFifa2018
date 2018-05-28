@@ -34,8 +34,11 @@ body {
 	</h:head>
 
 	<h:body>
+		<h:outputLabel value="NO SE A INICIADO SESIÓN"
+			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
 
-		<h:form>
+	
+		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false }">
 			<table align="center">
 
 				<tr>
@@ -169,8 +172,10 @@ body {
 											<p:outputLabel value="#{arbitro.nationality}" />
 
 											<p:outputLabel value="Estado: " />
-											<p:outputLabel value="Activo" rendered="#{'A' eq arbitro.state}"/>
-											<p:outputLabel value="InActivo" rendered="#{'I' eq arbitro.state}"/>
+											<p:outputLabel value="Activo"
+												rendered="#{'A' eq arbitro.state}" />
+											<p:outputLabel value="InActivo"
+												rendered="#{'I' eq arbitro.state}" />
 
 											<p:commandButton value="Modificar"
 												action="#{refereeBean.prepararModificarArbitro}" />
