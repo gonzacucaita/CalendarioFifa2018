@@ -32,9 +32,9 @@ body {
 </h:head>
 
 <h:body>
-	<h:outputLabel value = "NO SE A INICIADO SESIÓN" rendered = "#{userBean.usuario.userType eq ADMIN eq false}"/>
+	<h:outputLabel value = "NO SE A INICIADO SESIÓN COMO ADMINISTRADOR" rendered = "#{userBean.usuario.userType eq ADMIN}"/>
 
-	<h:form rendered="#{userBean.usuario.userType eq ADMIN}">
+	<h:form rendered="#{userBean.usuario.userType eq ADMIN eq false}">
 
 		<table align="center">
 
