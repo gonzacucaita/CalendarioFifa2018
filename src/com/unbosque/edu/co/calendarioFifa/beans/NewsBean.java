@@ -81,6 +81,7 @@ public class NewsBean {
 		return listaNoticia;
 	}
 	public List<New> getListar(){
+		
 		List<New> lista = new NewService().list();
 		return lista;
 	}

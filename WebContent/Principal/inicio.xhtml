@@ -84,10 +84,10 @@ body {
 					</p:galleria>
 				-->
 				
-					<p:galleria value="#{newsBean.imagenes}" var="noticia"
+					<p:galleria value="#{newsBean.listar}" var="noticia"
 						 showCaption="true">
-						<p:graphicImage name="/demo/images/nature/#{noticia}"
-							alt="sirve" title="sirve" />
+						<p:graphicImage library="images" name="#{noticia.shortDescription}"
+							alt="#{noticia.largeDescription}" title="#{noticia.shortDescription}" />
 					</p:galleria>
 				</div>
 			</table>
