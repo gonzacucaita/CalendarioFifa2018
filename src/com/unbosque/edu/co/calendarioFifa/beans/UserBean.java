@@ -65,7 +65,7 @@ public class UserBean {
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				if (usuario.getUserType().equals("cliente")) {
+				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) {
 					INTENTOS++;
 					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
