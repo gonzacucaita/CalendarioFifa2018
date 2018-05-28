@@ -1,5 +1,4 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
-	
 
 import java.util.Date;
 import java.util.List;
@@ -87,13 +86,14 @@ public class UserBean {
 						auditService.save(auditoria);
 						return "/Error/ErrorLogin";
 					}
-					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "CONTRASEÑA INCORRECTA");
-			        FacesContext.getCurrentInstance().addMessage(null, message);
+					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+							"CONTRASEÑA INCORRECTA");
+					FacesContext.getCurrentInstance().addMessage(null, message);
 
 				}
 				return "/Principal/login";
 			} else if (usuario.getActive().equals("A")) {
-				
+
 				if (usuario.getUserType().equals("ADMIN")) {
 
 					return "/Administrador/administrador";
@@ -112,7 +112,7 @@ public class UserBean {
 					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
 					setVerifica(true);
-					
+
 					return "/User/paginaInicio";
 
 				}
@@ -122,14 +122,15 @@ public class UserBean {
 				auditoria.setCreateDate(new Date());
 				auditService.save(auditoria);
 			} else {
-				
+
 				return "/Error/ErrorLogin";
 			}
 		}
-			contrasenia = "";
+		contrasenia = "";
 		ingresarUsuario = "";
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "USUARIO NO EXISTE");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"USUARIO NO EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 
 		return "/Principal/registro";
 	}
@@ -142,6 +143,74 @@ public class UserBean {
 		usuario.setPhoneNumber(" ");
 
 		return "/Principal/registro";
+	}
+
+	public String prepararAdicionarUsuarioFuncional() {
+		usuario = new User();
+		usuario.setActive("A");
+		usuario.setDateLastPassword(new Date());
+		usuario.setUserType("FUNCIONAL");
+		usuario.setPhoneNumber(" ");
+
+		return "agregarFuncional";
+	}
+
+	public String adicionarUsuarioFuncional() {
+
+		UserService dao = new UserService();
+		User existe = dao.verificarUsuario(usuario.getUserName());
+
+		if (existe == null) {
+			String contra = DiferenciaFechas.getGenerarContrasenia();
+			usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
+			dao.save(usuario);
+
+			String de = "calendario.fifa.uelbosque@gmail.com";
+			String clave = "patatafrita";
+			String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
+			String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "BIENVENIDO " + usuario.getFullName() + "\n"
+					+ "\n" + "\n" + "\n" + "tu cuenta se ha generado exitosamente como usuario funcional \n" + "\n"
+					+ "\n    " + "usuario: " + usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n"
+					+ "\n" + "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+					+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
+
+			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+			
+			AuditService as = new AuditService();
+
+			auditoria.setUserId(usuario.getId());
+			auditoria.setOperation("C");
+			auditoria.setTableName("user");
+			auditoria.setTableId(usuario.getId());
+			auditoria.setCreateDate(new Date());
+			as.save(auditoria);
+			
+			Parameter parameter = new Parameter();
+			ParameterService ps = new ParameterService();
+			
+			String a = usuario.getId() + "";
+			parameter.setTextValue(a);
+			// numero de dias para cambiar contraseña
+			parameter.setParameterType("9");
+			// no sirve para nada pero no deja agregar si no se llena el campo
+			parameter.setDescriptionParameter(" ");
+			// numero de ingresos
+			parameter.setParameterCode("0");
+			// numero de intentos de error
+			parameter.setNumberValue(3);
+
+			ps.save(parameter);
+			
+			return "/Administrador/administrador";
+		}
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"ESTE USUARIO YA EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+
+		return "/Principal/inicio";
+		
+
 	}
 
 	public String adicionarUsuario() {
@@ -190,9 +259,10 @@ public class UserBean {
 
 			return "inicio";
 		}
-		
-		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "ESTE USUARIO YA EXISTE");
-	        FacesContext.getCurrentInstance().addMessage(null, message);
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"ESTE USUARIO YA EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
 
 		return "registro";
 	}
@@ -291,8 +361,6 @@ public class UserBean {
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
 		return "editarUsuario";
 	}
-	
-	
 
 	public void modificarGoleador() {
 		GoalscorerService gs = new GoalscorerService();
@@ -508,19 +576,17 @@ public class UserBean {
 
 		return "/Principal/login";
 	}
-	
-	
+
 	public String prepararModificarUsuarioNormal() {
 		usuario = (User) (listaUsuarios.getRowData());
 		return "editarUsuario";
 	}
-	
+
 	public String modificarUsuarioNormal() {
 		UserService dao = new UserService();
 		dao.update(usuario);
 		return "paginaInicio";
 	}
-	
 
 	public String getOlvideContrasenia() {
 		INTENTOS = 0;
@@ -602,5 +668,4 @@ public class UserBean {
 		this.verifica = verifica;
 	}
 
-	
 }

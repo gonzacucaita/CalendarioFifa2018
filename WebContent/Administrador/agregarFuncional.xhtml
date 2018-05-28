@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+<f:view>
+	<h:head>
+		<f:loadBundle basename="com.mensajes.principal" var="principal" />
+		<title><h:outputText value="#{principal.tituloGoleador}" /></title>
+
+		<style type="text/css">
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center center;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
+
+	</h:head>
+	<body>
+
+		<h:form>
+			<table align="center">
+				<tr>
+					<td><p:panelGrid columns="2">
+
+							<p:outputLabel value="Nombre de usuario: " />
+							<p:inputText value="#{userBean.usuario.userName}" />
+
+							<p:outputLabel value="Nombre completo: " />
+							<p:inputText value="#{userBean.usuario.fullName}" />
+
+							<p:outputLabel value="Correo: " />
+							<p:inputText value="#{userBean.usuario.emailAddress}" />
+
+							<p:commandButton value="Guardar"
+								action="#{userBean.adicionarUsuarioFuncional}" />
+							<p:commandButton value="Cancelar" action="admistrador" />
+						</p:panelGrid></td>
+				</tr>
+			</table>
+		</h:form>
+	</body>
+</f:view>
+</html>

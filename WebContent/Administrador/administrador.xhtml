@@ -32,7 +32,8 @@ body {
 </h:head>
 
 <h:body>
-	<h:outputLabel value = "NO SE A INICIADO SESIÓN COMO ADMINISTRADOR" rendered = "#{userBean.usuario.userType eq ADMIN}"/>
+	<h:outputLabel value="NO SE A INICIADO SESIÓN COMO ADMINISTRADOR"
+		rendered="#{userBean.usuario.userType eq ADMIN}" />
 
 	<h:form rendered="#{userBean.usuario.userType eq ADMIN eq false}">
 
@@ -81,6 +82,13 @@ body {
 
 						<p:tab title="Usuarios">
 
+							<f:facet name="actions">
+								<p:menuButton value="Opciones">
+									<p:menuitem value="Agregar funcional"
+										action="#{userBean.prepararAdicionarUsuarioFuncional}" />
+								</p:menuButton>
+							</f:facet>
+
 							<p:dataGrid var="usuario" value="#{userBean.listarUsuario}"
 								columns="2" layout="grid" rows="6" paginator="true" id="usuario"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -117,7 +125,7 @@ body {
 							</p:dataGrid>
 						</p:tab>
 					</p:tabView></td>
-					<p:commandButton value="Salir" action="/Principal/inicio" />
+				<p:commandButton value="Salir" action="/Principal/inicio" />
 			</tr>
 		</table>
 
