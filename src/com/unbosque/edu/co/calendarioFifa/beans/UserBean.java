@@ -1,5 +1,4 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
-	
 
 import java.util.Date;
 import java.util.List;
@@ -45,16 +44,7 @@ public class UserBean {
 	private Stadium estadio;
 	private Team equipo;
 
-	private static Logger log = Logger.getLogger(UserBean.class);
-
-	// public UserBean()
-	// {
-	// images = new ArrayList<String>();
-	// for (int i = 1; i <= 4; i++) {
-	// images.add("noti" + i + ".jpg");
-	// }
-	//
-	// }
+	final static Logger log = Logger.getLogger(UserBean.class);
 
 	/**
 	 * METODOS PARA LOS USUARIOS EN GENERAL (ADMINISTRADOR, FUNCIONAL, CLIENTE)
@@ -69,11 +59,13 @@ public class UserBean {
 		usuario = us.verificarUsuario(ingresarUsuario);
 		ingresarUsuario = "";
 		ParameterService ps = new ParameterService();
+		int ingresos = 0;
+		long diasDif = 0;
 		if (usuario != null) {
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				if (usuario.getUserType().equals("cliente")) {
+				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) {
 					INTENTOS++;
 					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
@@ -85,52 +77,83 @@ public class UserBean {
 						auditoria.setCreateDate(new Date());
 						auditoria.setTableName("User");
 						auditService.save(auditoria);
+						log.error("USUARIO:" + usuario.getUserName() + " BLOQUEADO");
 						return "/Error/ErrorLogin";
 					}
-					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "CONTRASEÑA INCORRECTA");
-			        FacesContext.getCurrentInstance().addMessage(null, message);
-
+					FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+							"CONTRASEÑA INCORRECTA");
+					FacesContext.getCurrentInstance().addMessage(null, message);
+					log.error("CONTRASEÑA INCORRECTA");
 				}
 				return "/Principal/login";
 			} else if (usuario.getActive().equals("A")) {
-				
-				if (usuario.getUserType().equals("ADMIN")) {
 
+				if (usuario.getUserType().equals("ADMIN")) {
+					if (log.isInfoEnabled()) {
+						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
+								+ usuario.getUserType());
+					}
 					return "/Administrador/administrador";
 				} else if (usuario.getUserType().equals("FUNCIONAL")) {
 
-					return "/UserFuncional/funcional";
-
-				} else if (usuario.getUserType().equals("cliente")) {
-					long diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
-					int ingresos = Integer.parseInt(pa.getParameterCode());
+					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
+					ingresos = Integer.parseInt(pa.getParameterCode());
 					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
-						return "/User/nuevaContraseña";
-					}
-					pa.setParameterCode((ingresos + 1) + "");
-					ps.update(pa);
-					setVerifica(true);
-					
-					return "/User/paginaInicio";
 
+						if (log.isDebugEnabled()) {
+							log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
+						}
+						if (log.isInfoEnabled()) {
+							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
+									+ usuario.getUserType());
+						}
+						return "/UserFuncional/funcional";
+
+					} else if (usuario.getUserType().equals("cliente")) {
+						diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
+						ingresos = Integer.parseInt(pa.getParameterCode());
+						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+							pa.setParameterCode((ingresos + 1) + "");
+							ps.update(pa);
+
+							if (log.isDebugEnabled()) {
+								log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
+							}
+							return "/User/nuevaContraseña";
+						}
+						pa.setParameterCode((ingresos + 1) + "");
+						ps.update(pa);
+						setVerifica(true);
+						if (log.isInfoEnabled()) {
+							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
+									+ usuario.getUserType());
+						}
+						return "/User/paginaInicio";
+
+					}
+					auditoria.setUserId(usuario.getId());
+					auditoria.setOperation("E");
+					auditoria.setTableId(usuario.getId());
+					auditoria.setCreateDate(new Date());
+					auditService.save(auditoria);
+					if (log.isInfoEnabled()) {
+						log.info("SE GENERÓ AUDITORIA");
+					}
+				} else {
+
+					log.error("USUARIO BLOQUEADO O ELIMINADO");
+					return "/Error/ErrorLogin";
 				}
-				auditoria.setUserId(usuario.getId());
-				auditoria.setOperation("E");
-				auditoria.setTableId(usuario.getId());
-				auditoria.setCreateDate(new Date());
-				auditService.save(auditoria);
-			} else {
-				
-				return "/Error/ErrorLogin";
 			}
 		}
-			contrasenia = "";
+		contrasenia = "";
 		ingresarUsuario = "";
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "USUARIO NO EXISTE");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"USUARIO NO EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		log.error("USUARIO NO EXISTE");
 		return "/Principal/registro";
 	}
 
@@ -140,8 +163,86 @@ public class UserBean {
 		usuario.setDateLastPassword(new Date());
 		usuario.setUserType("cliente");
 		usuario.setPhoneNumber(" ");
-
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR USUARIO");
+		}
 		return "/Principal/registro";
+	}
+
+	public String prepararAdicionarUsuarioFuncional() {
+		usuario = new User();
+		usuario.setActive("A");
+		usuario.setDateLastPassword(new Date());
+		usuario.setUserType("FUNCIONAL");
+		usuario.setPhoneNumber(" ");
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR USUARIO FUNCIONAL");
+		}
+		return "agregarFuncional";
+	}
+
+	public String adicionarUsuarioFuncional() {
+
+		UserService dao = new UserService();
+		User existe = dao.verificarUsuario(usuario.getUserName());
+
+		if (existe == null) {
+			String contra = DiferenciaFechas.getGenerarContrasenia();
+			usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
+			dao.save(usuario);
+
+			String de = "calendario.fifa.uelbosque@gmail.com";
+			String clave = "patatafrita";
+			String asunto = "CONFIRMACION REGISTRO CALENDARIO FIFA";
+			String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "BIENVENIDO " + usuario.getFullName() + "\n"
+					+ "\n" + "\n" + "\n" + "tu cuenta se ha generado exitosamente como usuario funcional \n" + "\n"
+					+ "\n    " + "usuario: " + usuario.getUserName() + "\n    clave: " + contra + "\n " + "\n" + "\n"
+					+ "\n" + "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+					+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
+
+			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+
+			AuditService as = new AuditService();
+
+			auditoria.setUserId(usuario.getId());
+			auditoria.setOperation("C");
+			auditoria.setTableName("user");
+			auditoria.setTableId(usuario.getId());
+			auditoria.setCreateDate(new Date());
+			as.save(auditoria);
+			if (log.isDebugEnabled()) {
+				log.debug("SE AGREGO USUARIO FUNCIONAL");
+			}
+
+			Parameter parameter = new Parameter();
+			ParameterService ps = new ParameterService();
+
+			String a = usuario.getId() + "";
+			parameter.setTextValue(a);
+			// numero de dias para cambiar contraseña
+			parameter.setParameterType("9");
+			// no sirve para nada pero no deja agregar si no se llena el campo
+			parameter.setDescriptionParameter(" ");
+			// numero de ingresos
+			parameter.setParameterCode("0");
+			// numero de intentos de error
+			parameter.setNumberValue(3);
+
+			ps.save(parameter);
+
+			if (log.isDebugEnabled()) {
+				log.debug("AGREGÓ LA AUDITORIA");
+			}
+
+			return "/Administrador/administrador";
+		}
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"ESTE USUARIO YA EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		log.error("USUARIO YA EXISTE");
+		return "/Principal/inicio";
+
 	}
 
 	public String adicionarUsuario() {
@@ -167,6 +268,9 @@ public class UserBean {
 
 			AuditService as = new AuditService();
 
+			if (log.isInfoEnabled()) {
+				log.info("SE AGREGO USUARIO");
+			}
 			auditoria.setUserId(usuario.getId());
 			auditoria.setOperation("C");
 			auditoria.setTableName("user");
@@ -190,12 +294,16 @@ public class UserBean {
 
 			ps.save(parameter);
 
+			if (log.isDebugEnabled()) {
+				log.debug("AGREGÓ LA AUDITORIA");
+			}
 			return "inicio";
 		}
-		
-		 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN", "ESTE USUARIO YA EXISTE");
-	        FacesContext.getCurrentInstance().addMessage(null, message);
 
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
+				"ESTE USUARIO YA EXISTE");
+		FacesContext.getCurrentInstance().addMessage(null, message);
+		log.error("USUARIO NO EXISTE");
 		return "registro";
 	}
 
@@ -206,6 +314,9 @@ public class UserBean {
 	 */
 	public String prepararModificarUsuario() {
 		usuario = (User) (listaUsuarios.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR USUARIO");
+		}
 		return "registro";
 	}
 
@@ -222,6 +333,9 @@ public class UserBean {
 		auditoria.setCreateDate(new Date());
 		as.update(auditoria);
 		auditoria.setId(usuario.getId());
+		if (log.isDebugEnabled()) {
+			log.debug("USUARIO ELIMINADO");
+		}
 
 		return "inicio";
 	}
@@ -253,18 +367,17 @@ public class UserBean {
 		auditoria.setTableId(usuario.getId());
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
-
 		ParameterService ps = new ParameterService();
-		List<Parameter> list = ps.list();
-		boolean a = false;
-		for (int i = 0; i < list.size() && a == false; i++) {
-			if (list.get(i).getTextValue().equals(usuario.getId() + "")) {
-				list.get(i).setParameterCode("0");
-				ps.update(list.get(i));
-				a = true;
-			}
-
+		Parameter p = ps.getParametroPorUsuario(usuario.getId());
+		if (p != null) {
+			p.setParameterCode("0");
+			ps.update(p);
 		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("USUARIO MODIFICADO");
+		}
+
 		return "/Administrador/administrador";
 	}
 
@@ -284,6 +397,9 @@ public class UserBean {
 		auditoria.setTableId(goleador.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("AGREGÓ GOLEADOR");
+		}
 
 	}
 
@@ -291,10 +407,11 @@ public class UserBean {
 		List<Goalscorer> goalscorer = new GoalscorerService().list();
 		DataModel listaGoleadores = new ListDataModel(goalscorer);
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug(" PREPARAR MODIFICAR GOLEADOR");
+		}
 		return "editarUsuario";
 	}
-	
-	
 
 	public void modificarGoleador() {
 		GoalscorerService gs = new GoalscorerService();
@@ -306,7 +423,11 @@ public class UserBean {
 		auditoria.setTableName("goalscorer");
 		auditoria.setTableId(goleador.getId());
 		auditoria.setCreateDate(new Date());
+
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR GOLEADOR");
+		}
 	}
 
 	public String prepararAdicionarNoticia() {
@@ -330,6 +451,9 @@ public class UserBean {
 		List<Goalscorer> goalscorer = new GoalscorerService().list();
 		DataModel listaGoleadores = new ListDataModel(goalscorer);
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR MODIFICAR NOTICIA");
+		}
 		return "pagina donde se modifica";
 	}
 
@@ -344,6 +468,10 @@ public class UserBean {
 		auditoria.setTableId(noticia.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR NOTICIA");
+		}
 	}
 
 	public String prepararAdicionarArbitro() {
@@ -361,12 +489,18 @@ public class UserBean {
 		auditoria.setTableId(arbitro.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR ARBITRO");
+		}
 	}
 
 	public String prepararModificarArbitro() {
 		List<Referee> referee = new RefereeService().list();
 		DataModel listaArbitros = new ListDataModel(referee);
 		arbitro = (Referee) (listaArbitros.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR ARBITRO");
+		}
 		return "pagina donde se modifica";
 	}
 
@@ -380,10 +514,16 @@ public class UserBean {
 		auditoria.setTableId(arbitro.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR ARBITRO");
+		}
 	}
 
 	public String prepararAdicionarCalendario() {
 		calendario = new Schedule();
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR CALENDARIO");
+		}
 		return "schedule";
 	}
 
@@ -397,12 +537,18 @@ public class UserBean {
 		auditoria.setTableId(calendario.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("ADICIONAR CALENDARIO");
+		}
 	}
 
 	public String prepararModificarCalendario() {
 		List<Schedule> schedule = new ScheduleService().list();
 		DataModel listaCalendario = new ListDataModel(schedule);
 		calendario = (Schedule) (listaCalendario.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR CALENDARIO");
+		}
 		return "pagina donde se modifica";
 	}
 
@@ -416,10 +562,16 @@ public class UserBean {
 		auditoria.setTableId(calendario.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR CALENDARIO");
+		}
 	}
 
 	public String prepararAdicionarEstadio() {
 		estadio = new Stadium();
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR ESTADIO");
+		}
 		return "stadium";
 	}
 
@@ -433,12 +585,18 @@ public class UserBean {
 		auditoria.setTableId(estadio.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("ADICIONAR ESTADIO");
+		}
 	}
 
 	public String prepararModificarEstadio() {
 		List<Stadium> stadium = new StadiumService().list();
 		DataModel listaEstadios = new ListDataModel(stadium);
 		estadio = (Stadium) (listaEstadios.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR ESTADIO");
+		}
 		return "pagina donde se modifica";
 	}
 
@@ -452,10 +610,16 @@ public class UserBean {
 		auditoria.setTableId(estadio.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR ESTADIO");
+		}
 	}
 
 	public String prepararAdicionarEquipo() {
 		equipo = new Team();
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR EQUIPO");
+		}
 		return "team";
 	}
 
@@ -469,12 +633,18 @@ public class UserBean {
 		auditoria.setTableId(equipo.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("ADICIONAR EQUIPO");
+		}
 	}
 
 	public String prepararModificarEquipo() {
 		List<Team> team = new TeamService().list();
 		DataModel listaEquipos = new ListDataModel(team);
 		equipo = (Team) (listaEquipos.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR MODIFICAR EQUIPO");
+		}
 		return "pagina donde se modifica";
 	}
 
@@ -488,6 +658,9 @@ public class UserBean {
 		auditoria.setTableId(equipo.getId());
 		auditoria.setCreateDate(new Date());
 		ad.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR EQUIPO");
+		}
 	}
 
 	public User getUsuario() {
@@ -497,6 +670,9 @@ public class UserBean {
 	public DataModel getListarUsuario() {
 		List<User> lista = new UserService().list();
 		listaUsuarios = new ListDataModel(lista);
+		if (log.isDebugEnabled()) {
+			log.debug("LISTAR USUARIOS");
+		}
 		return listaUsuarios;
 	}
 
@@ -508,21 +684,28 @@ public class UserBean {
 
 		Correo.enviarCorreo(de, de, clave, asunto, mensaje);
 
+		if (log.isDebugEnabled()) {
+			log.debug("SOLICITAR CONTRASEÑA");
+		}
 		return "/Principal/login";
 	}
-	
-	
+
 	public String prepararModificarUsuarioNormal() {
 		usuario = (User) (listaUsuarios.getRowData());
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR USUARIO");
+		}
 		return "editarUsuario";
 	}
-	
+
 	public String modificarUsuarioNormal() {
 		UserService dao = new UserService();
 		dao.update(usuario);
+		if (log.isDebugEnabled()) {
+			log.debug("MODIFICAR USUARIO");
+		}
 		return "paginaInicio";
 	}
-	
 
 	public String getOlvideContrasenia() {
 		INTENTOS = 0;
@@ -550,6 +733,9 @@ public class UserBean {
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
 		as.save(auditoria);
+		if (log.isDebugEnabled()) {
+			log.debug("OLVIDO CONTRASEÑA");
+		}
 
 		return "parameter";
 
@@ -604,5 +790,4 @@ public class UserBean {
 		this.verifica = verifica;
 	}
 
-	
 }

@@ -5,6 +5,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+
+import org.apache.log4j.Logger;
+
 import com.unbosque.edu.co.calendarioFifa.entity.Team;
 import com.unbosque.edu.co.calendarioFifa.service.TeamService;
 
@@ -14,6 +17,9 @@ public class TeamBean {
 	
 	private Team equipo;
 	private DataModel listaEquipos;
+	
+	final static Logger log = Logger.getLogger(TeamBean.class);
+	
 	
 	public Team getEquipo() {
 		return equipo;
@@ -32,11 +38,17 @@ public class TeamBean {
 		equipo.setWonMatches(0);
 		equipo.setPlayedGames(0);
 		equipo.setState("A");
+		if(log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR EQUIPO");
+		}
 		return "teamAgregar";
 	}
 	
 	public String prepararModificarEquipo() {
 		equipo = (Team) (listaEquipos.getRowData());
+		if(log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR EQUIPO");
+		}
 		return "team";
 	}
 	
@@ -45,6 +57,9 @@ public class TeamBean {
 		TeamService dao = new TeamService();
 		teamTemp.setState("I");
 		dao.update(teamTemp);
+		if(log.isDebugEnabled()) {
+			log.debug("ELIMINAR EQUIPO");
+		}
 		return "inicio";
 	}
 	
@@ -58,18 +73,27 @@ public class TeamBean {
 		equipo.setTiedMatches(0);
 		equipo.setPlayedGames(0);
 		dao.save(equipo);
+		if(log.isDebugEnabled()) {
+			log.debug("ADICIONAR EQUIPO");
+		}
 		return "funcional";
 	}
 	
 	public String modificarEquipo() {
 		TeamService dao = new TeamService();
 		dao.update(equipo);
+		if(log.isDebugEnabled()) {
+			log.debug("MODIFICAR EQUIPO");
+		}
 		return "funcional";
 	}
 	
 	public DataModel getListarEquipos() {
 		List<Team> lista = new TeamService().list();
 		listaEquipos = new ListDataModel(lista);
+		if(log.isDebugEnabled()) {
+			log.debug("LISTAR EQUIPO");
+		}
 		return listaEquipos;
 	}
 }
