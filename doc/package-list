@@ -1,0 +1,6 @@
+com.unbosque.edu.co.calendarioFifa.beans
+com.unbosque.edu.co.calendarioFifa.dao
+com.unbosque.edu.co.calendarioFifa.dao.impl
+com.unbosque.edu.co.calendarioFifa.entity
+com.unbosque.edu.co.calendarioFifa.service
+com.unbosque.edu.co.calendarioFifa.util
