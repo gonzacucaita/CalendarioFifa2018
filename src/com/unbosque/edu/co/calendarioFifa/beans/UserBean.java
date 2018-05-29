@@ -50,6 +50,8 @@ public class UserBean {
 	private Stadium estadio;
 	private Team equipo;
 	
+	private long idFuncional;
+	
 
 	final static Logger log = Logger.getLogger(UserBean.class);
 
@@ -114,7 +116,7 @@ public class UserBean {
 					return "/Administrador/administrador";
 				} else if (usuario.getUserType().equals("FUNCIONAL")) 
 				{
-
+					idFuncional = usuario.getId();
 					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					ingresos = Integer.parseInt(pa.getParameterCode());
 					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
@@ -985,5 +987,15 @@ public class UserBean {
 	public void setListaNoticias(DataModel listaNoticias) {
 		this.listaNoticias = listaNoticias;
 	}
+
+	public long getIdFuncional() {
+		return idFuncional;
+	}
+
+	public void setIdFuncional(long idFuncional) {
+		this.idFuncional = idFuncional;
+	}
+	
+	
 
 }
