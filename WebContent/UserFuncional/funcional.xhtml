@@ -50,7 +50,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar equipo"
-											action="#{teamBean.prepararAdicionarEquipo}" />
+											action="#{userBean.prepararAdicionarEquipo}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -90,7 +90,7 @@ body {
 											<p:outputLabel value="#{equipo.goalsAgainst}" />
 
 											<p:commandButton value="Modificar"
-												action="#{teamBean.prepararModificarEquipo}" />
+												action="#{userBean.prepararModificarEquipo}" />
 											<p:commandButton value="Eliminar" />
 
 										</h:panelGrid>
@@ -107,7 +107,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar estadio"
-											action="#{stadiumBean.prepararAdicionarEstadio}" />
+											action="#{userBean.prepararAdicionarEstadio}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -135,7 +135,7 @@ body {
 											<p:outputLabel value="#{estadio.temperature}" />
 
 											<p:commandButton value="Modificar"
-												action="#{stadiumBean.prepararModificarEstadio}" />
+												action="#{userBean.prepararModificarEstadio}" />
 											<p:commandButton value="Eliminar" />
 
 										</h:panelGrid>
@@ -152,7 +152,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar arbitro"
-											action="#{refereeBean.prepararAdicionarArbitro}" />
+											action="#{userBean.prepararAdicionarArbitro}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -178,7 +178,7 @@ body {
 												rendered="#{'I' eq arbitro.state}" />
 
 											<p:commandButton value="Modificar"
-												action="#{refereeBean.prepararModificarArbitro}" />
+												action="#{userBean.prepararModificarArbitro}" />
 											<p:commandButton value="Eliminar" />
 
 										</h:panelGrid>

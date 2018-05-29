@@ -34,6 +34,12 @@ public class UserBean {
 	private Audit auditoria = new Audit();
 	private AuditService auditService = new AuditService();
 	private boolean verifica = false;
+	
+	private DataModel listaArbitros;
+	private DataModel listaEquipos;
+	private DataModel listaEstadios;
+	private DataModel listaNoticias;
+	
 	/**
 	 * ATRIBUTOS PARA EL USUARIO FUNCIONAL
 	 */
@@ -474,10 +480,14 @@ public class UserBean {
 
 	public String prepararAdicionarArbitro() {
 		arbitro = new Referee();
-		return "referee";
+		arbitro.setState("A");
+		if (log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+		}
+		return "refereeAgregar";
 	}
 
-	public void adicionarArbitro() {
+	public String adicionarArbitro() {
 		RefereeService rs = new RefereeService();
 		rs.save(arbitro);
 		AuditService ad = new AuditService();
@@ -490,19 +500,19 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR ARBITRO");
 		}
+		return "funcional";
 	}
 
 	public String prepararModificarArbitro() {
-		List<Referee> referee = new RefereeService().list();
-		DataModel listaArbitros = new ListDataModel(referee);
+		getListaArbitros();
 		arbitro = (Referee) (listaArbitros.getRowData());
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA MODIFICAR ARBITRO");
 		}
-		return "pagina donde se modifica";
+		return "refereeModificar";
 	}
 
-	public void modificarArbitro() {
+	public String modificarArbitro() {
 		RefereeService rs = new RefereeService();
 		rs.update(arbitro);
 		AuditService ad = new AuditService();
@@ -515,6 +525,7 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR ARBITRO");
 		}
+		return "funcional";
 	}
 
 	public String prepararAdicionarCalendario() {
@@ -570,10 +581,10 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR ESTADIO");
 		}
-		return "stadium";
+		return "stadiumAgregar";
 	}
 
-	public void adicionarEstadio() {
+	public String adicionarEstadio() {
 		StadiumService sts = new StadiumService();
 		sts.save(estadio);
 		AuditService ad = new AuditService();
@@ -586,6 +597,8 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("ADICIONAR ESTADIO");
 		}
+
+		return "funcional";
 	}
 
 	public String prepararModificarEstadio() {
@@ -595,10 +608,10 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA MODIFICAR ESTADIO");
 		}
-		return "pagina donde se modifica";
+		return "stadiumModificar";
 	}
 
-	public void modificarEstadio() {
+	public String modificarEstadio() {
 		StadiumService ss = new StadiumService();
 		ss.update(estadio);
 		AuditService ad = new AuditService();
@@ -611,6 +624,8 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR ESTADIO");
 		}
+
+		return "funcional";
 	}
 
 	public String prepararAdicionarEquipo() {
@@ -618,15 +633,23 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR EQUIPO");
 		}
-		return "team";
+		return "teamAgregar";
 	}
 
-	public void adicionarEquipo() {
+	public String adicionarEquipo() {
 		TeamService ts = new TeamService();
+		equipo.setState("A");
+		equipo.setGoalsAgainst(0);
+		equipo.setGoalsFavor(0);
+		equipo.setLostMatches(0);
+		equipo.setWonMatches(0);
+		equipo.setTiedMatches(0);
+		equipo.setPlayedGames(0);
 		ts.save(equipo);
+
 		AuditService ad = new AuditService();
 		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
+		auditoria.setOperation("C");
 		auditoria.setTableName("team");
 		auditoria.setTableId(equipo.getId());
 		auditoria.setCreateDate(new Date());
@@ -634,19 +657,26 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("ADICIONAR EQUIPO");
 		}
+
+		return "funcional";
 	}
 
 	public String prepararModificarEquipo() {
 		List<Team> team = new TeamService().list();
-		DataModel listaEquipos = new ListDataModel(team);
+		// DataModel listaEquipos = new ListDataModel(team);
+		// equipo = (Team) (listaEquipos.getRowData());
+		// if (log.isDebugEnabled()) {
+		// log.debug("PREPARAR MODIFICAR EQUIPO");
+		// }
+		DataModel listaEquipos = new ListDataModel<>(team);
 		equipo = (Team) (listaEquipos.getRowData());
 		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR MODIFICAR EQUIPO");
+			log.debug("PREPARAR PARA MODIFICAR EQUIPO");
 		}
-		return "pagina donde se modifica";
+		return "team";
 	}
 
-	public void modificarEquipo() {
+	public String modificarEquipo() {
 		TeamService tm = new TeamService();
 		tm.update(equipo);
 		AuditService ad = new AuditService();
@@ -659,6 +689,8 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR EQUIPO");
 		}
+
+		return "funcional";
 	}
 
 	public User getUsuario() {
@@ -786,6 +818,127 @@ public class UserBean {
 
 	public void setVerifica(boolean verifica) {
 		this.verifica = verifica;
+	}
+
+	public static int getINTENTOS() {
+		return INTENTOS;
+	}
+
+	public static void setINTENTOS(int iNTENTOS) {
+		INTENTOS = iNTENTOS;
+	}
+
+	public DataModel getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(DataModel listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+
+	public Audit getAuditoria() {
+		return auditoria;
+	}
+
+	public void setAuditoria(Audit auditoria) {
+		this.auditoria = auditoria;
+	}
+
+	public AuditService getAuditService() {
+		return auditService;
+	}
+
+	public void setAuditService(AuditService auditService) {
+		this.auditService = auditService;
+	}
+
+	public Goalscorer getGoleador() {
+		return goleador;
+	}
+
+	public void setGoleador(Goalscorer goleador) {
+		this.goleador = goleador;
+	}
+
+	public New getNoticia() {
+		return noticia;
+	}
+
+	public void setNoticia(New noticia) {
+		this.noticia = noticia;
+	}
+
+	public Referee getArbitro() {
+		return arbitro;
+	}
+
+	public void setArbitro(Referee arbitro) {
+		this.arbitro = arbitro;
+	}
+
+	public Schedule getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(Schedule calendario) {
+		this.calendario = calendario;
+	}
+
+	public Stadium getEstadio() {
+		return estadio;
+	}
+
+	public void setEstadio(Stadium estadio) {
+		this.estadio = estadio;
+	}
+
+	public Team getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Team equipo) {
+		this.equipo = equipo;
+	}
+
+	public static Logger getLog() {
+		return log;
+	}
+
+	public DataModel getListaArbitros() {
+		List<Referee> referee = new RefereeService().list();
+		 listaArbitros = new ListDataModel(referee);
+		 if(log.isDebugEnabled()) {
+				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			}
+		return listaArbitros;
+	}
+
+	public void setListaArbitros(DataModel listaArbitros) {
+		this.listaArbitros = listaArbitros;
+	}
+
+	public DataModel getListaEquipos() {
+		return listaEquipos;
+	}
+
+	public void setListaEquipos(DataModel listaEquipos) {
+		this.listaEquipos = listaEquipos;
+	}
+
+	public DataModel getListaEstadios() {
+		return listaEstadios;
+	}
+
+	public void setListaEstadios(DataModel listaEstadios) {
+		this.listaEstadios = listaEstadios;
+	}
+
+	public DataModel getListaNoticias() {
+		return listaNoticias;
+	}
+
+	public void setListaNoticias(DataModel listaNoticias) {
+		this.listaNoticias = listaNoticias;
 	}
 
 }
