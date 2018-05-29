@@ -41,13 +41,27 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Nombre de usuario: " />
-							<p:inputText value="#{userBean.usuario.userName}" />
+							<p:inputText value="#{userBean.usuario.userName}" required="true">
+
+								<f:validateLength minimum="6" maximum="8" />
+
+							</p:inputText>
 
 							<p:outputLabel value="Nombre completo: " />
-							<p:inputText value="#{userBean.usuario.fullName}" />
+							<p:inputText value="#{userBean.usuario.fullName}" required="true">
+
+								<f:validateLength minimum="3" />
+
+							</p:inputText>
 
 							<p:outputLabel value="Correo: " />
-							<p:inputText value="#{userBean.usuario.emailAddress}" />
+							<p:inputText value="#{userBean.usuario.emailAddress}">
+
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+
+							</p:inputText>
 
 							<p:commandButton value="Guardar"
 								action="#{userBean.adicionarUsuarioFuncional}" />
