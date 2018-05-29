@@ -126,7 +126,7 @@ public class UserBean {
 						{
 							log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
 						}
-						return "/User/nuevaContraseña";
+						return "/UserFuncional/nuevaContraseñaFun";
 					}
 					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
@@ -136,7 +136,7 @@ public class UserBean {
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
-					return "/UserFuncional/funcional";
+					return "funcional";
 
 				} else if (usuario.getUserType().equals("cliente")) 
 				{

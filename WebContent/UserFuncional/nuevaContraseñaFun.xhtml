@@ -34,9 +34,9 @@ body {
 </style>
 	</h:head>
 	<body>
-		<h:outputLabel value = "NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA" rendered = "#{userBean.usuario.userType eq cliente}" style="color: white" />
+		<h:outputLabel value = "NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA" rendered = "#{userBean.usuario.userType eq FUNCIONAL}" style="color: white" />
 	
-		<h:form rendered="#{userBean.usuario.userType eq cliente eq false }">
+		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false }">
 			<table height="100%" width="100%">
 				<tr>
 					<td valign="middle">
@@ -69,7 +69,7 @@ body {
 				<tr><td valign="top">
 					<table align="center">
 						<tr>
-							<td><p:commandButton value="Guardar" action="paginaInicio" /></td>
+							<td><p:commandButton value="Guardar" action="funcional" /></td>
 						</tr>
 					</table>
 				</td></tr>
