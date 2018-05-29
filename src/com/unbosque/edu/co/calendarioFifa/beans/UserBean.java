@@ -71,7 +71,7 @@ public class UserBean {
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				if (usuario.getUserType().equals("cliente")) {
+				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) {
 					INTENTOS++;
 					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
@@ -252,6 +252,8 @@ public class UserBean {
 	}
 
 	public String adicionarUsuario() {
+//		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		UserService dao = new UserService();
 		User existe = dao.verificarUsuario(usuario.getUserName());

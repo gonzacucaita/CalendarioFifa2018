@@ -45,7 +45,7 @@
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
-						<table align="center" class="tabla2" width="45%" height="30%">
+						<table align="center" class="tabla2" width="50%" height="30%">
 							<tr>
 								<td colspan="2"></td>
 							</tr>
@@ -54,7 +54,7 @@
 							</tr>
 
 							<tr align="center">
-								<td><p:outputLabel value="#{principal.nombreUsuario}" /></td>
+								<td align="left"><p:outputLabel value="#{principal.nombreUsuario}" /></td>
 								<td><p:inputText id="focus"
 										title="El usuario debe contener entre 6 a 8 caracteres"
 										value="#{userBean.usuario.userName}" /> <p:tooltip
@@ -67,14 +67,14 @@
 							</tr>
 
 							<tr align="center">
-								<td><p:outputLabel value="#{principal.nombre}" /></td>
+								<td align="left"><p:outputLabel value="#{principal.nombre}" /></td>
 								<td><p:inputText value="#{userBean.usuario.fullName}"
 										rendered="true" /></td>
 							</tr>
 
 							
 							<tr align="center">
-								<td><p:outputLabel value="#{principal.email}" /></td>
+								<td align="left"><p:outputLabel value="#{principal.email}" /></td>
 								<td><p:inputText id="email" required="true" label="email"
 										requiredMessage="Please enter your email address."
 										validatorMessage="Ingrese un correo valido"
@@ -83,7 +83,7 @@
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
-									</p:inputText> <p:watermark for="email" value="fghjk"/> 
+									</p:inputText> <p:watermark for="email"/> 
 									</td>
 							</tr>
 
@@ -117,7 +117,11 @@
 								<h:message for="email" styleClass="messa" />
 								</td>
 							</tr>
-
+						<!-- >	<tr>
+								<p:messages showDetail="true"/>
+								<p:captcha label="Captcha" />
+								<p:commandButton value="Check" actionListener="#{userBean.adicionarUsuario}" ajax="false" icon="ui-icon-check"/>
+							</tr> -->
 						</table>
 					</td>
 				</tr>

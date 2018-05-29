@@ -10,25 +10,25 @@
 	<title><h:outputText value="Administrador" /></title>
 
 	<style type="text/css">
-body {
-	background-image: url('../img/captura3.jpg');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
-}
-
-#mail {
-	width: 100%;
-	position: fixed;
-}
-
-.tabla2 {
-	border: solid 7px #4371CD;
-	border-radius: 30px;
-	background: rgba(131, 149, 183, 0.7);
-}
-</style>
+		body {
+			background-image: url('../img/captura3.jpg');
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;
+		}
+		
+		#mail {
+			width: 100%;
+			position: fixed;
+		}
+		
+		.tabla2 {
+			border: solid 7px #4371CD;
+			border-radius: 30px;
+			background: rgba(131, 149, 183, 0.7);
+		}
+	</style>
 </h:head>
 
 <h:body>
@@ -42,13 +42,13 @@ body {
 			<tr>
 				<td><p:tabView orientation="center" style="text-align:center">
 
-						<p:tab title="Auditoria">
+						<p:tab title="Auditoria" id="audit">
 
-							<p:dataGrid var="auditoria" value="#{auditBean.listarAuditorias}"
-								columns="2" layout="grid" rows="6" paginator="true" id="equipo"
+							<p:dataTable var="auditoria" value="#{auditBean.listarAuditorias}"
+								layout="grid" rows="6" paginator="true" id="equipo"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
-
+								<p:column>
 								<p:panel header="#{auditoria.operation}"
 									style="text-align:center">
 									<p:panelGrid columns="2" style="width:100%">
@@ -72,12 +72,19 @@ body {
 										<p:outputLabel value="#{auditoria.createDate}" />
 
 									</p:panelGrid>
-
-
 								</p:panel>
-
-							</p:dataGrid>
-
+								</p:column>
+								<p:column>
+								<h:commandLink value="exportarPDF">
+				   				<p:dataExporter type="pdf" target="equipo" fileName="Auditoria" pageOnly="true"/>
+									</h:commandLink>
+											<h1> </h1>
+									<h:commandLink value="exportarEXl">
+								   		<p:dataExporter type="xls" target="equipo" fileName="Auditoria" pageOnly="true" />
+								   </h:commandLink>
+								</p:column>
+							</p:dataTable>
+							
 						</p:tab>
 
 						<p:tab title="Usuarios">
@@ -128,7 +135,6 @@ body {
 				<p:commandButton value="Salir" action="/Principal/inicio" />
 			</tr>
 		</table>
-
 	</h:form>
 </h:body>
 </html>
