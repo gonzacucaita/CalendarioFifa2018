@@ -49,6 +49,7 @@ public class UserBean {
 	private Schedule calendario;
 	private Stadium estadio;
 	private Team equipo;
+	
 
 	final static Logger log = Logger.getLogger(UserBean.class);
 
@@ -71,7 +72,7 @@ public class UserBean {
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) {
+				if (usuario.getUserType().equals("cliente")) {
 					INTENTOS++;
 					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
@@ -115,6 +116,7 @@ public class UserBean {
 							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 									+ usuario.getUserType());
 						}
+						
 						return "/UserFuncional/funcional";
 
 					} else if (usuario.getUserType().equals("cliente")) {
@@ -252,8 +254,6 @@ public class UserBean {
 	}
 
 	public String adicionarUsuario() {
-//		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		UserService dao = new UserService();
 		User existe = dao.verificarUsuario(usuario.getUserName());
@@ -942,5 +942,6 @@ public class UserBean {
 	public void setListaNoticias(DataModel listaNoticias) {
 		this.listaNoticias = listaNoticias;
 	}
+	
 
 }

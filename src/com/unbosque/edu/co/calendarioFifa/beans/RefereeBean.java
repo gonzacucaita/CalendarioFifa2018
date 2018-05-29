@@ -22,7 +22,6 @@ public class RefereeBean {
 	 private Referee arbitro;
 	 private DataModel listaArbitro;
 	 
-	 private User usuario;
 	 
 	
 	 final static Logger log = Logger.getLogger(RefereeBean.class);
@@ -81,7 +80,6 @@ public class RefereeBean {
 		}
 		
 		public DataModel getListarArbitros() {
-			
 			List<Referee> lista = new RefereeService().list();
 			listaArbitro = new ListDataModel(lista);
 			if(log.isDebugEnabled()) {
