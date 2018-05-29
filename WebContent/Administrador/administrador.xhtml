@@ -42,13 +42,13 @@
 			<tr>
 				<td><p:tabView orientation="center" style="text-align:center">
 
-						<p:tab title="Auditoria">
+						<p:tab title="Auditoria" id="audit">
 
-							<p:dataGrid var="auditoria" value="#{auditBean.listarAuditorias}"
-								columns="2" layout="grid" rows="6" paginator="true" id="equipo"
+							<p:dataTable var="auditoria" value="#{auditBean.listarAuditorias}"
+								layout="grid" rows="6" paginator="true" id="equipo"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
-
+								<p:column>
 								<p:panel header="#{auditoria.operation}"
 									style="text-align:center">
 									<p:panelGrid columns="2" style="width:100%">
@@ -60,7 +60,7 @@
 										<p:outputLabel value="#{auditoria.tableName}" />
 
 										<p:outputLabel value="ID del usuario: " />
-										<p:outputLabel value="#{auditoria.nombre}" />
+										<p:outputLabel value="#{auditoria.userId}" />
 
 										<p:outputLabel value="Operacion: " />
 										<p:outputLabel value="Crear"
@@ -72,12 +72,17 @@
 										<p:outputLabel value="#{auditoria.createDate}" />
 
 									</p:panelGrid>
-
-
 								</p:panel>
-
-							</p:dataGrid>
-
+								</p:column>
+								<h:commandLink value="exportarPDF">
+				   				<p:dataExporter type="pdf" target="equipo" fileName="Auditoria" pageOnly="true"/>
+								</h:commandLink>
+										<h1> </h1>
+								<h:commandLink value="exportarEXl">
+							   		<p:dataExporter type="xls" target="equipo" fileName="Auditoria" pageOnly="true" />
+							   </h:commandLink>
+							</p:dataTable>
+							
 						</p:tab>
 
 						<p:tab title="Usuarios">
@@ -128,7 +133,6 @@
 				<p:commandButton value="Salir" action="/Principal/inicio" />
 			</tr>
 		</table>
-
 	</h:form>
 </h:body>
 </html>
