@@ -41,7 +41,6 @@
 
 			<tr>
 				<td><p:tabView orientation="center" style="text-align:center">
-
 						<p:tab title="Auditoria" id="audit">
 
 							<p:dataTable var="auditoria" value="#{auditBean.listarAuditorias}"
@@ -74,17 +73,14 @@
 									</p:panelGrid>
 								</p:panel>
 								</p:column>
-								<p:column>
-								<h:commandLink value="exportarPDF">
+							</p:dataTable>
+							<h:commandLink value="exportarPDF">
 				   				<p:dataExporter type="pdf" target="equipo" fileName="Auditoria" pageOnly="true"/>
 									</h:commandLink>
 											<h1> </h1>
 									<h:commandLink value="exportarEXl">
 								   		<p:dataExporter type="xls" target="equipo" fileName="Auditoria" pageOnly="true" />
 								   </h:commandLink>
-								</p:column>
-							</p:dataTable>
-							
 						</p:tab>
 
 						<p:tab title="Usuarios">
@@ -96,11 +92,10 @@
 								</p:menuButton>
 							</f:facet>
 
-							<p:dataGrid var="usuario" value="#{userBean.listarUsuario}"
-								columns="2" layout="grid" rows="6" paginator="true" id="usuario"
+							<p:dataTable var="usuario" value="#{userBean.listarUsuario}" layout="grid" rows="6" paginator="true" id="usuario"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
-
+							<p:column>
 								<p:panel header="#{usuario.fullName}" style="text-align:center">
 									<p:panelGrid columns="2" style="width:100%">
 
@@ -129,7 +124,15 @@
 
 									</p:panelGrid>
 								</p:panel>
-							</p:dataGrid>
+								</p:column>
+							</p:dataTable>
+							<h:commandLink value="exportarPDF">
+				   				<p:dataExporter type="pdf" target="usuario" fileName="Auditoria" pageOnly="true"/>
+									</h:commandLink>
+											<h1> </h1>
+									<h:commandLink value="exportarEXl">
+								   		<p:dataExporter type="xls" target="usuario" fileName="Auditoria" pageOnly="true" />
+								   </h:commandLink>
 						</p:tab>
 					</p:tabView></td>
 				<p:commandButton value="Salir" action="/Principal/inicio" />
