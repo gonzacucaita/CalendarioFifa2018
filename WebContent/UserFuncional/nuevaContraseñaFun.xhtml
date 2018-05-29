@@ -52,9 +52,11 @@ function mi(){
 </script>
 	</h:head>
 	<body>
-		<h:outputLabel value = "NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA" rendered = "#{userBean.usuario.userType eq FUNCIONAL}" style="color: white" />
+	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+			rendered="#{userBean.verificaFuncional eq false}" />
+
 	
-		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false }">
+		<h:form rendered="#{userBean.verificaFuncional eq true}">
 			<table height="100%" width="100%">
 				<tr>
 					<td valign="middle">

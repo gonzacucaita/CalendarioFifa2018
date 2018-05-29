@@ -13,10 +13,11 @@
 	<body>
 	
 	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
-			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
+			rendered="#{userBean.verificaFuncional eq false}" />
+
 	
-		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}>
-		
+		<h:form rendered="#{userBean.verificaFuncional eq true}">
+			
 			<h:panelGrid columns="2">
 
 				<h:outputText value="Tipo de parametro: " />

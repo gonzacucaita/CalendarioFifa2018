@@ -42,7 +42,7 @@ body {
 						<tr>
 						
 						<td><p:commandButton value="Solicitar Desbloqueo"
-									action="#{userBean.solicitarContrasenia}" /></td>
+									action="#{userBean.solicitarContrasenia}" rendered="#{userBean.verificaCliente eq true or userBean.verificaFuncional eq true}"/></td>
 						</tr>
 					</table>
 				</td>

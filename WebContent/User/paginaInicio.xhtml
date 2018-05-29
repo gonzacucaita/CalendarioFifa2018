@@ -388,9 +388,9 @@ body {
 	</h:head>
 	<h:body>
 		<h:outputLabel value="NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA"
-			rendered="#{userBean.usuario.userType eq cliente eq false}" />
+			rendered="#{userBean.verificaCliente eq false}" />
 
-		<p:layout fullPage="true" rendered="#{userBean.usuario.userType eq cliente}">
+		<p:layout fullPage="true" rendered="#{userBean.verificaCliente eq true}">
 
 			<p:layoutUnit position="north" size="100" header="Top"
 				resizable="true" collapsible="true">

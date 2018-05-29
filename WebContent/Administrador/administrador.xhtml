@@ -33,9 +33,9 @@ body {
 
 <h:body>
 	<h:outputLabel value="NO SE A INICIADO SESIÓN COMO ADMINISTRADOR"
-		rendered="#{userBean.usuario.userType eq ADMIN eq false}" />
+		rendered="#{userBean.verificaAdmin eq false}" />
 
-	<h:form rendered="#{userBean.usuario.userType eq ADMIN eq true}">
+	<h:form rendered="#{userBean.verificaAdmin eq true}">
 
 		<table align="center">
 
