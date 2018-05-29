@@ -4,8 +4,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * The Class HibernateUtil.
+ */
 public class HibernateUtil {
 
+	/** The session factory. */
 	private static SessionFactory sessionFactory;
 
 	static {
@@ -20,6 +24,11 @@ public class HibernateUtil {
 	}
 	
 	
+	/**
+	 * Gets the session factory.
+	 *
+	 * @return the session factory
+	 */
 	public static SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

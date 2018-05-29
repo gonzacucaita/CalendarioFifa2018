@@ -12,22 +12,46 @@ import com.unbosque.edu.co.calendarioFifa.dao.impl.StadiumDAOImpl;
 import com.unbosque.edu.co.calendarioFifa.entity.Stadium;
 import com.unbosque.edu.co.calendarioFifa.service.StadiumService;
 
+/**
+ * The Class StadiumBean.
+ */
 @ManagedBean
 @SessionScoped
 public class StadiumBean {
 
+	/** The estadio. */
 	private Stadium estadio;
+	
+	/** The lista estadio. */
 	private DataModel listaEstadio;
+	
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(StadiumBean.class);
 	
 	
+	/**
+	 * Gets the estadio.
+	 *
+	 * @return the estadio
+	 */
 	public Stadium getEstadio() {
 		return estadio;
 	}
 	
+	/**
+	 * Sets the estadio.
+	 *
+	 * @param estadio the new estadio
+	 */
 	public void setEstadio(Stadium estadio) {
 		this.estadio = estadio;
 	}
+	
+	/**
+	 * Preparar adicionar estadio.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarEstadio() {
 		estadio = new Stadium();
 		if(log.isDebugEnabled()) {
@@ -38,6 +62,11 @@ public class StadiumBean {
 	
 	
 	
+	/**
+	 * Preparar modificar estadio.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarEstadio() {
 		estadio = (Stadium) (listaEstadio.getRowData());
 		if(log.isDebugEnabled()) {
@@ -46,6 +75,11 @@ public class StadiumBean {
 		return "stadiumModificar";
 	}
 	
+	/**
+	 * Adicionar estadio.
+	 *
+	 * @return the string
+	 */
 	public String adicionarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.save(estadio);
@@ -55,6 +89,11 @@ public class StadiumBean {
 		return "funcional";
 	}
 	
+	/**
+	 * Eliminar estadio.
+	 *
+	 * @return the string
+	 */
 	public String eliminarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.remove(estadio);
@@ -63,6 +102,12 @@ public class StadiumBean {
 		}
 		return "inicio";
 	}
+	
+	/**
+	 * Modificar estadio.
+	 *
+	 * @return the string
+	 */
 	public String modificarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.update(estadio);
@@ -72,6 +117,11 @@ public class StadiumBean {
 		return "funcional";
 	}
 	
+	/**
+	 * Gets the listar estadios.
+	 *
+	 * @return the listar estadios
+	 */
 	public DataModel getListarEstadios() {
 		List<Stadium> lista = new StadiumService().list();
 		listaEstadio = new ListDataModel(lista);

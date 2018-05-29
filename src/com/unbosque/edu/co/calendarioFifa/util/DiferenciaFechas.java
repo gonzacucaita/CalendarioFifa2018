@@ -2,15 +2,30 @@ package com.unbosque.edu.co.calendarioFifa.util;
 
 import java.util.Date;
 
+/**
+ * The Class DiferenciaFechas.
+ */
 public class DiferenciaFechas {
 
 	
+	/**
+	 * Difeencia fechas.
+	 *
+	 * @param ultima the ultima
+	 * @param inicial the inicial
+	 * @return the long
+	 */
 	public static long DifeenciaFechas(Date ultima, Date inicial) {
 		
 		return (ultima.getTime()-inicial.getTime())/ (1000 * 60 * 60 * 24);
 		
 	}
 	
+	/**
+	 * Gets the generar contrasenia.
+	 *
+	 * @return the generar contrasenia
+	 */
 	public  static String getGenerarContrasenia() {
 
 		String contrasenia = "";

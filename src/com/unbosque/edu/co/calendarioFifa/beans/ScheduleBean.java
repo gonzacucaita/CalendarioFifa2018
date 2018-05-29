@@ -12,23 +12,47 @@ import org.apache.log4j.Logger;
 import com.unbosque.edu.co.calendarioFifa.entity.Schedule;
 import com.unbosque.edu.co.calendarioFifa.service.ScheduleService;
 
+/**
+ * The Class ScheduleBean.
+ */
 @ManagedBean
 @SessionScoped
 public class ScheduleBean {
 
+	/** The calendario. */
 	private Schedule calendario;
+	
+	/** The lista calendario. */
 	private DataModel listaCalendario;
+	
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(ScheduleBean.class);
 	
 	
+	/**
+	 * Gets the calendario.
+	 *
+	 * @return the calendario
+	 */
 	public Schedule getCalendario() {
 		return calendario;
 	}
+	
+	/**
+	 * Sets the calendario.
+	 *
+	 * @param shedule the new calendario
+	 */
 	public void setCalendario(Schedule shedule) {
 		this.calendario = shedule;
 	}
 	
 	
+	/**
+	 * Preparar adicionar calendario.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarCalendario() {
 		calendario = new Schedule();
 		calendario.setState("A");
@@ -38,6 +62,11 @@ public class ScheduleBean {
 		return "schedule";
 	}
 	
+	/**
+	 * Preparar modificar calendario.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarCalendario() {
 		calendario = (Schedule) (listaCalendario.getRowData());
 		if(log.isDebugEnabled()) {
@@ -46,6 +75,11 @@ public class ScheduleBean {
 		return "schedule";
 	}
 	
+	/**
+	 * Eliminar calendario.
+	 *
+	 * @return the string
+	 */
 	public String eliminarCalendario() {
 		Schedule scheduleTemp = (Schedule)(listaCalendario.getRowData());
 		ScheduleService dao = new ScheduleService();
@@ -57,6 +91,11 @@ public class ScheduleBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Adicionar calendario.
+	 *
+	 * @return the string
+	 */
 	public String adicionarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		dao.save(calendario);
@@ -67,6 +106,11 @@ public class ScheduleBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Modificar calendario.
+	 *
+	 * @return the string
+	 */
 	public String modificarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		dao.update(calendario);
@@ -76,6 +120,11 @@ public class ScheduleBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Gets the listar calendarios.
+	 *
+	 * @return the listar calendarios
+	 */
 	public DataModel getListarCalendarios() {
 		List<Schedule> lista = new ScheduleService().list();
 		listaCalendario = new ListDataModel(lista);

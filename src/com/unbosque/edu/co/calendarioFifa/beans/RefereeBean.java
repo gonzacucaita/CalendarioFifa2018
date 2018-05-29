@@ -14,26 +14,49 @@ import com.unbosque.edu.co.calendarioFifa.entity.Referee;
 import com.unbosque.edu.co.calendarioFifa.entity.User;
 import com.unbosque.edu.co.calendarioFifa.service.RefereeService;
 
+/**
+ * The Class RefereeBean.
+ */
 @ManagedBean
 @SessionScoped
 public class RefereeBean {
 
 	
-	 private Referee arbitro;
-	 private DataModel listaArbitro;
+	 /** The arbitro. */
+ 	private Referee arbitro;
+	 
+ 	/** The lista arbitro. */
+ 	private DataModel listaArbitro;
 	 
 	 
 	
-	 final static Logger log = Logger.getLogger(RefereeBean.class);
+	 /** The Constant log. */
+ 	final static Logger log = Logger.getLogger(RefereeBean.class);
 		
-	 public Referee getArbitro() {
+	 /**
+ 	 * Gets the arbitro.
+ 	 *
+ 	 * @return the arbitro
+ 	 */
+ 	public Referee getArbitro() {
 		 return arbitro;
 	 }
 	 
-	 public void setArbitro(Referee arbitro) {
+	 /**
+ 	 * Sets the arbitro.
+ 	 *
+ 	 * @param arbitro the new arbitro
+ 	 */
+ 	public void setArbitro(Referee arbitro) {
 		 this.arbitro = arbitro;
 	 }
-	 public String prepararAdicionarArbitro() {
+	 
+ 	/**
+ 	 * Preparar adicionar arbitro.
+ 	 *
+ 	 * @return the string
+ 	 */
+ 	public String prepararAdicionarArbitro() {
 			arbitro = new Referee();
 			arbitro.setState("A");
 			if(log.isDebugEnabled()) {
@@ -42,6 +65,11 @@ public class RefereeBean {
 			return "refereeAgregar";
 		}
 		
+		/**
+		 * Preparar modificar arbitro.
+		 *
+		 * @return the string
+		 */
 		public String prepararModificarArbitro() {
 			arbitro = (Referee) (listaArbitro.getRowData());
 			if(log.isDebugEnabled()) {
@@ -50,6 +78,11 @@ public class RefereeBean {
 			return "refereeModificar";
 		}
 		
+		/**
+		 * Eliminar arbitro.
+		 *
+		 * @return the string
+		 */
 		public String eliminarArbitro() {
 			Referee arbitroTemp = (Referee)(listaArbitro.getRowData());
 			RefereeService dao = new RefereeService();
@@ -61,6 +94,11 @@ public class RefereeBean {
 			return "inicio";
 		}
 		
+		/**
+		 * Adicionar arbitro.
+		 *
+		 * @return the string
+		 */
 		public String adicionarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.save(arbitro);
@@ -70,6 +108,11 @@ public class RefereeBean {
 			return "funcional";
 		}
 		
+		/**
+		 * Modificar arbitro.
+		 *
+		 * @return the string
+		 */
 		public String modificarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.update(arbitro);
@@ -79,6 +122,11 @@ public class RefereeBean {
 			return "funcional";
 		}
 		
+		/**
+		 * Gets the listar arbitros.
+		 *
+		 * @return the listar arbitros
+		 */
 		public DataModel getListarArbitros() {
 			List<Referee> lista = new RefereeService().list();
 			listaArbitro = new ListDataModel(lista);

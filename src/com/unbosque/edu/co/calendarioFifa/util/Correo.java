@@ -8,13 +8,27 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
-
-
+/**
+ * The Class Correo.
+ */
 public class Correo {
+	
+	/**
+	 * Instantiates a new correo.
+	 */
 	public Correo() {
 		
 	}
+	
+	/**
+	 * Enviar correo.
+	 *
+	 * @param de the de
+	 * @param para the para
+	 * @param clave the clave
+	 * @param asunto the asunto
+	 * @param mensaje the mensaje
+	 */
 	public static void enviarCorreo(String de, String para, String clave, String asunto, String mensaje) {
 
 		try {

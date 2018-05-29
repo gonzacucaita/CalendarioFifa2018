@@ -16,24 +16,47 @@ import java.util.Collection;
 import com.unbosque.edu.co.calendarioFifa.entity.New;
 import com.unbosque.edu.co.calendarioFifa.service.NewService;
 
+/**
+ * The Class NewsBean.
+ */
 @ManagedBean
 @SessionScoped
 public class NewsBean {
 
+	/** The noticia. */
 	private New noticia;
+	
+	/** The lista noticia. */
 	private DataModel listaNoticia;
+	
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(NewsBean.class);
 	
 
 	
+	/**
+	 * Gets the noticia.
+	 *
+	 * @return the noticia
+	 */
 	public New getNoticia() {
 		return noticia;
 	}
 	
+	/**
+	 * Sets the noticia.
+	 *
+	 * @param noticia the new noticia
+	 */
 	public void setNoticia(New noticia) {
 		this.noticia = noticia;
 	}
 	
+	/**
+	 * Preparar adicionar noticia.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarNoticia() {
 		noticia = new New();
 		noticia.setState("A");
@@ -45,6 +68,11 @@ public class NewsBean {
 		return "newsAgregar";
 	}
 	
+	/**
+	 * Preparar modificar noticia.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarNoticia() {
 		noticia = (New) (listaNoticia.getRowData());
 		noticia.setDateNews(new Date());
@@ -55,6 +83,11 @@ public class NewsBean {
 		return "newsModificar";
 	}
 	
+	/**
+	 * Eliminar noticia.
+	 *
+	 * @return the string
+	 */
 	public String eliminarNoticia() {
 		New teamTemp = (New)(listaNoticia.getRowData());
 		NewService dao = new NewService();
@@ -67,6 +100,11 @@ public class NewsBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Adicionar noticia.
+	 *
+	 * @return the string
+	 */
 	public String adicionarNoticia() {
 		NewService dao = new NewService();
 		dao.save(noticia);
@@ -77,6 +115,11 @@ public class NewsBean {
 		return "funcional";
 	}
 	
+	/**
+	 * Modificar equipo.
+	 *
+	 * @return the string
+	 */
 	public String modificarEquipo() {
 		NewService dao = new NewService();
 		dao.update(noticia);
@@ -87,6 +130,11 @@ public class NewsBean {
 		return "funcional";
 	}
 	
+	/**
+	 * Gets the listar noticias.
+	 *
+	 * @return the listar noticias
+	 */
 	public DataModel getListarNoticias() {
 		List<New> lista = new NewService().list();
 		listaNoticia = new ListDataModel(lista);
@@ -96,6 +144,12 @@ public class NewsBean {
 		}
 		return listaNoticia;
 	}
+	
+	/**
+	 * Gets the listar.
+	 *
+	 * @return the listar
+	 */
 	public List<New> getListar(){
 		
 		List<New> lista = new NewService().list();

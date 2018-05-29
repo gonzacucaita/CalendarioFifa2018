@@ -16,47 +16,83 @@ import com.unbosque.edu.co.calendarioFifa.entity.*;
 import com.unbosque.edu.co.calendarioFifa.service.*;
 import com.unbosque.edu.co.calendarioFifa.util.*;
 
+/**
+ * The Class UserBean.
+ */
 @ManagedBean
 @SessionScoped
 public class UserBean {
 
+	/** The images. */
 	private List<String> images;
 
 	/**
 	 * ATRIBUTOS PARA EL USUARIO EN GENERAL.
 	 */
 	private static int INTENTOS = 0;
+	
+	/** The usuario. */
 	private User usuario;
+	
+	/** The lista usuarios. */
 	private DataModel listaUsuarios;
+	
+	/** The ingresar usuario. */
 	private String ingresarUsuario;
+	
+	/** The contrasenia. */
 	private String contrasenia;
+	
+	/** The contrasenia nueva. */
 	private String contraseniaNueva;
+	
+	/** The auditoria. */
 	private Audit auditoria = new Audit();
+	
+	/** The audit service. */
 	private AuditService auditService = new AuditService();
+	
+	/** The verifica. */
 	private boolean verifica = false;
 	
+	/** The lista arbitros. */
 	private DataModel listaArbitros;
+	
+	/** The lista equipos. */
 	private DataModel listaEquipos;
+	
+	/** The lista estadios. */
 	private DataModel listaEstadios;
+	
+	/** The lista noticias. */
 	private DataModel listaNoticias;
 	
-	/**
-	 * ATRIBUTOS PARA EL USUARIO FUNCIONAL
-	 */
+	/** ATRIBUTOS PARA EL USUARIO FUNCIONAL. */
 	private Goalscorer goleador;
+	
+	/** The noticia. */
 	private New noticia;
+	
+	/** The arbitro. */
 	private Referee arbitro;
+	
+	/** The calendario. */
 	private Schedule calendario;
+	
+	/** The estadio. */
 	private Stadium estadio;
+	
+	/** The equipo. */
 	private Team equipo;
 	
 
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(UserBean.class);
 
 	/**
-	 * METODOS PARA LOS USUARIOS EN GENERAL (ADMINISTRADOR, FUNCIONAL, CLIENTE)
-	 * 
-	 * @return
+	 * METODOS PARA LOS USUARIOS EN GENERAL (ADMINISTRADOR, FUNCIONAL, CLIENTE).
+	 *
+	 * @return the string
 	 */
 
 	public String validarUsuario() 
@@ -196,6 +232,11 @@ public class UserBean {
 		return "/Principal/registro";
 	}
 
+	/**
+	 * Preparar adicionar usuario.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarUsuario() {
 		usuario = new User();
 		usuario.setActive("A");
@@ -208,6 +249,11 @@ public class UserBean {
 		return "registro";
 	}
 
+	/**
+	 * Preparar adicionar usuario funcional.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarUsuarioFuncional() {
 		usuario = new User();
 		usuario.setActive("A");
@@ -220,6 +266,11 @@ public class UserBean {
 		return "agregarFuncional";
 	}
 
+	/**
+	 * Adicionar usuario funcional.
+	 *
+	 * @return the string
+	 */
 	public String adicionarUsuarioFuncional() {
 
 		UserService dao = new UserService();
@@ -285,6 +336,11 @@ public class UserBean {
 
 	}
 
+	/**
+	 * Adicionar usuario.
+	 *
+	 * @return the string
+	 */
 	public String adicionarUsuario() {
 
 		UserService dao = new UserService();
@@ -347,9 +403,9 @@ public class UserBean {
 	}
 
 	/**
-	 * METODOS PARA EL USUARIO FUNCIONAL
-	 * 
-	 * @return
+	 * METODOS PARA EL USUARIO FUNCIONAL.
+	 *
+	 * @return the string
 	 */
 	public String prepararModificarUsuario() {
 		usuario = (User) (listaUsuarios.getRowData());
@@ -359,6 +415,11 @@ public class UserBean {
 		return "registro";
 	}
 
+	/**
+	 * Eliminar usuario.
+	 *
+	 * @return the string
+	 */
 	public String eliminarUsuario() {
 		User usuarioTemp = (User) (listaUsuarios.getRowData());
 		UserService dao = new UserService();
@@ -380,6 +441,11 @@ public class UserBean {
 		return "inicio";
 	}
 
+	/**
+	 * Modificar usuario.
+	 *
+	 * @return the string
+	 */
 	public String modificarUsuario() {
 		prepararModificarUsuario();
 		UserService dao = new UserService();
@@ -422,11 +488,19 @@ public class UserBean {
 		return "/Administrador/administrador";
 	}
 
+	/**
+	 * Preparar adicionar goleador.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarGoleador() {
 		goleador = new Goalscorer();
 		return "goalscorer";
 	}
 
+	/**
+	 * Adicionar goleador.
+	 */
 	public void adicionarGoleador() {
 
 		GoalscorerService gls = new GoalscorerService();
@@ -445,6 +519,11 @@ public class UserBean {
 
 	}
 
+	/**
+	 * Preparar modificar goleador.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarGoleador() {
 		List<Goalscorer> goalscorer = new GoalscorerService().list();
 		DataModel listaGoleadores = new ListDataModel(goalscorer);
@@ -455,6 +534,9 @@ public class UserBean {
 		return "editarUsuario";
 	}
 
+	/**
+	 * Modificar goleador.
+	 */
 	public void modificarGoleador() {
 		GoalscorerService gs = new GoalscorerService();
 		gs.update(goleador);
@@ -473,11 +555,19 @@ public class UserBean {
 		}
 	}
 
+	/**
+	 * Preparar adicionar noticia.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarNoticia() {
 		noticia = new New();
 		return "new";
 	}
 
+	/**
+	 * Adicionar noticia.
+	 */
 	public void adicionarNoticia() {
 		NewService ns = new NewService();
 		ns.save(noticia);
@@ -491,6 +581,11 @@ public class UserBean {
 		ad.save(auditoria);
 	}
 
+	/**
+	 * Preparar modificar noticia.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarNoticia() {
 		List<Goalscorer> goalscorer = new GoalscorerService().list();
 		DataModel listaGoleadores = new ListDataModel(goalscorer);
@@ -501,6 +596,9 @@ public class UserBean {
 		return "pagina donde se modifica";
 	}
 
+	/**
+	 * Modificar noticia.
+	 */
 	public void modificarNoticia() {
 		NewService ns = new NewService();
 		ns.update(noticia);
@@ -519,6 +617,11 @@ public class UserBean {
 		}
 	}
 
+	/**
+	 * Preparar adicionar arbitro.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarArbitro() {
 		arbitro = new Referee();
 		arbitro.setState("A");
@@ -528,6 +631,11 @@ public class UserBean {
 		return "refereeAgregar";
 	}
 
+	/**
+	 * Adicionar arbitro.
+	 *
+	 * @return the string
+	 */
 	public String adicionarArbitro() {
 		RefereeService rs = new RefereeService();
 		rs.save(arbitro);
@@ -545,6 +653,11 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Preparar modificar arbitro.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarArbitro() {
 		getListaArbitros();
 		arbitro = (Referee) (listaArbitros.getRowData());
@@ -554,6 +667,11 @@ public class UserBean {
 		return "refereeModificar";
 	}
 
+	/**
+	 * Modificar arbitro.
+	 *
+	 * @return the string
+	 */
 	public String modificarArbitro() {
 		RefereeService rs = new RefereeService();
 		rs.update(arbitro);
@@ -571,6 +689,11 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Preparar adicionar calendario.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarCalendario() {
 		calendario = new Schedule();
 		if (log.isDebugEnabled()) {
@@ -579,6 +702,9 @@ public class UserBean {
 		return "schedule";
 	}
 
+	/**
+	 * Adicionar calendario.
+	 */
 	public void adicionarCalendario() {
 		ScheduleService ss = new ScheduleService();
 		ss.save(calendario);
@@ -595,6 +721,11 @@ public class UserBean {
 		}
 	}
 
+	/**
+	 * Preparar modificar calendario.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarCalendario() {
 		List<Schedule> schedule = new ScheduleService().list();
 		DataModel listaCalendario = new ListDataModel(schedule);
@@ -605,6 +736,9 @@ public class UserBean {
 		return "pagina donde se modifica";
 	}
 
+	/**
+	 * Modificar calendario.
+	 */
 	public void modificarCalendario() {
 		ScheduleService ss = new ScheduleService();
 		ss.update(calendario);
@@ -621,6 +755,11 @@ public class UserBean {
 		}
 	}
 
+	/**
+	 * Preparar adicionar estadio.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarEstadio() {
 		estadio = new Stadium();
 		if (log.isDebugEnabled()) {
@@ -629,6 +768,11 @@ public class UserBean {
 		return "stadiumAgregar";
 	}
 
+	/**
+	 * Adicionar estadio.
+	 *
+	 * @return the string
+	 */
 	public String adicionarEstadio() {
 		StadiumService sts = new StadiumService();
 		sts.save(estadio);
@@ -647,6 +791,11 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Preparar modificar estadio.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarEstadio() {
 		List<Stadium> stadium = new StadiumService().list();
 		DataModel listaEstadios = new ListDataModel(stadium);
@@ -657,6 +806,11 @@ public class UserBean {
 		return "stadiumModificar";
 	}
 
+	/**
+	 * Modificar estadio.
+	 *
+	 * @return the string
+	 */
 	public String modificarEstadio() {
 		StadiumService ss = new StadiumService();
 		ss.update(estadio);
@@ -675,6 +829,11 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Preparar adicionar equipo.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarEquipo() {
 		equipo = new Team();
 		if (log.isDebugEnabled()) {
@@ -683,6 +842,11 @@ public class UserBean {
 		return "teamAgregar";
 	}
 
+	/**
+	 * Adicionar equipo.
+	 *
+	 * @return the string
+	 */
 	public String adicionarEquipo() {
 		TeamService ts = new TeamService();
 		equipo.setState("A");
@@ -709,6 +873,11 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Preparar modificar equipo.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarEquipo() {
 		List<Team> team = new TeamService().list();
 		// DataModel listaEquipos = new ListDataModel(team);
@@ -724,6 +893,11 @@ public class UserBean {
 		return "team";
 	}
 
+	/**
+	 * Modificar equipo.
+	 *
+	 * @return the string
+	 */
 	public String modificarEquipo() {
 		TeamService tm = new TeamService();
 		tm.update(equipo);
@@ -742,10 +916,20 @@ public class UserBean {
 		return "funcional";
 	}
 
+	/**
+	 * Gets the usuario.
+	 *
+	 * @return the usuario
+	 */
 	public User getUsuario() {
 		return usuario;
 	}
 
+	/**
+	 * Gets the listar usuario.
+	 *
+	 * @return the listar usuario
+	 */
 	public DataModel getListarUsuario() {
 		List<User> lista = new UserService().list();
 		listaUsuarios = new ListDataModel(lista);
@@ -755,6 +939,11 @@ public class UserBean {
 		return listaUsuarios;
 	}
 
+	/**
+	 * Solicitar contrasenia.
+	 *
+	 * @return the string
+	 */
 	public String solicitarContrasenia() {
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
@@ -769,6 +958,11 @@ public class UserBean {
 		return "/Principal/login";
 	}
 
+	/**
+	 * Preparar modificar usuario normal.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarUsuarioNormal() {
 		usuario = (User) (listaUsuarios.getRowData());
 		if (log.isDebugEnabled()) {
@@ -777,6 +971,11 @@ public class UserBean {
 		return "editarUsuario";
 	}
 
+	/**
+	 * Modificar usuario normal.
+	 *
+	 * @return the string
+	 */
 	public String modificarUsuarioNormal() {
 		UserService dao = new UserService();
 		dao.update(usuario);
@@ -786,6 +985,11 @@ public class UserBean {
 		return "paginaInicio";
 	}
 
+	/**
+	 * Gets the olvide contrasenia.
+	 *
+	 * @return the olvide contrasenia
+	 */
 	public String getOlvideContrasenia() {
 		INTENTOS = 0;
 		UserService us = new UserService();
@@ -821,10 +1025,20 @@ public class UserBean {
 
 	}
 
+	/**
+	 * Gets the contrasenia nueva.
+	 *
+	 * @return the contrasenia nueva
+	 */
 	public String getContraseniaNueva() {
 		return contraseniaNueva;
 	}
 
+	/**
+	 * Sets the contrasenia nueva.
+	 *
+	 * @param contraseniaNueva the new contrasenia nueva
+	 */
 	public void setContraseniaNueva(String contraseniaNueva) {
 		this.contraseniaNueva = Util.getStringMessageDigest(contraseniaNueva, Util.MD5);
 		UserService dao = new UserService();
@@ -833,127 +1047,282 @@ public class UserBean {
 		dao.update(usuario);
 	}
 
+	/**
+	 * Gets the ingresar usuario.
+	 *
+	 * @return the ingresar usuario
+	 */
 	public String getIngresarUsuario() {
 		return ingresarUsuario;
 	}
 
+	/**
+	 * Sets the ingresar usuario.
+	 *
+	 * @param usuario the new ingresar usuario
+	 */
 	public void setIngresarUsuario(String usuario) {
 		this.ingresarUsuario = usuario;
 	}
 
+	/**
+	 * Gets the contrasenia.
+	 *
+	 * @return the contrasenia
+	 */
 	public String getContrasenia() {
 		return contrasenia;
 	}
 
+	/**
+	 * Sets the contrasenia.
+	 *
+	 * @param contrasenia the new contrasenia
+	 */
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
 
+	/**
+	 * Sets the usuario.
+	 *
+	 * @param usuario the new usuario
+	 */
 	public void setUsuario(User usuario) {
 
 		this.usuario = usuario;
 	}
 
+	/**
+	 * Gets the images.
+	 *
+	 * @return the images
+	 */
 	public List<String> getImages() {
 		return images;
 	}
 
+	/**
+	 * Sets the images.
+	 *
+	 * @param images the new images
+	 */
 	public void setImages(List<String> images) {
 		this.images = images;
 	}
 
+	/**
+	 * Checks if is verifica.
+	 *
+	 * @return true, if is verifica
+	 */
 	public boolean isVerifica() {
 		return verifica;
 	}
 
+	/**
+	 * Sets the verifica.
+	 *
+	 * @param verifica the new verifica
+	 */
 	public void setVerifica(boolean verifica) {
 		this.verifica = verifica;
 	}
 
+	/**
+	 * Gets the intentos.
+	 *
+	 * @return the intentos
+	 */
 	public static int getINTENTOS() {
 		return INTENTOS;
 	}
 
+	/**
+	 * Sets the intentos.
+	 *
+	 * @param iNTENTOS the new intentos
+	 */
 	public static void setINTENTOS(int iNTENTOS) {
 		INTENTOS = iNTENTOS;
 	}
 
+	/**
+	 * Gets the lista usuarios.
+	 *
+	 * @return the lista usuarios
+	 */
 	public DataModel getListaUsuarios() {
 		return listaUsuarios;
 	}
 
+	/**
+	 * Sets the lista usuarios.
+	 *
+	 * @param listaUsuarios the new lista usuarios
+	 */
 	public void setListaUsuarios(DataModel listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
 
+	/**
+	 * Gets the auditoria.
+	 *
+	 * @return the auditoria
+	 */
 	public Audit getAuditoria() {
 		return auditoria;
 	}
 
+	/**
+	 * Sets the auditoria.
+	 *
+	 * @param auditoria the new auditoria
+	 */
 	public void setAuditoria(Audit auditoria) {
 		this.auditoria = auditoria;
 	}
 
+	/**
+	 * Gets the audit service.
+	 *
+	 * @return the audit service
+	 */
 	public AuditService getAuditService() {
 		return auditService;
 	}
 
+	/**
+	 * Sets the audit service.
+	 *
+	 * @param auditService the new audit service
+	 */
 	public void setAuditService(AuditService auditService) {
 		this.auditService = auditService;
 	}
 
+	/**
+	 * Gets the goleador.
+	 *
+	 * @return the goleador
+	 */
 	public Goalscorer getGoleador() {
 		return goleador;
 	}
 
+	/**
+	 * Sets the goleador.
+	 *
+	 * @param goleador the new goleador
+	 */
 	public void setGoleador(Goalscorer goleador) {
 		this.goleador = goleador;
 	}
 
+	/**
+	 * Gets the noticia.
+	 *
+	 * @return the noticia
+	 */
 	public New getNoticia() {
 		return noticia;
 	}
 
+	/**
+	 * Sets the noticia.
+	 *
+	 * @param noticia the new noticia
+	 */
 	public void setNoticia(New noticia) {
 		this.noticia = noticia;
 	}
 
+	/**
+	 * Gets the arbitro.
+	 *
+	 * @return the arbitro
+	 */
 	public Referee getArbitro() {
 		return arbitro;
 	}
 
+	/**
+	 * Sets the arbitro.
+	 *
+	 * @param arbitro the new arbitro
+	 */
 	public void setArbitro(Referee arbitro) {
 		this.arbitro = arbitro;
 	}
 
+	/**
+	 * Gets the calendario.
+	 *
+	 * @return the calendario
+	 */
 	public Schedule getCalendario() {
 		return calendario;
 	}
 
+	/**
+	 * Sets the calendario.
+	 *
+	 * @param calendario the new calendario
+	 */
 	public void setCalendario(Schedule calendario) {
 		this.calendario = calendario;
 	}
 
+	/**
+	 * Gets the estadio.
+	 *
+	 * @return the estadio
+	 */
 	public Stadium getEstadio() {
 		return estadio;
 	}
 
+	/**
+	 * Sets the estadio.
+	 *
+	 * @param estadio the new estadio
+	 */
 	public void setEstadio(Stadium estadio) {
 		this.estadio = estadio;
 	}
 
+	/**
+	 * Gets the equipo.
+	 *
+	 * @return the equipo
+	 */
 	public Team getEquipo() {
 		return equipo;
 	}
 
+	/**
+	 * Sets the equipo.
+	 *
+	 * @param equipo the new equipo
+	 */
 	public void setEquipo(Team equipo) {
 		this.equipo = equipo;
 	}
 
+	/**
+	 * Gets the log.
+	 *
+	 * @return the log
+	 */
 	public static Logger getLog() {
 		return log;
 	}
 
+	/**
+	 * Gets the lista arbitros.
+	 *
+	 * @return the lista arbitros
+	 */
 	public DataModel getListaArbitros() {
 		List<Referee> referee = new RefereeService().list();
 		 listaArbitros = new ListDataModel(referee);
@@ -963,30 +1332,65 @@ public class UserBean {
 		return listaArbitros;
 	}
 
+	/**
+	 * Sets the lista arbitros.
+	 *
+	 * @param listaArbitros the new lista arbitros
+	 */
 	public void setListaArbitros(DataModel listaArbitros) {
 		this.listaArbitros = listaArbitros;
 	}
 
+	/**
+	 * Gets the lista equipos.
+	 *
+	 * @return the lista equipos
+	 */
 	public DataModel getListaEquipos() {
 		return listaEquipos;
 	}
 
+	/**
+	 * Sets the lista equipos.
+	 *
+	 * @param listaEquipos the new lista equipos
+	 */
 	public void setListaEquipos(DataModel listaEquipos) {
 		this.listaEquipos = listaEquipos;
 	}
 
+	/**
+	 * Gets the lista estadios.
+	 *
+	 * @return the lista estadios
+	 */
 	public DataModel getListaEstadios() {
 		return listaEstadios;
 	}
 
+	/**
+	 * Sets the lista estadios.
+	 *
+	 * @param listaEstadios the new lista estadios
+	 */
 	public void setListaEstadios(DataModel listaEstadios) {
 		this.listaEstadios = listaEstadios;
 	}
 
+	/**
+	 * Gets the lista noticias.
+	 *
+	 * @return the lista noticias
+	 */
 	public DataModel getListaNoticias() {
 		return listaNoticias;
 	}
 
+	/**
+	 * Sets the lista noticias.
+	 *
+	 * @param listaNoticias the new lista noticias
+	 */
 	public void setListaNoticias(DataModel listaNoticias) {
 		this.listaNoticias = listaNoticias;
 	}

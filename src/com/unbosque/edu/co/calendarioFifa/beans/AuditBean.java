@@ -17,63 +17,165 @@ import com.unbosque.edu.co.calendarioFifa.entity.User;
 import com.unbosque.edu.co.calendarioFifa.service.AuditService;
 import com.unbosque.edu.co.calendarioFifa.service.TeamService;
 
+/**
+ * The Class AuditBean.
+ */
 @ManagedBean
 @SessionScoped
 public class AuditBean implements Serializable{
 
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(AuditBean.class);
 	
+	/** The auditoria. */
 	private Audit auditoria;
+	
+	/** The lista auditorias. */
 	private DataModel listaAuditorias;
+	
+	/** The auditorias. */
 	private String auditorias;
+	
+	/** The usuarios. */
 	private String usuarios;
+	
+	/** The salir. */
 	private String salir;
 	  
+	/** The listt. */
 	private List<Audit> listt;
 	
+	/**
+	 * Gets the listt.
+	 *
+	 * @return the listt
+	 */
 	public List<Audit> getListt() {
 		return listt = new AuditService().list();
 	}
+	
+	/**
+	 * Sets the listt.
+	 *
+	 * @param listt the new listt
+	 */
 	public void setListt(List<Audit> listt) {
 		this.listt = listt;
 	}
+	
+	/**
+	 * Gets the auditoria.
+	 *
+	 * @return the auditoria
+	 */
 	public Audit getAuditoria() {
 		return auditoria;
 	}
+	
+	/**
+	 * Sets the auditoria.
+	 *
+	 * @param auditoria the new auditoria
+	 */
 	public void setAuditoria(Audit auditoria) {
 		this.auditoria = auditoria;
 	}
+	
+	/**
+	 * Gets the lista auditorias.
+	 *
+	 * @return the lista auditorias
+	 */
 	public DataModel getListaAuditorias() {
 		return listaAuditorias;
 	}
+	
+	/**
+	 * Sets the lista auditorias.
+	 *
+	 * @param listaAuditorias the new lista auditorias
+	 */
 	public void setListaAuditorias(DataModel listaAuditorias) {
 		this.listaAuditorias = listaAuditorias;
 	}
+	
+	/**
+	 * Gets the auditorias.
+	 *
+	 * @return the auditorias
+	 */
 	public String getAuditorias() {
 		return auditorias;
 	}
+	
+	/**
+	 * Sets the auditorias.
+	 *
+	 * @param auditorias the new auditorias
+	 */
 	public void setAuditorias(String auditorias) {
 		this.auditorias = auditorias;
 	}
+	
+	/**
+	 * Gets the usuarios.
+	 *
+	 * @return the usuarios
+	 */
 	public String getUsuarios() {
 		return usuarios;
 	}
+	
+	/**
+	 * Sets the usuarios.
+	 *
+	 * @param usuarios the new usuarios
+	 */
 	public void setUsuarios(String usuarios) {
 		this.usuarios = usuarios;
 	}
+	
+	/**
+	 * Gets the salir.
+	 *
+	 * @return the salir
+	 */
 	public String getSalir() {
 		return salir;
 	}
+	
+	/**
+	 * Sets the salir.
+	 *
+	 * @param salir the new salir
+	 */
 	public void setSalir(String salir) {
 		this.salir = salir;
 	}
+	
+	/**
+	 * Gets the audit.
+	 *
+	 * @return the audit
+	 */
 	public Audit getAudit() {
 		return auditoria;
 	}
+	
+	/**
+	 * Sets the audit.
+	 *
+	 * @param audit the new audit
+	 */
 	public void setAudit(Audit audit) {
 		this.auditoria = audit;
 	}
 	
+	/**
+	 * Preparar adicionar auditoria.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarAuditoria() {
 		auditoria = new Audit();
 		if(log.isDebugEnabled()) {
@@ -82,6 +184,11 @@ public class AuditBean implements Serializable{
 		return "audit";
 	}
 	
+	/**
+	 * Preparar modificar auditoria.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarAuditoria() {
 		auditoria = (Audit) (listaAuditorias.getRowData());
 		
@@ -91,6 +198,11 @@ public class AuditBean implements Serializable{
 		return "audit";
 	}
 	
+	/**
+	 * Eliminar auditoria.
+	 *
+	 * @return the string
+	 */
 	public String eliminarAuditoria() {
 		Audit auditoriaTemp = (Audit)(listaAuditorias.getRowData());
 		AuditService dao = new AuditService();
@@ -101,6 +213,11 @@ public class AuditBean implements Serializable{
 		return "inicio";
 	}
 	
+	/**
+	 * Adicionar auditoria.
+	 *
+	 * @return the string
+	 */
 	public String adicionarAuditoria() {
 		AuditService dao = new AuditService();
 		dao.save(auditoria);
@@ -110,6 +227,11 @@ public class AuditBean implements Serializable{
 		return "inicio";
 	}
 	
+	/**
+	 * Modificar auditoria.
+	 *
+	 * @return the string
+	 */
 	public String modificarAuditoria() {
 		AuditService dao = new AuditService();
 		dao.update(auditoria);
@@ -119,6 +241,11 @@ public class AuditBean implements Serializable{
 		return "inicio";
 	}
 	
+	/**
+	 * Gets the listar auditorias.
+	 *
+	 * @return the listar auditorias
+	 */
 	public DataModel getListarAuditorias() {
 		List<Audit> lista = new AuditService().list();
 		listaAuditorias = new ListDataModel(lista);
@@ -128,6 +255,11 @@ public class AuditBean implements Serializable{
 		return listaAuditorias;
 	}
 	
+	/**
+	 * Mostrar.
+	 *
+	 * @return the string
+	 */
 	public String mostrar() {
 		String res = "";
 		return res;

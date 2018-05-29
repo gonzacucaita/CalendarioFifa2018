@@ -12,23 +12,46 @@ import org.apache.log4j.Logger;
 import com.unbosque.edu.co.calendarioFifa.entity.Parameter;
 import com.unbosque.edu.co.calendarioFifa.service.ParameterService;
 
+/**
+ * The Class ParameterBean.
+ */
 @ManagedBean
 @SessionScoped
 public class ParameterBean {
 
+	/** The parametro. */
 	private Parameter parametro;
+	
+	/** The lista parametros. */
 	private DataModel listaParametros;
+	
+	/** The Constant log. */
 	final static Logger log = Logger.getLogger(ParameterBean.class);
 	
 	
+	/**
+	 * Gets the parametro.
+	 *
+	 * @return the parametro
+	 */
 	public Parameter getParametro() {
 		return parametro;
 	}
 	
+	/**
+	 * Sets the parametro.
+	 *
+	 * @param parametro the new parametro
+	 */
 	public void setParametro(Parameter parametro) {
 		this.parametro = parametro;
 	}
 	
+	/**
+	 * Preparar adicionar parametro.
+	 *
+	 * @return the string
+	 */
 	public String prepararAdicionarParametro() {
 		parametro = new Parameter();
 		if(log.isDebugEnabled()) {
@@ -37,6 +60,11 @@ public class ParameterBean {
 		return "parameter";
 	}
 	
+	/**
+	 * Preparar modificar parametro.
+	 *
+	 * @return the string
+	 */
 	public String prepararModificarParametro() {
 		parametro = (Parameter) (listaParametros.getRowData());
 		if(log.isDebugEnabled()) {
@@ -45,6 +73,11 @@ public class ParameterBean {
 		return "parameter";
 	}
 	
+	/**
+	 * Eliminar parametro.
+	 *
+	 * @return the string
+	 */
 	public String eliminarParametro() {
 		Parameter parametroTemp = (Parameter)(listaParametros.getRowData());
 		ParameterService dao = new ParameterService();
@@ -56,6 +89,11 @@ public class ParameterBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Adicionar parametro.
+	 *
+	 * @return the string
+	 */
 	public String adicionarParametro() {
 		ParameterService dao = new ParameterService();
 		dao.save(parametro);
@@ -65,6 +103,11 @@ public class ParameterBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Modificar parametro.
+	 *
+	 * @return the string
+	 */
 	public String modificarParametro() {
 		ParameterService dao = new ParameterService();
 		dao.update(parametro);
@@ -74,6 +117,11 @@ public class ParameterBean {
 		return "inicio";
 	}
 	
+	/**
+	 * Gets the listar parametros.
+	 *
+	 * @return the listar parametros
+	 */
 	public DataModel getListarParametros() {
 		List<Parameter> lista = new ParameterService().list();
 		listaParametros = new ListDataModel(lista);
