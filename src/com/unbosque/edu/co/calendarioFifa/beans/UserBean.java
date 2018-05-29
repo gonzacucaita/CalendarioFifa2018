@@ -118,6 +118,9 @@ public class UserBean {
 					ingresos = Integer.parseInt(pa.getParameterCode());
 					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
 					{
+						if(diasDif >= Integer.parseInt(pa.getParameterType())) {
+							usuario.setDateLastPassword(new Date());
+						}
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
 
@@ -143,6 +146,9 @@ public class UserBean {
 						ingresos = Integer.parseInt(pa.getParameterCode());
 						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
 						{
+							if(diasDif >= Integer.parseInt(pa.getParameterType())) {
+								usuario.setDateLastPassword(new Date());
+							}
 							pa.setParameterCode((ingresos + 1) + "");
 							ps.update(pa);
 
