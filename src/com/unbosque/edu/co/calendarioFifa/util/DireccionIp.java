@@ -11,7 +11,6 @@ public class DireccionIp {
 	if (ipAddress == null) {
 		ipAddress = request.getRemoteAddr();
 	}
-	
 	return ipAddress;
 	}
 	
