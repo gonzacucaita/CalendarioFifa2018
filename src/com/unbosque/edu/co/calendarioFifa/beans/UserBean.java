@@ -84,7 +84,9 @@ public class UserBean {
 						auditoria.setTableId(usuario.getId());
 						auditoria.setCreateDate(new Date());
 						auditoria.setTableName("User");
+						auditoria.setIp(DireccionIp.getRemoteAddress());
 						auditService.save(auditoria);
+						
 						log.error("USUARIO:" + usuario.getUserName() + " BLOQUEADO");
 						return "/Error/ErrorLogin";
 					}
@@ -146,6 +148,7 @@ public class UserBean {
 					auditoria.setOperation("E");
 					auditoria.setTableId(usuario.getId());
 					auditoria.setCreateDate(new Date());
+					auditoria.setIp(DireccionIp.getRemoteAddress());
 					auditService.save(auditoria);
 					if (log.isInfoEnabled()) {
 						log.info("SE GENERÓ AUDITORIA");
@@ -218,6 +221,7 @@ public class UserBean {
 			auditoria.setTableName("user");
 			auditoria.setTableId(usuario.getId());
 			auditoria.setCreateDate(new Date());
+			auditoria.setIp(DireccionIp.getRemoteAddress());
 			as.save(auditoria);
 			if (log.isDebugEnabled()) {
 				log.debug("SE AGREGO USUARIO FUNCIONAL");
@@ -283,6 +287,7 @@ public class UserBean {
 			auditoria.setTableName("user");
 			auditoria.setTableId(usuario.getId());
 			auditoria.setCreateDate(new Date());
+			auditoria.setIp(DireccionIp.getRemoteAddress());
 			as.save(auditoria);
 
 			Parameter parameter = new Parameter();
@@ -338,6 +343,7 @@ public class UserBean {
 		auditoria.setTableName("user");
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		as.update(auditoria);
 		auditoria.setId(usuario.getId());
 		if (log.isDebugEnabled()) {
@@ -373,6 +379,7 @@ public class UserBean {
 		auditoria.setTableName("user");
 		auditoria.setTableId(usuario.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		as.save(auditoria);
 		ParameterService ps = new ParameterService();
 		Parameter p = ps.getParametroPorUsuario(usuario.getId());
@@ -403,6 +410,7 @@ public class UserBean {
 		auditoria.setTableName("goalscorer");
 		auditoria.setTableId(goleador.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("AGREGÓ GOLEADOR");
@@ -430,6 +438,7 @@ public class UserBean {
 		auditoria.setTableName("goalscorer");
 		auditoria.setTableId(goleador.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
@@ -451,6 +460,7 @@ public class UserBean {
 		auditoria.setTableName("news");
 		auditoria.setTableId(noticia.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 	}
 
@@ -474,6 +484,7 @@ public class UserBean {
 		auditoria.setTableName("news");
 		auditoria.setTableId(noticia.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 
 		if (log.isDebugEnabled()) {
@@ -499,6 +510,7 @@ public class UserBean {
 		auditoria.setTableName("referee");
 		auditoria.setTableId(arbitro.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR ARBITRO");
@@ -524,6 +536,7 @@ public class UserBean {
 		auditoria.setTableName("referee");
 		auditoria.setTableId(arbitro.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR ARBITRO");
@@ -548,6 +561,7 @@ public class UserBean {
 		auditoria.setTableName("schedule");
 		auditoria.setTableId(calendario.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("ADICIONAR CALENDARIO");
@@ -573,6 +587,7 @@ public class UserBean {
 		auditoria.setTableName("schedule");
 		auditoria.setTableId(calendario.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR CALENDARIO");
@@ -596,6 +611,7 @@ public class UserBean {
 		auditoria.setTableName("stadium");
 		auditoria.setTableId(estadio.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("ADICIONAR ESTADIO");
@@ -623,6 +639,7 @@ public class UserBean {
 		auditoria.setTableName("stadium");
 		auditoria.setTableId(estadio.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR ESTADIO");
@@ -656,6 +673,7 @@ public class UserBean {
 		auditoria.setTableName("team");
 		auditoria.setTableId(equipo.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("ADICIONAR EQUIPO");
@@ -688,6 +706,7 @@ public class UserBean {
 		auditoria.setTableName("team");
 		auditoria.setTableId(equipo.getId());
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		ad.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR EQUIPO");
@@ -765,6 +784,7 @@ public class UserBean {
 		auditoria.setTableName("user");
 		auditoria.setTableId(1);
 		auditoria.setCreateDate(new Date());
+		auditoria.setIp(DireccionIp.getRemoteAddress());
 		as.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("OLVIDO CONTRASEÑA");
