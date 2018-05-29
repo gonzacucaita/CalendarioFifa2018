@@ -69,6 +69,7 @@ public class UserBean {
 		int ingresos = 0;
 		long diasDif = 0;
 		if (usuario != null) {
+			
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
 			if (usuario.getPassword().compareTo(contrasenia) != 0) {
