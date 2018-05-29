@@ -59,7 +59,8 @@ public class UserBean {
 	 * @return
 	 */
 
-	public String validarUsuario() {
+	public String validarUsuario() 
+	{
 
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 		UserService us = new UserService();
@@ -68,14 +69,18 @@ public class UserBean {
 		ParameterService ps = new ParameterService();
 		int ingresos = 0;
 		long diasDif = 0;
-		if (usuario != null) {
+		if (usuario != null) 
+		{
 			
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
-			if (usuario.getPassword().compareTo(contrasenia) != 0) {
-				if (usuario.getUserType().equals("cliente")) {
+			if (usuario.getPassword().compareTo(contrasenia) != 0) 
+			{
+				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) 
+				{
 					INTENTOS++;
-					if (INTENTOS == pa.getNumberValue()) {
+					if (INTENTOS == pa.getNumberValue()) 
+					{
 						usuario.setActive("I");
 						us.update(usuario);
 						INTENTOS = 0;
@@ -96,36 +101,49 @@ public class UserBean {
 					log.error("CONTRASEÑA INCORRECTA");
 				}
 				return "/Principal/login";
-			} else if (usuario.getActive().equals("A")) {
+			} else if (usuario.getActive().equals("A")) 
+			{
 
-				if (usuario.getUserType().equals("ADMIN")) {
-					if (log.isInfoEnabled()) {
+				if (usuario.getUserType().equals("ADMIN")) 
+				{
+					if (log.isInfoEnabled()) 
+					{
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
 					return "/Administrador/administrador";
-				} else if (usuario.getUserType().equals("FUNCIONAL")) {
+				} else if (usuario.getUserType().equals("FUNCIONAL")) 
+				{
 
 					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					ingresos = Integer.parseInt(pa.getParameterCode());
-					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
+					{
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
 
-						if (log.isDebugEnabled()) {
+						if (log.isDebugEnabled()) 
+						{
 							log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
 						}
-						if (log.isInfoEnabled()) {
-							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
-									+ usuario.getUserType());
-						}
-						
-						return "/UserFuncional/funcional";
+						return "/User/nuevaContraseña";
+					}
+					pa.setParameterCode((ingresos + 1) + "");
+					ps.update(pa);
+					setVerifica(true);
+					if (log.isInfoEnabled()) 
+					{
+						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
+								+ usuario.getUserType());
+					}
+					return "/UserFuncional/funcional";
 
-					} else if (usuario.getUserType().equals("cliente")) {
+				} else if (usuario.getUserType().equals("cliente")) 
+				{
 						diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 						ingresos = Integer.parseInt(pa.getParameterCode());
-						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
+						{
 							pa.setParameterCode((ingresos + 1) + "");
 							ps.update(pa);
 
@@ -137,7 +155,8 @@ public class UserBean {
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
 						setVerifica(true);
-						if (log.isInfoEnabled()) {
+						if (log.isInfoEnabled()) 
+						{
 							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 									+ usuario.getUserType());
 						}
@@ -151,16 +170,18 @@ public class UserBean {
 					auditoria.setIp(DireccionIp.getRemoteAddress());
 					auditoria.setTableName("User");
 					auditService.save(auditoria);
-					if (log.isInfoEnabled()) {
+					if (log.isInfoEnabled()) 
+					{
 						log.info("SE GENERÓ AUDITORIA");
 					}
-				} else {
+				} else 
+				{
 
 					log.error("USUARIO BLOQUEADO O ELIMINADO");
 					return "/Error/ErrorLogin";
 				}
 			}
-		}
+		
 		contrasenia = "";
 		ingresarUsuario = "";
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",

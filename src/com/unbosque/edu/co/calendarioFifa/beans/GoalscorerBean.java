@@ -3,7 +3,6 @@ package com.unbosque.edu.co.calendarioFifa.beans;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -24,8 +23,7 @@ public class GoalscorerBean {
 	private Goalscorer goleador;
 	private DataModel listaGoleadores;
 	
-	@ManagedProperty("#{UserBean}")
-	private UserBean userBean;
+
 
 	public Goalscorer getGoleador() {
 		return goleador;
