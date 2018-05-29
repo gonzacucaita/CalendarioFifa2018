@@ -3,6 +3,7 @@ package com.unbosque.edu.co.calendarioFifa.beans;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -28,6 +29,17 @@ public class ScheduleBean {
 	/** The Constant log. */
 	final static Logger log = Logger.getLogger(ScheduleBean.class);
 	
+	@ManagedProperty("#{userBean}")
+	private UserBean userBean;
+	
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
 	
 	/**
 	 * Gets the calendario.

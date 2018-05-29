@@ -176,7 +176,7 @@ public class UserBean {
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
-					return "funcional";
+					return "/UserFuncional/funcional";
 
 				} else if (usuario.getUserType().equals("cliente")) 
 				{
@@ -1057,6 +1057,15 @@ public class UserBean {
 		usuario.setPassword(this.contraseniaNueva);
 
 		dao.update(usuario);
+	}
+	
+	public String cerrarSesion() {
+		usuario = null;
+		setVerifica(false);
+		if(log.isDebugEnabled()) {
+		log.debug("CERRAR SESIÓN");
+		}
+		return "/Principal/inicio";
 	}
 
 	/**

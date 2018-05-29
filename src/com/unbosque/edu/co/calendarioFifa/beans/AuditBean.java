@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -44,6 +45,18 @@ public class AuditBean implements Serializable{
 	  
 	/** The listt. */
 	private List<Audit> listt;
+	
+	@ManagedProperty("#{userBean}")
+	private UserBean userBean;
+	
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
 	
 	/**
 	 * Gets the listt.
