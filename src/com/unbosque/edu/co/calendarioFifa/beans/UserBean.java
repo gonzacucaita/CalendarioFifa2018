@@ -755,11 +755,11 @@ public class UserBean {
 		return listaUsuarios;
 	}
 
-	public String getSolicitarContrasenia() {
+	public String solicitarContrasenia() {
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
 		String asunto = "DESBLOQUEO DE USUARIO, CALENDARIO FIFA";
-		String mensaje = "Para desbloquear al usuario :" + usuario.getUserName();
+		String mensaje = "Para desbloquear al usuario : " + usuario.getUserName();
 
 		Correo.enviarCorreo(de, de, clave, asunto, mensaje);
 
