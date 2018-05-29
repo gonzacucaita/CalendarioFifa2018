@@ -43,6 +43,8 @@ public class UserBean {
 	/** The contrasenia. */
 	private String contrasenia;
 	
+	private String userOlvido;
+	
 	/** The contrasenia nueva. */
 	private String contraseniaNueva;
 	
@@ -990,38 +992,48 @@ public class UserBean {
 	 *
 	 * @return the olvide contrasenia
 	 */
-	public String getOlvideContrasenia() {
+	public String olvideContrasenia() {
 		INTENTOS = 0;
 		UserService us = new UserService();
 		String nueva = DiferenciaFechas.getGenerarContrasenia();
+		User usu = us.verificarUsuario(userOlvido);
+		if(usu != null) {
+			setVerifica(true);
+		ParameterService ps = new ParameterService();
+		Parameter p = ps.verificarParametros(usu.getId()+"");
+		p.setParameterCode("0");
+		ps.update(p);
 		String de = "calendario.fifa.uelbosque@gmail.com";
 		String clave = "patatafrita";
 		String asunto = "NUEVA CONTRASEÑA, CALENDARIO FIFA";
-		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usuario.getFullName() + "\n" + "\n"
+		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usu.getFullName() + "\n" + "\n"
 				+ "\n" + "\n" + "Se ha generado su nueva contraseña exitosamente" + "\n" + "\n" + "\n    " + "usuario: "
-				+ usuario.getUserName() + "\n" + "Clave: " + nueva + "\n " + "\n" + "\n" + "\n"
+				+ usu.getUserName() + "\n" + "Clave: " + nueva + "\n " + "\n" + "\n" + "\n"
 				+ "Le solicitamos que una vez ingrese y cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
 				+ "Att: administrador CalendarioFIFA";
 
-		Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+		Correo.enviarCorreo(de, usu.getEmailAddress(), clave, asunto, mensaje);
 		nueva = Util.getStringMessageDigest(nueva, Util.MD5);
-		usuario.setPassword(nueva);
-		us.update(usuario);
+		usu.setPassword(nueva);
+		usu.setDateLastPassword(new Date());
+		us.update(usu);
 		AuditService as = new AuditService();
 
 		Audit auditoria = new Audit();
-		auditoria.setUserId(usuario.getId());
+		auditoria.setUserId(usu.getId());
 		auditoria.setOperation("U");
 		auditoria.setTableName("user");
-		auditoria.setTableId(1);
+		auditoria.setTableId(usu.getId());
 		auditoria.setCreateDate(new Date());
 		auditoria.setIp(DireccionIp.getRemoteAddress());
 		as.save(auditoria);
 		if (log.isDebugEnabled()) {
 			log.debug("OLVIDO CONTRASEÑA");
 		}
-
-		return "parameter";
+		return "/Principal/login";
+		}
+		
+		return "/Principal/registro";
 
 	}
 
@@ -1393,6 +1405,14 @@ public class UserBean {
 	 */
 	public void setListaNoticias(DataModel listaNoticias) {
 		this.listaNoticias = listaNoticias;
+	}
+
+	public String getUserOlvido() {
+		return userOlvido;
+	}
+
+	public void setUserOlvido(String userOlvido) {
+		this.userOlvido = userOlvido;
 	}
 
 	
