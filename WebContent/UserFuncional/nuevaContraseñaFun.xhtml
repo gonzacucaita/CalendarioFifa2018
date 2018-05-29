@@ -55,9 +55,12 @@ body {
 							</tr>
 							<tr align="center">
 								<td><p:outputLabel value="Nueva contraseña: "/> </td>
-								<td><p:password  value="#{userBean.contraseniaNueva}"
-					rendered="true" feedback="true"	
-							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"   /> </td>
+								<td><p:password  value="#{userBean.contraseniaNueva}" id="contraseña" required="true" label="contraseña" feedback="true"	
+								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
+										requiredMessage="Please enter your password."
+										validatorMessage="Ingrese uny valido">
+								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
+								</p:password><p:watermark for="contraseña"/></td>
 							</tr>
 							<tr rowspan="2" >
 								<td colspan="2"><BR /></td>
