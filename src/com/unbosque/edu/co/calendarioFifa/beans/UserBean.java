@@ -149,6 +149,7 @@ public class UserBean {
 					auditoria.setTableId(usuario.getId());
 					auditoria.setCreateDate(new Date());
 					auditoria.setIp(DireccionIp.getRemoteAddress());
+					auditoria.setTableName("User");
 					auditService.save(auditoria);
 					if (log.isInfoEnabled()) {
 						log.info("SE GENERÓ AUDITORIA");
