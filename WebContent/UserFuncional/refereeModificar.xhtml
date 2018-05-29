@@ -47,19 +47,19 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Nombre: " />
-							<p:inputText value="#{refereeBean.arbitro.fullName}"
+							<p:inputText value="#{userBean.arbitro.fullName}"
 								rendered="true" />
 
 							<p:outputLabel value="Nacionalidad: " rendered="true" />
-							<p:inputText value="#{refereeBean.arbitro.nationality}"
+							<p:inputText value="#{userBean.arbitro.nationality}"
 								rendered="true" />
 
 							<p:outputLabel value="Estado: " rendered="true" />
-							<p:inputText value="#{refereeBean.arbitro.state}" rendered="true" />
+							<p:inputText value="#{userBean.arbitro.state}" rendered="true" />
 
 
 							<p:commandButton value="guardar"
-								action="#{refereeBean.modificarArbitro}" />
+								action="#{userBean.modificarArbitro}" />
 							<p:commandButton value="Cancelar" action="funcional" />
 
 						</p:panelGrid></td>
