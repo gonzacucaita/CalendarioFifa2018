@@ -10,25 +10,25 @@
 	<title><h:outputText value="Administrador" /></title>
 
 	<style type="text/css">
-		body {
-			background-image: url('../img/captura3.jpg');
-			background-position: center center;
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-size: cover;
-		}
-		
-		#mail {
-			width: 100%;
-			position: fixed;
-		}
-		
-		.tabla2 {
-			border: solid 7px #4371CD;
-			border-radius: 30px;
-			background: rgba(131, 149, 183, 0.7);
-		}
-	</style>
+body {
+	background-image: url('../img/captura3.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: fixed;
+}
+
+.tabla2 {
+	border: solid 7px #4371CD;
+	border-radius: 30px;
+	background: rgba(131, 149, 183, 0.7);
+}
+</style>
 </h:head>
 
 <h:body>
@@ -43,44 +43,53 @@
 				<td><p:tabView orientation="center" style="text-align:center">
 						<p:tab title="Auditoria" id="audit">
 
-							<p:dataTable var="auditoria" value="#{auditBean.listarAuditorias}"
-								layout="grid" rows="6" paginator="true" id="equipo"
+							<p:dataTable var="auditoria"
+								value="#{auditBean.listarAuditorias}" layout="grid" rows="6"
+								paginator="true" id="equipo"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
 								<p:column>
-								<p:panel header="#{auditoria.operation}"
-									style="text-align:center">
-									<p:panelGrid columns="2" style="width:100%">
+									<p:panel header="#{auditoria.operation}"
+										style="text-align:center">
+										<p:panelGrid columns="2" style="width:100%">
 
-										<p:outputLabel value="ID de la tabla: " />
-										<p:outputLabel value="#{auditoria.tableId}" />
+											<p:outputLabel value="ID de la tabla: " />
+											<p:outputLabel value="#{auditoria.tableId}" />
 
-										<p:outputLabel value="Nombre de la tabla: " />
-										<p:outputLabel value="#{auditoria.tableName}" />
+											<p:outputLabel value="Nombre de la tabla: " />
+											<p:outputLabel value="#{auditoria.tableName}" />
 
-										<p:outputLabel value="ID del usuario: " />
-										<p:outputLabel value="#{auditoria.userId}" />
+											<p:outputLabel value="ID del usuario: " />
+											<p:outputLabel value="#{auditoria.userId}" />
 
-										<p:outputLabel value="Operacion: " />
-										<p:outputLabel value="Crear"
-											rendered="#{'C' eq auditoria.operation}" />
-										<p:outputLabel value="Eliminar"
-											rendered="#{'E' eq auditoria.operation}" />
+											<p:outputLabel value="Operacion: " />
+											<p:outputLabel value="Crear"
+												rendered="#{'C' eq auditoria.operation}" />
+											<p:outputLabel value="Entrar"
+												rendered="#{'E' eq auditoria.operation}" />
+											<p:outputLabel value="Actualizar"
+												rendered="#{'U' eq auditoria.operation}" />
+											<p:outputLabel value="Bloqueado"
+												rendered="#{'B' eq auditoria.operation}" />
+											<p:outputLabel value="Eliminar"
+												rendered="#{'D' eq auditoria.operation}" />
 
-										<p:outputLabel value="Fecha de modificacion: " />
-										<p:outputLabel value="#{auditoria.createDate}" />
+											<p:outputLabel value="Fecha de modificacion: " />
+											<p:outputLabel value="#{auditoria.createDate}" />
 
-									</p:panelGrid>
-								</p:panel>
+										</p:panelGrid>
+									</p:panel>
 								</p:column>
 							</p:dataTable>
 							<h:commandLink value="exportarPDF">
-				   				<p:dataExporter type="pdf" target="equipo" fileName="Auditoria" pageOnly="true"/>
-									</h:commandLink>
-											<h1> </h1>
-									<h:commandLink value="exportarEXl">
-								   		<p:dataExporter type="xls" target="equipo" fileName="Auditoria" pageOnly="true" />
-								   </h:commandLink>
+								<p:dataExporter type="pdf" target="equipo" fileName="Auditoria"
+									pageOnly="true" />
+							</h:commandLink>
+							<h1></h1>
+							<h:commandLink value="exportarEXl">
+								<p:dataExporter type="xls" target="equipo" fileName="Auditoria"
+									pageOnly="true" />
+							</h:commandLink>
 						</p:tab>
 
 						<p:tab title="Usuarios">
@@ -92,47 +101,50 @@
 								</p:menuButton>
 							</f:facet>
 
-							<p:dataTable var="usuario" value="#{userBean.listarUsuario}" layout="grid" rows="6" paginator="true" id="usuario"
+							<p:dataTable var="usuario" value="#{userBean.listarUsuario}"
+								layout="grid" rows="6" paginator="true" id="usuario"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
-							<p:column>
-								<p:panel header="#{usuario.fullName}" style="text-align:center">
-									<p:panelGrid columns="2" style="width:100%">
+								<p:column>
+									<p:panel header="#{usuario.fullName}" style="text-align:center">
+										<p:panelGrid columns="2" style="width:100%">
 
-										<p:outputLabel value="Nombre de usuario: " />
-										<p:outputLabel value="#{usuario.userName}" />
+											<p:outputLabel value="Nombre de usuario: " />
+											<p:outputLabel value="#{usuario.userName}" />
 
-										<p:outputLabel value="Telefono: " />
-										<p:outputLabel value="#{usuario.phoneNumber}" />
+											<p:outputLabel value="Telefono: " />
+											<p:outputLabel value="#{usuario.phoneNumber}" />
 
-										<p:outputLabel value="Correo: " />
-										<p:outputLabel value="#{usuario.emailAddress}" />
+											<p:outputLabel value="Correo: " />
+											<p:outputLabel value="#{usuario.emailAddress}" />
 
-										<p:outputLabel value="Tipo de usuario: " />
-										<p:outputLabel value="#{usuario.userType}" />
+											<p:outputLabel value="Tipo de usuario: " />
+											<p:outputLabel value="#{usuario.userType}" />
 
-										<p:outputLabel value="Estado: " />
-										<p:outputLabel value="Activo"
-											rendered="#{'A' eq usuario.active}" />
-										<p:outputLabel value="InActivo"
-											rendered="#{'I' eq usuario.active}" />
+											<p:outputLabel value="Estado: " />
+											<p:outputLabel value="Activo"
+												rendered="#{'A' eq usuario.active}" />
+											<p:outputLabel value="InActivo"
+												rendered="#{'I' eq usuario.active}" />
 
-										<p:commandButton action="#{userBean.eliminarUsuario}"
-											value="Bloquear" />
-										<p:commandButton action="#{userBean.modificarUsuario}"
-											value="Desbloquear" />
+											<p:commandButton action="#{userBean.eliminarUsuario}"
+												value="Bloquear" />
+											<p:commandButton action="#{userBean.modificarUsuario}"
+												value="Desbloquear" />
 
-									</p:panelGrid>
-								</p:panel>
+										</p:panelGrid>
+									</p:panel>
 								</p:column>
 							</p:dataTable>
 							<h:commandLink value="exportarPDF">
-				   				<p:dataExporter type="pdf" target="usuario" fileName="Auditoria" pageOnly="true"/>
-									</h:commandLink>
-											<h1> </h1>
-									<h:commandLink value="exportarEXl">
-								   		<p:dataExporter type="xls" target="usuario" fileName="Auditoria" pageOnly="true" />
-								   </h:commandLink>
+								<p:dataExporter type="pdf" target="usuario" fileName="Auditoria"
+									pageOnly="true" />
+							</h:commandLink>
+							<h1></h1>
+							<h:commandLink value="exportarEXl">
+								<p:dataExporter type="xls" target="usuario" fileName="Auditoria"
+									pageOnly="true" />
+							</h:commandLink>
 						</p:tab>
 					</p:tabView></td>
 				<p:commandButton value="Salir" action="/Principal/inicio" />

@@ -50,8 +50,6 @@ public class UserBean {
 	private Stadium estadio;
 	private Team equipo;
 	
-	private long idFuncional;
-	
 
 	final static Logger log = Logger.getLogger(UserBean.class);
 
@@ -116,7 +114,6 @@ public class UserBean {
 					return "/Administrador/administrador";
 				} else if (usuario.getUserType().equals("FUNCIONAL")) 
 				{
-					idFuncional = usuario.getId();
 					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					ingresos = Integer.parseInt(pa.getParameterCode());
 					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
@@ -202,7 +199,7 @@ public class UserBean {
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR USUARIO");
 		}
-		return "/Principal/registro";
+		return "registro";
 	}
 
 	public String prepararAdicionarUsuarioFuncional() {
@@ -988,14 +985,6 @@ public class UserBean {
 		this.listaNoticias = listaNoticias;
 	}
 
-	public long getIdFuncional() {
-		return idFuncional;
-	}
-
-	public void setIdFuncional(long idFuncional) {
-		this.idFuncional = idFuncional;
-	}
-	
 	
 
 }
