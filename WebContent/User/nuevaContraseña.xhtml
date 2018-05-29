@@ -32,6 +32,24 @@ body {
 	background: rgba(255, 255, 255, 0.7);
 }
 </style>
+<script>
+function mi(){
+	
+	var password, password2;
+
+	password = document.getElementById('contraseña');
+	password2 = document.getElementById('contraseñaa');
+	
+    if(password.value !== password2.value){
+        password2.setCustomValidity('Las contraseñas no coinciden.');
+        return false;
+    }
+    else{
+        password2.setCustomValidity('');
+        return true;
+    }
+}
+</script>
 	</h:head>
 	<body>
 		<h:outputLabel value = "NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA" rendered = "#{userBean.usuario.userType eq cliente}" style="color: white" />
@@ -62,6 +80,13 @@ body {
 										validatorMessage="Ingrese uny valido">
 								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
 								</p:password><p:watermark for="contraseña"/></td>
+								<td>
+								<p:password  value="Verifique la contraseña" id="contraseñaa" required="true" label="contraseña" feedback="true"	
+								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
+										requiredMessage="Please enter your password."
+										validatorMessage="Ingrese uny valido" onkeypress="mi()">
+								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
+								</p:password><p:watermark for="contraseñaa"/></td>
 							</tr>
 							<tr rowspan="2" >
 								<td colspan="2"><BR /></td>
