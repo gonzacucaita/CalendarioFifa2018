@@ -942,6 +942,5 @@ public class UserBean {
 	public void setListaNoticias(DataModel listaNoticias) {
 		this.listaNoticias = listaNoticias;
 	}
-	
 
 }
