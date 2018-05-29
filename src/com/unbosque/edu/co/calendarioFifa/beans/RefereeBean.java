@@ -3,6 +3,7 @@ package com.unbosque.edu.co.calendarioFifa.beans;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -20,6 +21,9 @@ public class RefereeBean {
 	
 	 private Referee arbitro;
 	 private DataModel listaArbitro;
+	 
+	 
+	
 	 final static Logger log = Logger.getLogger(RefereeBean.class);
 		
 	 public Referee getArbitro() {
@@ -83,5 +87,8 @@ public class RefereeBean {
 			}
 			return listaArbitro;
 		}
+
+		
 	
+		
 }
