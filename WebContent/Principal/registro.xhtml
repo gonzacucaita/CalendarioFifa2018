@@ -13,32 +13,31 @@
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
 
 		<style type="text/css">
-			body {
-				background-image: url('../img/fondo2.gif');
-				background-position: center center;
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-size: cover;
-			}
-			
-			#mail {
-				width: 100%;
-				position: relative;
-			}
-			
-			.tabla2 {
-				border: solid 0.5px #ffffff;
-				border-radius: 30px;
-				background: rgba(255, 255, 255, 0.7);
-			}
-			
-			.messa {
-				color: rgba(255, 255, 255);
-				font-size: 200%;
-				font: bolder;
-				
-				}
-		</style>
+body {
+	background-image: url('../img/fondo2.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#mail {
+	width: 100%;
+	position: relative;
+}
+
+.tabla2 {
+	border: solid 0.5px #ffffff;
+	border-radius: 30px;
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.messa {
+	color: rgba(255, 255, 255);
+	font-size: 200%;
+	font: bolder;
+}
+</style>
 	</h:head>
 	<body>
 		<h:form>
@@ -54,12 +53,17 @@
 							</tr>
 
 							<tr align="center">
-								<td align="left"><p:outputLabel value="#{principal.nombreUsuario}" /></td>
+								<td align="left"><p:outputLabel
+										value="#{principal.nombreUsuario}" /></td>
 								<td><p:inputText id="focus"
 										title="El usuario debe contener entre 6 a 8 caracteres"
-										value="#{userBean.usuario.userName}" /> <p:tooltip
-										id="toolTipFocus" for="focus" showEvent="focus"
-										hideEvent="blur" position="right" /></td>
+										value="#{userBean.usuario.userName}">
+										
+										<f:validateLength minimum="6" maximum="8" />
+										
+										</p:inputText>
+										<p:tooltip id="toolTipFocus" for="focus" showEvent="focus"
+											hideEvent="blur" position="right" /></td>
 							</tr>
 
 							<tr>
@@ -69,22 +73,24 @@
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.nombre}" /></td>
 								<td><p:inputText value="#{userBean.usuario.fullName}"
-										rendered="true" /></td>
+										rendered="true">
+										<f:validateLength minimum="6" maximum="8" />
+
+									</p:inputText></td>
 							</tr>
 
-							
+
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.email}" /></td>
 								<td><p:inputText id="email" required="true" label="email"
 										requiredMessage="Please enter your email address."
 										validatorMessage="Ingrese un correo valido"
-										value="#{userBean.usuario.emailAddress}" >
+										value="#{userBean.usuario.emailAddress}">
 
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 
-									</p:inputText> <p:watermark for="email"/> 
-									</td>
+									</p:inputText> <p:watermark for="email" /></td>
 							</tr>
 
 							<tr rowspan="2">
@@ -110,7 +116,7 @@
 								<td><p:commandButton value="#{principal.btnRegistrar}"
 										action="#{userBean.adicionarUsuario}"
 										onclick="PF('bar').show()" /></td>
-								<td> <p:commandButton value="inicio" /> </td>
+								<td><p:commandButton value="inicio" action="inicio" /></td>
 							</tr>
 						</table>
 					</td>
