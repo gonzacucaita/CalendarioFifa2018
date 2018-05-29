@@ -26,7 +26,9 @@ public class Audit implements Serializable {
 
 	private String tableName;
 
-	private long userId;
+	long userId;
+	
+	private String ip;
 
 	public Audit() {
 	}
@@ -86,5 +88,14 @@ public class Audit implements Serializable {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+	
+	@Column(name = "ip")
+	public String getIp() {
+		return this.ip;
+	}
+	
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 }

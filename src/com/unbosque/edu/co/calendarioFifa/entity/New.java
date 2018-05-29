@@ -27,6 +27,8 @@ public class New implements Serializable {
 	private String shortDescription;
 
 	private String state;
+	
+	private String photo;
 
 	public New() {
 	}
@@ -87,5 +89,13 @@ public class New implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
+	
+	@Column(name = "photo")
+	public String getPhoto() {
+		return this.photo;
+	}
 
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }

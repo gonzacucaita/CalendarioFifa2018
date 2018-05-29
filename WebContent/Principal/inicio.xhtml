@@ -64,29 +64,10 @@ body {
 				<div class="content">
 					<br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 					<br></br> <br></br> <br></br> <br></br>
-					<!--  	<p:contentFlow value="#{userBean.images}" var="image"
-					styleClass="contentFlow">
-					<p:graphicImage value="/demo/images/nature/#{image}"
-						styleClass="content" />
-
-				</p:contentFlow>
-				
-				<p:imageSwitch effect="fade" id="fadeEffect"
-						value="#{userBean.images}" var="image">
-						<p:graphicImage value="/demo/images/nature/#{image}"
-							styleClass="content" />
-					</p:imageSwitch>
 					
 					<p:galleria value="#{newsBean.listar}" var="noticia"
 						 showCaption="true">
-						<p:graphicImage name="#{noticia.shortDescription}"
-							alt="#{noticia.shortDescription}" title="#{noticia.shortDescription}" />
-					</p:galleria>
-				-->
-				
-					<p:galleria value="#{newsBean.listar}" var="noticia"
-						 showCaption="true">
-						<p:graphicImage library="images" name="#{noticia.shortDescription}"
+						<p:graphicImage library="images" name="#{noticia.photo}"
 							alt="#{noticia.largeDescription}" title="#{noticia.shortDescription}" />
 					</p:galleria>
 				</div>
