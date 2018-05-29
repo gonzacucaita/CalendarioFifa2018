@@ -57,7 +57,7 @@ body {
 										value="#{principal.nombreUsuario}" /></td>
 								<td><p:inputText id="focus"
 										title="El usuario debe contener entre 6 a 8 caracteres"
-										value="#{userBean.usuario.userName}">
+										value="#{userBean.usuario.userName}" required="true">
 										
 										<f:validateLength minimum="6" maximum="8" />
 										
@@ -73,8 +73,8 @@ body {
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.nombre}" /></td>
 								<td><p:inputText value="#{userBean.usuario.fullName}"
-										rendered="true">
-										<f:validateLength minimum="1" />
+										rendered="true" required="true">
+										<f:validateLength minimum="3" />
 
 									</p:inputText></td>
 							</tr>
