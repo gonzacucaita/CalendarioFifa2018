@@ -38,23 +38,36 @@ body {
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
 
-	
-		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}">
+
+		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}">
 
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Nombre: " />
-							<p:inputText value="#{userBean.arbitro.fullName}"
-								rendered="true" />
+							<p:inputText value="#{userBean.arbitro.fullName}" rendered="true"
+								required="true">
+
+								<f:validateLength minimum="3" />
+
+							</p:inputText>
 
 							<p:outputLabel value="Nacionalidad: " rendered="true" />
 							<p:inputText value="#{userBean.arbitro.nationality}"
-								rendered="true" />
+								rendered="true" required="true">
+
+								<f:validateLength minimum="3" />
+
+							</p:inputText>
 
 							<p:outputLabel value="Estado: " rendered="true" />
-							<p:inputText value="#{userBean.arbitro.state}" rendered="true" disabled="true" />
+							<p:inputText value="#{userBean.arbitro.state}" rendered="true"
+								disabled="true" required="true">
+
+								<f:validateLength maximum="1" />
+
+							</p:inputText>
 
 
 							<p:commandButton value="Guardar"

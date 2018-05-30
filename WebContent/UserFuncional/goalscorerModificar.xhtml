@@ -34,35 +34,52 @@ body {
 
 	</h:head>
 	<body>
-	
-	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+
+		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
-	
-		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}>
+
+		<h:form
+			rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}>
 			<table align="center">
-				<tr>
-					<td><p:panelGrid columns="2">
-							<p:outputLabel value="nombre: " />
-							<p:inputText value="#{goalscorerBean.goleador.fullName}"
-								rendered="true" />
+			<tr>
+				<td><p:panelGrid columns="2">
+						<p:outputLabel value="nombre: " />
+						<p:inputText value="#{goalscorerBean.goleador.fullName}"
+							rendered="true" required="true">
 
-							<p:outputLabel value="equipo: " rendered="true" />
-							<p:inputText value="#{goalscorerBean.goleador.team}"
-								rendered="true" />
+							<f:validateLength minimum="3" />
 
-							<p:outputLabel value="Foto: " rendered="true" />
-							<p:inputText value="#{goalscorerBean.goleador.photo}"
-								rendered="true" />
+						</p:inputText>
 
-							<p:outputLabel value="Goles: " rendered="true" />
-							<p:inputText value="#{goalscorerBean.goleador.goals}"
-								rendered="true" />
+						<p:outputLabel value="equipo: " rendered="true" />
+						<p:inputText value="#{goalscorerBean.goleador.team}"
+							rendered="true" required="true">
 
-							<p:commandButton value="guardar"
-								action="#{goalscorerBean.modificarGoleador}" />
-							<p:commandButton value="Cancelar" action="funcional" />
-						</p:panelGrid></td>
-				</tr>
+							<f:validateLength minimum="3" />
+
+						</p:inputText>
+
+						<p:outputLabel value="Foto: " rendered="true" />
+						<p:inputText value="#{goalscorerBean.goleador.photo}"
+							rendered="true" required="true">
+
+							<f:validateLength minimum="3" />
+
+						</p:inputText>
+
+						<p:outputLabel value="Goles: " rendered="true" />
+						<p:inputText value="#{goalscorerBean.goleador.goals}"
+							rendered="true" required="true">
+
+							<f:validateLength minimum="3" />
+
+						</p:inputText>
+
+						<p:commandButton value="guardar"
+							action="#{goalscorerBean.modificarGoleador}" />
+						<p:commandButton value="Cancelar" action="funcional" />
+					</p:panelGrid></td>
+			</tr>
 			</table>
 		</h:form>
 	</body>

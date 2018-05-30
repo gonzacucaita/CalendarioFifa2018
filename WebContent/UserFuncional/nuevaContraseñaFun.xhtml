@@ -32,28 +32,30 @@ body {
 	background: rgba(255, 255, 255, 0.7);
 }
 </style>
-<script>
-function mi(){
-	
-	var password, password2;
+		<script>
+			function mi() {
 
-	password = document.getElementById('contraseña');
-	password2 = document.getElementById('contraseñaa');
-	
-    if(password.value !== password2.value){
-        password2.setCustomValidity('Las contraseñas no coinciden.');
-        return false;
-    }
-    else{
-        password2.setCustomValidity('');
-        return true;
-    }
-}
-</script>
+				var password, password2;
+
+				password = document.getElementById('contraseña');
+				password2 = document.getElementById('contraseñaa');
+
+				if (password.value !== password2.value) {
+					password2
+							.setCustomValidity('Las contraseñas no coinciden.');
+					return false;
+				} else {
+					password2.setCustomValidity('');
+					return true;
+				}
+			}
+		</script>
 	</h:head>
 	<body>
-		<h:outputLabel value = "NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA" rendered = "#{userBean.usuario.userType eq FUNCIONAL}" style="color: white" />
-	
+		<h:outputLabel value="NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA"
+			rendered="#{userBean.usuario.userType eq FUNCIONAL}"
+			style="color: white" />
+
 		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false }">
 			<table height="100%" width="100%">
 				<tr>
@@ -66,41 +68,60 @@ function mi(){
 							</tr>
 							<tr align="center">
 								<td><p:outputLabel value="Usuario : " /></td>
-								<td><p:inputText value="#{userBean.usuario.userName}" rendered="true" /></td>
+								<td><p:inputText value="#{userBean.usuario.userName}"
+										rendered="true" required="true">
+
+										<f:validateLength minimum="3" />
+
+									</p:inputText></td>
 							</tr>
 							<tr>
 								<td colspan="2"></td>
 							</tr>
 							<tr align="center">
-								<td><p:outputLabel value="Nueva contraseña: "/> </td>
-								<td><p:password  value="#{userBean.contraseniaNueva}" id="contraseña" required="true" label="contraseña" feedback="true"	
-								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
+								<td><p:outputLabel value="Nueva contraseña: " /></td>
+								<td><p:password value="#{userBean.contraseniaNueva}"
+										id="contraseña" required="true" label="contraseña"
+										feedback="true" promptLabel="Ingrese una contraseña"
+										weakLabel="La clave es muy debil"
+										goodLabel="La clave es segura"
 										requiredMessage="Please enter your password."
 										validatorMessage="Ingrese uny valido">
-								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
-								</p:password><p:watermark for="contraseña"/></td>
-								<td><p:password  value="verifique la contraseña" id="contraseñaa" required="true" label="contraseña" feedback="true"	
-								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
+										<f:validateRegex
+											pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
+									</p:password>
+									<p:watermark for="contraseña" /></td>
+								<td><p:password value="verifique la contraseña"
+										id="contraseñaa" required="true" label="contraseña"
+										feedback="true" promptLabel="Ingrese una contraseña"
+										weakLabel="La clave es muy debil"
+										goodLabel="La clave es segura"
 										requiredMessage="Please enter your password."
 										validatorMessage="Ingrese uny valido" onkeypress="mi()">
-								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
-								</p:password><p:watermark for="contraseñaa"/></td>
+										<f:validateRegex
+											pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
+									</p:password>
+									<p:watermark for="contraseñaa" /></td>
 							</tr>
-							<tr rowspan="2" >
+							<tr rowspan="2">
 								<td colspan="2"><BR /></td>
 							</tr>
-							<tr rowspan="2"><td colspan="2"><br/></td></tr>
+							<tr rowspan="2">
+								<td colspan="2"><br /></td>
+							</tr>
 						</table>
 					</td>
 				</tr>
-				<tr><td valign="top">
-					<table align="center">
-						<tr>
-							<td><p:commandButton value="Guardar" action="funcional" /></td>
-						</tr>
-					</table>
-				</td></tr>
-			
+				<tr>
+					<td valign="top">
+						<table align="center">
+							<tr>
+								<td><p:commandButton value="Guardar" action="funcional" /></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
 			</table>
 		</h:form>
 	</body>

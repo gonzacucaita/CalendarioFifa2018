@@ -11,38 +11,60 @@
 		<title><h:outputText value="#{msjs.tituloVentana}" /></title>
 	</h:head>
 	<body>
-	
-	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+
+		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
-	
-		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}>
+
+		<h:form
+			rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}>
 		
 			<h:panelGrid columns="2">
 
-				<h:outputText value="Tipo de parametro: " />
-				<h:inputText value="#{parameterBean.parametro.parameterType}"
-					rendered="true" />
-					
+			<h:outputText value="Tipo de parametro: " />
+			<h:inputText value="#{parameterBean.parametro.parameterType}"
+				rendered="true" required="true">
+
+				<f:validateLength minimum="3" />
+
+				</p:inputText>
+
 				<h:outputText value="Codigo de parametro: " rendered="true" />
-				<h:inputText  value="#{parameterBean.parametro.parameterCode}"
-					rendered="true" />
-				
-				<h:outputText value="Descripcion del parametro: " rendered="true"  />
-				<h:inputText  value="#{parameterBean.parametro.descriptionParameter}"
-					rendered="true" />
+				<h:inputText value="#{parameterBean.parametro.parameterCode}"
+					rendered="true" required="true">
 
-				<h:outputText value="Valor del Texto: " rendered="true"  />
-				<h:inputText  value="#{parameterBean.parametro.textValue}"
-					rendered="true" />
+					<f:validateLength minimum="3" />
 
-				<h:outputText value="Numero del valor: " rendered="true"  />
-				<h:inputText  value="#{parameterBean.parametro.numberValue}"
-					rendered="true" />
-				
-				<h:commandButton value="guardar"
-					action="#{parameterBean.adicionarParametro}" />
+					</p:inputText>
 
-			</h:panelGrid>
+					<h:outputText value="Descripcion del parametro: " rendered="true" />
+					<h:inputText
+						value="#{parameterBean.parametro.descriptionParameter}"
+						rendered="true" required="true">
+
+						<f:validateLength minimum="3" />
+
+						</p:inputText>
+
+						<h:outputText value="Valor del Texto: " rendered="true" />
+						<h:inputText value="#{parameterBean.parametro.textValue}"
+							rendered="true" required="true">
+
+							<f:validateLength minimum="3" />
+
+							</p:inputText>
+
+							<h:outputText value="Numero del valor: " rendered="true" />
+							<h:inputText value="#{parameterBean.parametro.numberValue}"
+								rendered="true" required="true">
+
+								<f:validateLength minimum="3" />
+
+								</p:inputText>
+
+								<h:commandButton value="guardar"
+									action="#{parameterBean.adicionarParametro}" />
+
+								</h:panelGrid>
 		</h:form>
 	</body>
 </f:view>
