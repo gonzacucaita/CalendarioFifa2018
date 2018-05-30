@@ -40,6 +40,19 @@ public class StadiumBean {
 		this.userBean = userBean;
 	}
 
+	@ManagedProperty("#{auditBean}")
+	private AuditBean auditBean;
+	
+	
+	
+	public AuditBean getAuditBean() {
+		return auditBean;
+	}
+
+	public void setAuditBean(AuditBean auditBean) {
+		this.auditBean = auditBean;
+	}
+
 	/**
 	 * Gets the estadio.
 	 *

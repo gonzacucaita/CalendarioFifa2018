@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -23,9 +24,7 @@ import com.unbosque.edu.co.calendarioFifa.util.*;
 @SessionScoped
 public class UserBean {
 
-	/** The images. */
-	private List<String> images;
-
+	
 	/**
 	 * ATRIBUTOS PARA EL USUARIO EN GENERAL.
 	 */
@@ -48,11 +47,8 @@ public class UserBean {
 	/** The contrasenia nueva. */
 	private String contraseniaNueva;
 	
-	/** The auditoria. */
-	private Audit auditoria = new Audit();
-	
-	/** The audit service. */
-	private AuditService auditService = new AuditService();
+	@ManagedProperty("#{auditBean}")
+	private AuditBean auditBean;
 	
 	/** The verifica. */
 	private boolean verificaAdmin = false;
@@ -126,14 +122,7 @@ public class UserBean {
 						usuario.setActive("I");
 						us.update(usuario);
 						INTENTOS = 0;
-						auditoria.setUserId(usuario.getId());
-						auditoria.setOperation("B");
-						auditoria.setTableId(usuario.getId());
-						auditoria.setCreateDate(new Date());
-						auditoria.setTableName("User");
-						auditoria.setIp(DireccionIp.getRemoteAddress());
-						auditService.save(auditoria);
-						
+						auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
 						log.error("USUARIO:" + usuario.getUserName() + " BLOQUEADO");
 						return "/Error/ErrorLogin";
 					}
@@ -145,7 +134,7 @@ public class UserBean {
 				return "/Principal/login";
 			} else if (usuario.getActive().equals("A")) 
 			{
-
+				INTENTOS = 0;
 				if (usuario.getUserType().equals("ADMIN")) 
 				{
 					setVerificaAdmin(true);
@@ -212,17 +201,8 @@ public class UserBean {
 						return "/User/paginaInicio";
 
 					}
-					auditoria.setUserId(usuario.getId());
-					auditoria.setOperation("E");
-					auditoria.setTableId(usuario.getId());
-					auditoria.setCreateDate(new Date());
-					auditoria.setIp(DireccionIp.getRemoteAddress());
-					auditoria.setTableName("User");
-					auditService.save(auditoria);
-					if (log.isInfoEnabled()) 
-					{
-						log.info("SE GENERÓ AUDITORIA");
-					}
+				auditBean.ingresarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+					
 				} else 
 				{
 
@@ -300,15 +280,7 @@ public class UserBean {
 
 			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 
-			AuditService as = new AuditService();
-
-			auditoria.setUserId(usuario.getId());
-			auditoria.setOperation("C");
-			auditoria.setTableName("user");
-			auditoria.setTableId(usuario.getId());
-			auditoria.setCreateDate(new Date());
-			auditoria.setIp(DireccionIp.getRemoteAddress());
-			as.save(auditoria);
+			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
 			if (log.isDebugEnabled()) {
 				log.debug("SE AGREGO USUARIO FUNCIONAL");
 			}
@@ -373,14 +345,7 @@ public class UserBean {
 			if (log.isInfoEnabled()) {
 				log.info("SE AGREGO USUARIO");
 			}
-			auditoria.setUserId(usuario.getId());
-			auditoria.setOperation("C");
-			auditoria.setTableName("user");
-			auditoria.setTableId(usuario.getId());
-			auditoria.setCreateDate(new Date());
-			auditoria.setIp(DireccionIp.getRemoteAddress());
-			as.save(auditoria);
-
+			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
 			Parameter parameter = new Parameter();
 			ParameterService ps = new ParameterService();
 
@@ -428,20 +393,13 @@ public class UserBean {
 	 *
 	 * @return the string
 	 */
-	public String eliminarUsuario() {
+	public String BloquearUsuario() {
 		User usuarioTemp = (User) (listaUsuarios.getRowData());
 		UserService dao = new UserService();
 		usuarioTemp.setActive("I");
 		dao.update(usuarioTemp);
 		AuditService as = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("D");
-		auditoria.setTableName("user");
-		auditoria.setTableId(1);
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		as.update(auditoria);
-		auditoria.setId(usuario.getId());
+		auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
 		if (log.isDebugEnabled()) {
 			log.debug("USUARIO ELIMINADO");
 		}
@@ -475,13 +433,7 @@ public class UserBean {
 		usuario.setPassword(contraseniaNueva);
 		dao.update(usuario);
 
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("user");
-		auditoria.setTableId(usuario.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		as.save(auditoria);
+		auditBean.actualizarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
 		ParameterService ps = new ParameterService();
 		Parameter p = ps.getParametroPorUsuario(usuario.getId());
 		if (p != null) {
@@ -504,424 +456,6 @@ public class UserBean {
 	public String prepararAdicionarGoleador() {
 		goleador = new Goalscorer();
 		return "goalscorer";
-	}
-
-	/**
-	 * Adicionar goleador.
-	 */
-	public void adicionarGoleador() {
-
-		GoalscorerService gls = new GoalscorerService();
-		gls.save(goleador);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("goalscorer");
-		auditoria.setTableId(goleador.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("AGREGÓ GOLEADOR");
-		}
-
-	}
-
-	/**
-	 * Preparar modificar goleador.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarGoleador() {
-		List<Goalscorer> goalscorer = new GoalscorerService().list();
-		DataModel listaGoleadores = new ListDataModel(goalscorer);
-		goleador = (Goalscorer) (listaGoleadores.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug(" PREPARAR MODIFICAR GOLEADOR");
-		}
-		return "editarUsuario";
-	}
-
-	/**
-	 * Modificar goleador.
-	 */
-	public void modificarGoleador() {
-		GoalscorerService gs = new GoalscorerService();
-		gs.update(goleador);
-
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("goalscorer");
-		auditoria.setTableId(goleador.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR GOLEADOR");
-		}
-	}
-
-	/**
-	 * Preparar adicionar noticia.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarNoticia() {
-		noticia = new New();
-		return "new";
-	}
-
-	/**
-	 * Adicionar noticia.
-	 */
-	public void adicionarNoticia() {
-		NewService ns = new NewService();
-		ns.save(noticia);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("news");
-		auditoria.setTableId(noticia.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-	}
-
-	/**
-	 * Preparar modificar noticia.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarNoticia() {
-		List<Goalscorer> goalscorer = new GoalscorerService().list();
-		DataModel listaGoleadores = new ListDataModel(goalscorer);
-		goleador = (Goalscorer) (listaGoleadores.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR MODIFICAR NOTICIA");
-		}
-		return "pagina donde se modifica";
-	}
-
-	/**
-	 * Modificar noticia.
-	 */
-	public void modificarNoticia() {
-		NewService ns = new NewService();
-		ns.update(noticia);
-
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("news");
-		auditoria.setTableId(noticia.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR NOTICIA");
-		}
-	}
-
-	/**
-	 * Preparar adicionar arbitro.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarArbitro() {
-		arbitro = new Referee();
-		arbitro.setState("A");
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
-		}
-		return "refereeAgregar";
-	}
-
-	/**
-	 * Adicionar arbitro.
-	 *
-	 * @return the string
-	 */
-	public String adicionarArbitro() {
-		RefereeService rs = new RefereeService();
-		rs.save(arbitro);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("referee");
-		auditoria.setTableId(arbitro.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR ARBITRO");
-		}
-		return "funcional";
-	}
-
-	/**
-	 * Preparar modificar arbitro.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarArbitro() {
-		getListaArbitros();
-		arbitro = (Referee) (listaArbitros.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA MODIFICAR ARBITRO");
-		}
-		return "refereeModificar";
-	}
-
-	/**
-	 * Modificar arbitro.
-	 *
-	 * @return the string
-	 */
-	public String modificarArbitro() {
-		RefereeService rs = new RefereeService();
-		rs.update(arbitro);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("referee");
-		auditoria.setTableId(arbitro.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR ARBITRO");
-		}
-		return "funcional";
-	}
-
-	/**
-	 * Preparar adicionar calendario.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarCalendario() {
-		calendario = new Schedule();
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR CALENDARIO");
-		}
-		return "schedule";
-	}
-
-	/**
-	 * Adicionar calendario.
-	 */
-	public void adicionarCalendario() {
-		ScheduleService ss = new ScheduleService();
-		ss.save(calendario);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("schedule");
-		auditoria.setTableId(calendario.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("ADICIONAR CALENDARIO");
-		}
-	}
-
-	/**
-	 * Preparar modificar calendario.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarCalendario() {
-		List<Schedule> schedule = new ScheduleService().list();
-		DataModel listaCalendario = new ListDataModel(schedule);
-		calendario = (Schedule) (listaCalendario.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA MODIFICAR CALENDARIO");
-		}
-		return "pagina donde se modifica";
-	}
-
-	/**
-	 * Modificar calendario.
-	 */
-	public void modificarCalendario() {
-		ScheduleService ss = new ScheduleService();
-		ss.update(calendario);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("schedule");
-		auditoria.setTableId(calendario.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR CALENDARIO");
-		}
-	}
-
-	/**
-	 * Preparar adicionar estadio.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarEstadio() {
-		estadio = new Stadium();
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR ESTADIO");
-		}
-		return "stadiumAgregar";
-	}
-
-	/**
-	 * Adicionar estadio.
-	 *
-	 * @return the string
-	 */
-	public String adicionarEstadio() {
-		StadiumService sts = new StadiumService();
-		sts.save(estadio);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("stadium");
-		auditoria.setTableId(estadio.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("ADICIONAR ESTADIO");
-		}
-
-		return "funcional";
-	}
-
-	/**
-	 * Preparar modificar estadio.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarEstadio() {
-		List<Stadium> stadium = new StadiumService().list();
-		DataModel listaEstadios = new ListDataModel(stadium);
-		estadio = (Stadium) (listaEstadios.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA MODIFICAR ESTADIO");
-		}
-		return "stadiumModificar";
-	}
-
-	/**
-	 * Modificar estadio.
-	 *
-	 * @return the string
-	 */
-	public String modificarEstadio() {
-		StadiumService ss = new StadiumService();
-		ss.update(estadio);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("stadium");
-		auditoria.setTableId(estadio.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR ESTADIO");
-		}
-
-		return "funcional";
-	}
-
-	/**
-	 * Preparar adicionar equipo.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarEquipo() {
-		equipo = new Team();
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR EQUIPO");
-		}
-		return "teamAgregar";
-	}
-
-	/**
-	 * Adicionar equipo.
-	 *
-	 * @return the string
-	 */
-	public String adicionarEquipo() {
-		TeamService ts = new TeamService();
-		equipo.setState("A");
-		equipo.setGoalsAgainst(0);
-		equipo.setGoalsFavor(0);
-		equipo.setLostMatches(0);
-		equipo.setWonMatches(0);
-		equipo.setTiedMatches(0);
-		equipo.setPlayedGames(0);
-		ts.save(equipo);
-
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("C");
-		auditoria.setTableName("team");
-		auditoria.setTableId(equipo.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("ADICIONAR EQUIPO");
-		}
-
-		return "funcional";
-	}
-
-	/**
-	 * Preparar modificar equipo.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarEquipo() {
-		List<Team> team = new TeamService().list();
-		// DataModel listaEquipos = new ListDataModel(team);
-		// equipo = (Team) (listaEquipos.getRowData());
-		// if (log.isDebugEnabled()) {
-		// log.debug("PREPARAR MODIFICAR EQUIPO");
-		// }
-		DataModel listaEquipos = new ListDataModel<>(team);
-		equipo = (Team) (listaEquipos.getRowData());
-		if (log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA MODIFICAR EQUIPO");
-		}
-		return "team";
-	}
-
-	/**
-	 * Modificar equipo.
-	 *
-	 * @return the string
-	 */
-	public String modificarEquipo() {
-		TeamService tm = new TeamService();
-		tm.update(equipo);
-		AuditService ad = new AuditService();
-		auditoria.setUserId(usuario.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("team");
-		auditoria.setTableId(equipo.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		ad.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("MODIFICAR EQUIPO");
-		}
-
-		return "funcional";
 	}
 
 	/**
@@ -1127,23 +661,7 @@ public class UserBean {
 		this.usuario = usuario;
 	}
 
-	/**
-	 * Gets the images.
-	 *
-	 * @return the images
-	 */
-	public List<String> getImages() {
-		return images;
-	}
 
-	/**
-	 * Sets the images.
-	 *
-	 * @param images the new images
-	 */
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
 
 
 	public boolean isVerificaAdmin() {
@@ -1204,42 +722,6 @@ public class UserBean {
 	 */
 	public void setListaUsuarios(DataModel listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
-	}
-
-	/**
-	 * Gets the auditoria.
-	 *
-	 * @return the auditoria
-	 */
-	public Audit getAuditoria() {
-		return auditoria;
-	}
-
-	/**
-	 * Sets the auditoria.
-	 *
-	 * @param auditoria the new auditoria
-	 */
-	public void setAuditoria(Audit auditoria) {
-		this.auditoria = auditoria;
-	}
-
-	/**
-	 * Gets the audit service.
-	 *
-	 * @return the audit service
-	 */
-	public AuditService getAuditService() {
-		return auditService;
-	}
-
-	/**
-	 * Sets the audit service.
-	 *
-	 * @param auditService the new audit service
-	 */
-	public void setAuditService(AuditService auditService) {
-		this.auditService = auditService;
 	}
 
 	/**
@@ -1444,6 +926,15 @@ public class UserBean {
 		this.userOlvido = userOlvido;
 	}
 
+	public AuditBean getAuditBean() {
+		return auditBean;
+	}
+
+	public void setAuditBean(AuditBean auditBean) {
+		this.auditBean = auditBean;
+	}
+
+	
 	
 
 }

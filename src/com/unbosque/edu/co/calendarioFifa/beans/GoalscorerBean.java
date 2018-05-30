@@ -34,6 +34,19 @@ public class GoalscorerBean {
 	@ManagedProperty("#{userBean}")
 	private UserBean userBean;
 	
+	@ManagedProperty("#{auditBean}")
+	private AuditBean auditBean;
+	
+	
+	
+	public AuditBean getAuditBean() {
+		return auditBean;
+	}
+
+	public void setAuditBean(AuditBean auditBean) {
+		this.auditBean = auditBean;
+	}
+
 	public UserBean getUserBean() {
 		return userBean;
 	}

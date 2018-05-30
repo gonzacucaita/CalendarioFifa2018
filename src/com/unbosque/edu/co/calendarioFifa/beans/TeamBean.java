@@ -10,7 +10,9 @@ import javax.faces.model.ListDataModel;
 import org.apache.log4j.Logger;
 
 import com.unbosque.edu.co.calendarioFifa.entity.Team;
+import com.unbosque.edu.co.calendarioFifa.service.AuditService;
 import com.unbosque.edu.co.calendarioFifa.service.TeamService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class TeamBean.
@@ -30,6 +32,19 @@ public class TeamBean {
 	
 	@ManagedProperty("#{userBean}")
 	private UserBean userBean;
+	
+	@ManagedProperty("#{auditBean}")
+	private AuditBean auditBean;
+	
+	public AuditBean getAuditBean() {
+		return auditBean;
+	}
+
+	public void setAuditBean(AuditBean auditBean) {
+		this.auditBean = auditBean;
+	}
+	
+	private AuditService as = new AuditService();
 	
 	public UserBean getUserBean() {
 		return userBean;
@@ -96,14 +111,18 @@ public class TeamBean {
 	 * @return the string
 	 */
 	public String eliminarEquipo() {
-		Team teamTemp = (Team)(listaEquipos.getRowData());
 		TeamService dao = new TeamService();
-		teamTemp.setState("I");
-		dao.update(teamTemp);
+		equipo = (Team) (listaEquipos.getRowData());
+		equipo.setState("I");
+		dao.update(equipo);
+		auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "Team", equipo.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ELIMINAR EQUIPO");
 		}
-		return "inicio";
+		
+//		audit.
+		
+		return "funcional";
 	}
 	
 	/**
@@ -112,15 +131,12 @@ public class TeamBean {
 	 * @return the string
 	 */
 	public String adicionarEquipo() {
+		System.out.println("entro");
 		TeamService dao = new TeamService();
-		equipo.setState("A");
-		equipo.setGoalsAgainst(0);
-		equipo.setGoalsFavor(0);
-		equipo.setLostMatches(0);
-		equipo.setWonMatches(0);
-		equipo.setTiedMatches(0);
-		equipo.setPlayedGames(0);
+		
 		dao.save(equipo);
+		
+		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", equipo.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR EQUIPO");
 		}
@@ -135,6 +151,7 @@ public class TeamBean {
 	public String modificarEquipo() {
 		TeamService dao = new TeamService();
 		dao.update(equipo);
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Team", equipo.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("MODIFICAR EQUIPO");
 		}

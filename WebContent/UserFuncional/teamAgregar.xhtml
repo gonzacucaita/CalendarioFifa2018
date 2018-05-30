@@ -37,8 +37,7 @@ body {
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}">
-
+	
 	
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
 		
@@ -47,7 +46,7 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Pais: " />
-							<p:inputText value="#{userBean.equipo.country}" rendered="true"
+							<p:inputText value="#{teamBean.equipo.country}" rendered="true"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -55,7 +54,7 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Bandera: " rendered="true" />
-							<p:inputText value="#{userBean.equipo.flag}" rendered="true"
+							<p:inputText value="#{teamBean.equipo.flag}" rendered="true"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -63,15 +62,15 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Grupo: " rendered="true" />
-							<p:inputText value="#{userBean.equipo.group}" rendered="true"
+							<p:inputText value="#{teamBean.equipo.group}" rendered="true"
 								required="true">
 
-								<f:validateLength minimum="3" />
+								<f:validateLength minimum="1" maximum="1" />
 
 							</p:inputText>
 
 							<p:commandButton value="guardar"
-								action="#{userBean.adicionarEquipo}" />
+								action="#{teamBean.adicionarEquipo}" />
 							<p:commandButton value="Cancelar" action="funcional" />
 
 						</p:panelGrid></td>

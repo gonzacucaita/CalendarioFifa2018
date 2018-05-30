@@ -1,6 +1,7 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -29,34 +30,16 @@ public class AuditBean implements Serializable{
 	final static Logger log = Logger.getLogger(AuditBean.class);
 	
 	/** The auditoria. */
-	private Audit auditoria;
+	private Audit auditoria = new Audit();
 	
 	/** The lista auditorias. */
 	private DataModel listaAuditorias;
-	
-	/** The auditorias. */
-	private String auditorias;
-	
-	/** The usuarios. */
-	private String usuarios;
-	
-	/** The salir. */
-	private String salir;
 	  
 	/** The listt. */
 	private List<Audit> listt;
 	
-	@ManagedProperty("#{userBean}")
-	private UserBean userBean;
-	
+	private AuditService as = new AuditService();
 
-	public UserBean getUserBean() {
-		return userBean;
-	}
-
-	public void setUserBean(UserBean userBean) {
-		this.userBean = userBean;
-	}
 	
 	/**
 	 * Gets the listt.
@@ -94,165 +77,85 @@ public class AuditBean implements Serializable{
 		this.auditoria = auditoria;
 	}
 	
-	/**
-	 * Gets the lista auditorias.
-	 *
-	 * @return the lista auditorias
-	 */
-	public DataModel getListaAuditorias() {
-		return listaAuditorias;
-	}
-	
-	/**
-	 * Sets the lista auditorias.
-	 *
-	 * @param listaAuditorias the new lista auditorias
-	 */
-	public void setListaAuditorias(DataModel listaAuditorias) {
-		this.listaAuditorias = listaAuditorias;
-	}
-	
-	/**
-	 * Gets the auditorias.
-	 *
-	 * @return the auditorias
-	 */
-	public String getAuditorias() {
-		return auditorias;
-	}
-	
-	/**
-	 * Sets the auditorias.
-	 *
-	 * @param auditorias the new auditorias
-	 */
-	public void setAuditorias(String auditorias) {
-		this.auditorias = auditorias;
-	}
-	
-	/**
-	 * Gets the usuarios.
-	 *
-	 * @return the usuarios
-	 */
-	public String getUsuarios() {
-		return usuarios;
-	}
-	
-	/**
-	 * Sets the usuarios.
-	 *
-	 * @param usuarios the new usuarios
-	 */
-	public void setUsuarios(String usuarios) {
-		this.usuarios = usuarios;
-	}
-	
-	/**
-	 * Gets the salir.
-	 *
-	 * @return the salir
-	 */
-	public String getSalir() {
-		return salir;
-	}
-	
-	/**
-	 * Sets the salir.
-	 *
-	 * @param salir the new salir
-	 */
-	public void setSalir(String salir) {
-		this.salir = salir;
-	}
-	
-	/**
-	 * Gets the audit.
-	 *
-	 * @return the audit
-	 */
-	public Audit getAudit() {
-		return auditoria;
-	}
-	
-	/**
-	 * Sets the audit.
-	 *
-	 * @param audit the new audit
-	 */
-	public void setAudit(Audit audit) {
-		this.auditoria = audit;
-	}
-	
-	/**
-	 * Preparar adicionar auditoria.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarAuditoria() {
-		auditoria = new Audit();
-		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
-		}
-		return "audit";
-	}
-	
-	/**
-	 * Preparar modificar auditoria.
-	 *
-	 * @return the string
-	 */
-	public String prepararModificarAuditoria() {
-		auditoria = (Audit) (listaAuditorias.getRowData());
-		
-		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA MODIFICAR LA AUDITORIA");
-		}
-		return "audit";
-	}
-	
-	/**
-	 * Eliminar auditoria.
-	 *
-	 * @return the string
-	 */
-	public String eliminarAuditoria() {
-		Audit auditoriaTemp = (Audit)(listaAuditorias.getRowData());
-		AuditService dao = new AuditService();
-		dao.update(auditoriaTemp);
-		if(log.isInfoEnabled()) {
-			log.info("SE HA ELIMINADO LA AUDITORIA");
-		}
-		return "inicio";
-	}
 	
 	/**
 	 * Adicionar auditoria.
 	 *
 	 * @return the string
 	 */
-	public String adicionarAuditoria() {
-		AuditService dao = new AuditService();
-		dao.save(auditoria);
+	public void adicionarAuditoria(long userId, String tableName, long tableId,String ip) {
+
+		auditoria.setUserId(userId);
+		auditoria.setOperation("C");
+		auditoria.setTableId(tableId);
+		auditoria.setTableName(tableName);
+		auditoria.setCreateDate(new Date());
+		auditoria.setIp(ip);
+		as.save(auditoria);
 		if(log.isInfoEnabled()) {
 			log.info("SE HA ADICIONADO LA AUDITORIA");
 		}
-		return "inicio";
+	}
+
+	public void ingresarAuditoria(long userId, String tableName, long tableId,String ip) {
+
+		auditoria.setUserId(userId);
+		auditoria.setOperation("E");
+		auditoria.setTableId(tableId);
+		auditoria.setTableName(tableName);
+		auditoria.setCreateDate(new Date());
+		auditoria.setIp(ip);
+		as.save(auditoria);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA ADICIONADO LA AUDITORIA");
+		}
 	}
 	
-	/**
-	 * Modificar auditoria.
-	 *
-	 * @return the string
-	 */
-	public String modificarAuditoria() {
-		AuditService dao = new AuditService();
-		dao.update(auditoria);
+	public void salirAuditoria(long userId, String tableName, long tableId,String ip) {
+
+		auditoria.setUserId(userId);
+		auditoria.setOperation("S");
+		auditoria.setTableId(tableId);
+		auditoria.setTableName(tableName);
+		auditoria.setCreateDate(new Date());
+		auditoria.setIp(ip);
+		as.save(auditoria);
 		if(log.isInfoEnabled()) {
-			log.info("SE HA MODIFICADO LA AUDITORIA");
+			log.info("SE HA ADICIONADO LA AUDITORIA");
 		}
-		return "inicio";
 	}
+
+	public void actualizarAuditoria(long userId, String tableName, long tableId, String ip) {
+
+		auditoria.setUserId(userId);
+		auditoria.setOperation("U");
+		auditoria.setTableId(tableId);
+		auditoria.setTableName(tableName);
+		auditoria.setCreateDate(new Date());
+		auditoria.setIp(ip);
+		as.save(auditoria);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA ADICIONADO LA AUDITORIA");
+		}
+	}
+
+	
+	
+	public void bloquearAuditoria(long userId, String tableName, long tableId, String ip) {
+
+		auditoria.setUserId(userId);
+		auditoria.setOperation("B");
+		auditoria.setTableId(tableId);
+		auditoria.setTableName(tableName);
+		auditoria.setCreateDate(new Date());
+		auditoria.setIp(ip);
+		as.save(auditoria);
+		if(log.isInfoEnabled()) {
+			log.info("SE HA ADICIONADO LA AUDITORIA");
+		}
+	}
+	
+	
 	
 	/**
 	 * Gets the listar auditorias.
@@ -277,6 +180,16 @@ public class AuditBean implements Serializable{
 		String res = "";
 		return res;
 	}
+
+	public AuditService getAs() {
+		return as;
+	}
+
+	public void setAs(AuditService as) {
+		this.as = as;
+	}
+	
+	
 	
 	
 }

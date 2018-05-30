@@ -50,7 +50,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar equipo"
-											action="#{userBean.prepararAdicionarEquipo}" />
+											action="#{teamBean.prepararAdicionarEquipo}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -90,8 +90,8 @@ body {
 											<p:outputLabel value="#{equipo.goalsAgainst}" />
 
 											<p:commandButton value="Modificar"
-												action="#{userBean.prepararModificarEquipo}" />
-											<p:commandButton value="Eliminar" />
+												action="#{teamBean.prepararModificarEquipo}" />
+											<p:commandButton value="Eliminar" action="#{teamBean.eliminarEquipo}"/>
 
 										</h:panelGrid>
 
