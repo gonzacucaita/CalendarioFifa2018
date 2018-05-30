@@ -8,7 +8,7 @@
 <f:view>
 	<h:head>
 		<title><h:outputText value="Schedule" /></title>
-		
+
 		<style type="text/css">
 body {
 	background-image: url('../img/captura3.jpg');
@@ -30,15 +30,15 @@ body {
 	background: rgba(131, 149, 183, 0.7);
 }
 </style>
-		
+
 	</h:head>
 	<body>
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
-	
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
-		
+
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
@@ -55,8 +55,8 @@ body {
 							<p:inputText value="#{scheduleBean.calendario.visitGoals}"
 								rendered="true" />
 							<p:outputLabel value="Fecha de juego: " rendered="true" />
-							<p:calendar value="#{scheduleBean.calendario.gameDate}" pattern="MM/dd/yyyy HH:mm:ss"
-								rendered="true"  required ="true"/>
+							<p:calendar value="#{scheduleBean.calendario.gameDate}"
+								pattern="MM/dd/yyyy HH:mm:ss" required="true" rendered="true" />
 							<p:outputLabel value="Estadio: " rendered="true" />
 							<p:inputText value="#{scheduleBean.calendario.idStadium}"
 								rendered="true" />
@@ -64,9 +64,9 @@ body {
 							<p:inputText value="#{scheduleBean.calendario.idReferee}"
 								rendered="true" />
 							<p:commandButton value="guardar"
-								action="#{scheduleBean.modificarCalendario}" />
-								<p:commandButton value="Cancelar" action="funcional" />
-							
+								action="#{scheduleBean.adicionarCalendario}" />
+							<p:commandButton value="Cancelar" action="funcional" />
+
 						</p:panelGrid></td>
 				</tr>
 			</table>

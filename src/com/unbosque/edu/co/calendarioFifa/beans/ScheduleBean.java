@@ -130,7 +130,7 @@ public class ScheduleBean {
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR CALENDARIO");
 		}
-		return "inicio";
+		return "funcional";
 	}
 	
 	/**
@@ -145,7 +145,7 @@ public class ScheduleBean {
 		if(log.isDebugEnabled()) {
 			log.debug("MODIFICAR CALENDARIO");
 		}
-		return "inicio";
+		return "funcional";
 	}
 	
 	/**
