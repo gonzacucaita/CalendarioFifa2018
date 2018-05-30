@@ -15,7 +15,7 @@
 			function miFuncion() {
 			    var response = grecaptcha.getResponse();
 			    if(response.length == 0){
-			        alert("Captcha no verificado");
+			        alert("Primero verifique el captcha");
 			        document.getElemenstById("enviar").disabled = true;
 			    }
 			  }

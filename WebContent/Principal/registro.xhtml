@@ -11,7 +11,15 @@
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloRegistrar}" /></title>
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
-
+<script>
+			function miFuncion() {
+			    var response = grecaptcha.getResponse();
+			    if(response.length == 0){
+			        alert("Primero verifique el captcha");
+			        document.getElemenstById("enviar").disabled = true;
+			    }
+			  }
+		</script>
 		<style type="text/css">
 body {
 	background-image: url('../img/fondo2.gif');
@@ -55,7 +63,7 @@ body {
 							<tr align="center">
 								<td align="left"><p:outputLabel
 										value="#{principal.nombreUsuario}" /></td>
-								<td><p:inputText id="focus"
+								<td><p:inputText id="focus" onkeyup="miFuncion()"
 										title="El usuario debe contener entre 6 a 8 caracteres"
 										value="#{userBean.usuario.userName}" required="true">
 										
@@ -72,7 +80,7 @@ body {
 
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.nombre}" /></td>
-								<td><p:inputText value="#{userBean.usuario.fullName}"
+								<td><p:inputText value="#{userBean.usuario.fullName}" onkeyup="miFuncion()"
 										rendered="true" required="true">
 										<f:validateLength minimum="3" />
 
@@ -82,7 +90,7 @@ body {
 
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.email}" /></td>
-								<td><p:inputText id="email" required="true" label="email"
+								<td><p:inputText id="email" required="true" label="email" onkeyup="miFuncion()"
 										requiredMessage="Please enter your email address."
 										validatorMessage="Ingrese un correo valido"
 										value="#{userBean.usuario.emailAddress}">
