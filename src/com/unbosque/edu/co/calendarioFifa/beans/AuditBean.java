@@ -38,6 +38,7 @@ public class AuditBean implements Serializable{
 	/** The listt. */
 	private List<Audit> listt;
 	
+	/** The as. */
 	private AuditService as = new AuditService();
 
 	
@@ -81,6 +82,10 @@ public class AuditBean implements Serializable{
 	/**
 	 * Adicionar auditoria.
 	 *
+	 * @param userId the user id
+	 * @param tableName the table name
+	 * @param tableId the table id
+	 * @param ip the ip
 	 * @return the string
 	 */
 	public void adicionarAuditoria(long userId, String tableName, long tableId,String ip) {
@@ -97,6 +102,14 @@ public class AuditBean implements Serializable{
 		}
 	}
 
+	/**
+	 * Ingresar auditoria.
+	 *
+	 * @param userId the user id
+	 * @param tableName the table name
+	 * @param tableId the table id
+	 * @param ip the ip
+	 */
 	public void ingresarAuditoria(long userId, String tableName, long tableId,String ip) {
 
 		auditoria.setUserId(userId);
@@ -111,6 +124,14 @@ public class AuditBean implements Serializable{
 		}
 	}
 	
+	/**
+	 * Salir auditoria.
+	 *
+	 * @param userId the user id
+	 * @param tableName the table name
+	 * @param tableId the table id
+	 * @param ip the ip
+	 */
 	public void salirAuditoria(long userId, String tableName, long tableId,String ip) {
 
 		auditoria.setUserId(userId);
@@ -125,6 +146,14 @@ public class AuditBean implements Serializable{
 		}
 	}
 
+	/**
+	 * Actualizar auditoria.
+	 *
+	 * @param userId the user id
+	 * @param tableName the table name
+	 * @param tableId the table id
+	 * @param ip the ip
+	 */
 	public void actualizarAuditoria(long userId, String tableName, long tableId, String ip) {
 
 		auditoria.setUserId(userId);
@@ -141,6 +170,14 @@ public class AuditBean implements Serializable{
 
 	
 	
+	/**
+	 * Bloquear auditoria.
+	 *
+	 * @param userId the user id
+	 * @param tableName the table name
+	 * @param tableId the table id
+	 * @param ip the ip
+	 */
 	public void bloquearAuditoria(long userId, String tableName, long tableId, String ip) {
 
 		auditoria.setUserId(userId);
@@ -181,10 +218,20 @@ public class AuditBean implements Serializable{
 		return res;
 	}
 
+	/**
+	 * Gets the as.
+	 *
+	 * @return the as
+	 */
 	public AuditService getAs() {
 		return as;
 	}
 
+	/**
+	 * Sets the as.
+	 *
+	 * @param as the new as
+	 */
 	public void setAs(AuditService as) {
 		this.as = as;
 	}

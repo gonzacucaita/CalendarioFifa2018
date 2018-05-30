@@ -7,6 +7,19 @@
 	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
 
 <f:view>
+<script>
+  function miFuncion() {
+    var response = grecaptcha.getResponse();
+
+    if(response.length == 0){
+      alert("Captcha no verificado")
+      return false;
+    } else {
+      alert("Captcha verificado");
+      return true;
+    }
+  }
+</script>
 	<h:head>
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloIngresar}" /></title>
@@ -31,7 +44,7 @@
 		</style>
 	</h:head>
 	<h:body>
-		<h:form>
+		<h:form action="#" method="POST" onsubmit="miFuncion()">
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
@@ -66,7 +79,7 @@
 					<table align="center">
 						<tr>
 							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
-							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" /></td>
+							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" name="enviar" placeholder="ENVIAR" onclick="miFuncion()"/></td>
 						</tr>
 						
 						<tr>
