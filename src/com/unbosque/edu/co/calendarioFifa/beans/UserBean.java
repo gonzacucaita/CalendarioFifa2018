@@ -346,7 +346,7 @@ public class UserBean {
 	 *
 	 * @return the string
 	 */
-	public String BloquearUsuario() {
+	public String bloquearUsuario() {
 		User usuarioTemp = (User) (listaUsuarios.getRowData());
 		UserService dao = new UserService();
 		usuarioTemp.setActive("I");
@@ -357,8 +357,14 @@ public class UserBean {
 			log.debug("USUARIO ELIMINADO");
 		}
 
+		if(usuario.getUserType().equals("ADMIN")) {
+			return "/Administrador/administrador";
+		}
 		return "inicio";
 	}
+	
+	
+	
 
 	/**
 	 * Modificar usuario.
@@ -630,6 +636,7 @@ public class UserBean {
 		this.verificaFuncional = verificaFuncional;
 	}
 
+	
 	/**
 	 * Gets the intentos.
 	 *

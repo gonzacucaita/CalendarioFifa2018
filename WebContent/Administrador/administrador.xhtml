@@ -49,7 +49,7 @@ body {
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
 								<p:column>
-									<p:panel header="#{auditoria.operation}"
+									<p:panel header="#{auditoria.operation} " 
 										style="text-align:center">
 										<p:panelGrid columns="2" style="width:100%">
 
@@ -76,6 +76,10 @@ body {
 
 											<p:outputLabel value="Fecha de modificacion: " />
 											<p:outputLabel value="#{auditoria.createDate}" />
+											
+											<p:outputLabel value="IP: " />
+											<p:outputLabel value="#{auditoria.ip}" />
+										
 
 										</p:panelGrid>
 									</p:panel>
@@ -127,10 +131,10 @@ body {
 											<p:outputLabel value="InActivo"
 												rendered="#{'I' eq usuario.active}" />
 
-											<p:commandButton action="#{userBean.eliminarUsuario}"
-												value="Bloquear" />
+											<p:commandButton action="#{userBean.bloquearUsuario}"
+												value="Bloquear"  />
 											<p:commandButton action="#{userBean.modificarUsuario}"
-												value="Desbloquear" />
+												value="Desbloquear"  />
 
 										</p:panelGrid>
 									</p:panel>
