@@ -55,7 +55,11 @@ public class UserBean {
 	private AuditService auditService = new AuditService();
 	
 	/** The verifica. */
-	private boolean verifica = false;
+	private boolean verificaAdmin = false;
+	
+	private boolean verificaCliente = false;
+	
+	private boolean verificaFuncional = false;
 	
 	/** The lista arbitros. */
 	private DataModel listaArbitros;
@@ -144,14 +148,17 @@ public class UserBean {
 
 				if (usuario.getUserType().equals("ADMIN")) 
 				{
+					setVerificaAdmin(true);
+
 					if (log.isInfoEnabled()) 
 					{
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
-					return "/Administrador/administrador";
+										return "/Administrador/administrador";
 				} else if (usuario.getUserType().equals("FUNCIONAL")) 
 				{
+					setVerificaFuncional(true);
 					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					ingresos = Integer.parseInt(pa.getParameterCode());
 					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
@@ -170,16 +177,16 @@ public class UserBean {
 					}
 					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
-					setVerifica(true);
 					if (log.isInfoEnabled()) 
 					{
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
-					return "funcional";
+					return "/UserFuncional/funcional";
 
 				} else if (usuario.getUserType().equals("cliente")) 
 				{
+					setVerificaCliente(true);
 						diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 						ingresos = Integer.parseInt(pa.getParameterCode());
 						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
@@ -197,7 +204,6 @@ public class UserBean {
 						}
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
-						setVerifica(true);
 						if (log.isInfoEnabled()) 
 						{
 							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
@@ -998,7 +1004,6 @@ public class UserBean {
 		String nueva = DiferenciaFechas.getGenerarContrasenia();
 		User usu = us.verificarUsuario(userOlvido);
 		if(usu != null) {
-			setVerifica(true);
 		ParameterService ps = new ParameterService();
 		Parameter p = ps.verificarParametros(usu.getId()+"");
 		p.setParameterCode("0");
@@ -1057,6 +1062,23 @@ public class UserBean {
 		usuario.setPassword(this.contraseniaNueva);
 
 		dao.update(usuario);
+	}
+	
+	public String cerrarSesion() {
+		usuario = null;
+		if(verificaAdmin == true) {
+			setVerificaAdmin(false);
+		}
+		else if(verificaCliente == true) {
+			setVerificaCliente(false);
+		}
+		else if(verificaFuncional == true) {
+			setVerificaFuncional(false);
+		}
+		if(log.isDebugEnabled()) {
+		log.debug("CERRAR SESIÓN");
+		}
+		return "/Principal/inicio";
 	}
 
 	/**
@@ -1123,22 +1145,29 @@ public class UserBean {
 		this.images = images;
 	}
 
-	/**
-	 * Checks if is verifica.
-	 *
-	 * @return true, if is verifica
-	 */
-	public boolean isVerifica() {
-		return verifica;
+
+	public boolean isVerificaAdmin() {
+		return verificaAdmin;
 	}
 
-	/**
-	 * Sets the verifica.
-	 *
-	 * @param verifica the new verifica
-	 */
-	public void setVerifica(boolean verifica) {
-		this.verifica = verifica;
+	public void setVerificaAdmin(boolean verificaAdmin) {
+		this.verificaAdmin = verificaAdmin;
+	}
+
+	public boolean isVerificaCliente() {
+		return verificaCliente;
+	}
+
+	public void setVerificaCliente(boolean verificaCliente) {
+		this.verificaCliente = verificaCliente;
+	}
+
+	public boolean isVerificaFuncional() {
+		return verificaFuncional;
+	}
+
+	public void setVerificaFuncional(boolean verificaFuncional) {
+		this.verificaFuncional = verificaFuncional;
 	}
 
 	/**

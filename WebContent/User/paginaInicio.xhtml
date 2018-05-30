@@ -388,9 +388,9 @@ body {
 	</h:head>
 	<h:body>
 		<h:outputLabel value="NO SE A INICIADO SESIÓN CON UNA CUENTA VALIDA"
-			rendered="#{userBean.usuario.userType eq cliente}" />
+			rendered="#{userBean.verificaCliente eq false}" />
 
-		<p:layout fullPage="true" rendered="#{userBean.verifica eq true}">
+		<p:layout fullPage="true" rendered="#{userBean.verificaCliente eq true}">
 
 			<p:layoutUnit position="north" size="100" header="Top"
 				resizable="true" collapsible="true">
@@ -411,7 +411,7 @@ body {
 					<p:commandButton value="Editar usuario" action="#{userBean.prepararModificarUsuarioNormal}" orientation="center"
 						style="text-align:center" />
 					<p:commandButton value="Cerrar sesion" orientation="center"
-						style="text-align:center" action="/Principal/inicio" />
+						style="text-align:center" action="#{userBean.cerrarSesion}" />
 				</h:form>
 
 			</p:layoutUnit>

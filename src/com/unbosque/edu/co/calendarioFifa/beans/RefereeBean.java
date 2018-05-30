@@ -33,6 +33,17 @@ public class RefereeBean {
 	 /** The Constant log. */
  	final static Logger log = Logger.getLogger(RefereeBean.class);
 		
+	@ManagedProperty("#{userBean}")
+	private UserBean userBean;
+	
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
 	 /**
  	 * Gets the arbitro.
  	 *

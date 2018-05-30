@@ -35,10 +35,10 @@ body {
 
 	<h:body>
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
-			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
+			rendered="#{userBean.verificaFuncional eq false}" />
 
 	
-		<h:form rendered = "#{userBean.usuario.userType eq FUNCIONAL eq false}">
+		<h:form rendered="#{userBean.verificaFuncional eq true}">
 			<table align="center">
 
 				<tr>
@@ -272,7 +272,7 @@ body {
 								</p:dataGrid>
 							</p:tab>
 
-						</p:tabView> <p:commandButton value="Regresar" action="/Principal/inicio" />
+						</p:tabView> <p:commandButton value="Cerrar Sesión" action="#{userBean.cerrarSesion}" />
 
 
 					</td>

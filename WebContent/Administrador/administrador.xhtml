@@ -33,9 +33,9 @@ body {
 
 <h:body>
 	<h:outputLabel value="NO SE A INICIADO SESIÓN COMO ADMINISTRADOR"
-		rendered="#{userBean.usuario.userType eq ADMIN}" />
+		rendered="#{userBean.verificaAdmin eq false}" />
 
-	<h:form rendered="#{userBean.usuario.userType eq ADMIN eq false}">
+	<h:form rendered="#{userBean.verificaAdmin eq true}">
 
 		<table align="center">
 
@@ -147,7 +147,7 @@ body {
 							</h:commandLink>
 						</p:tab>
 					</p:tabView></td>
-				<p:commandButton value="Salir" action="/Principal/inicio" />
+				<p:commandButton value="Salir" action="#{userBean.cerrarSesion}" />
 			</tr>
 		</table>
 	</h:form>

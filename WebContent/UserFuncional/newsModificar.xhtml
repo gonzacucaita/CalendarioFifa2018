@@ -46,6 +46,18 @@ body {
 						<p:outputLabel value="Descripcion corta: " />
 						<p:inputText value="#{newsBean.noticia.shortDescription}"
 							rendered="true" required="true">
+	
+<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+			rendered="#{userBean.verificaFuncional eq false}" />
+
+	
+		<h:form rendered="#{userBean.verificaFuncional eq true}">
+				<table align="center">
+				<tr>
+					<td><p:panelGrid columns="2">
+							<p:outputLabel value="Descripcion corta: " />
+							<p:inputText value="#{newsBean.noticia.shortDescription}"
+								rendered="true" />
 
 							<f:validateLength minimum="3" />
 
