@@ -45,6 +45,11 @@ body {
 							<p:outputLabel value="Equipo local: " />
 							<p:inputText value="#{scheduleBean.calendario.localTeam}"
 								rendered="true" />
+								
+							
+								
+								
+								
 							<p:outputLabel value="Goles Local: " rendered="true" />
 							<p:inputText value="#{scheduleBean.calendario.localGoals}"
 								rendered="true" />
@@ -63,10 +68,6 @@ body {
 							<p:outputLabel value="idReferi: " rendered="true" />
 							<p:inputText value="#{scheduleBean.calendario.idReferee}"
 								rendered="true" />
-							<p:commandButton value="guardar"
-								action="#{scheduleBean.adicionarCalendario}" />
-							<p:commandButton value="Cancelar" action="funcional" />
-
 						</p:panelGrid></td>
 				</tr>
 			</table>
