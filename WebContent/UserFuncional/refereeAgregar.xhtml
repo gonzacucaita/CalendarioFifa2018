@@ -39,7 +39,6 @@ body {
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}">
 
 	
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
@@ -49,7 +48,7 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Nombre: " />
-							<p:inputText value="#{userBean.arbitro.fullName}" rendered="true"
+							<p:inputText value="#{refereeBean.arbitro.fullName}" rendered="true"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -57,7 +56,7 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Nacionalidad: " rendered="true" />
-							<p:inputText value="#{userBean.arbitro.nationality}"
+							<p:inputText value="#{refereeBean.arbitro.nationality}"
 								rendered="true" required="true">
 
 								<f:validateLength minimum="3" />
@@ -65,7 +64,7 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Estado: " rendered="true" />
-							<p:inputText value="#{userBean.arbitro.state}" rendered="true"
+							<p:inputText value="#{refereeBean.arbitro.state}" rendered="true"
 								disabled="true" required="true">
 
 								<f:validateLength maximum="1" />
@@ -74,7 +73,7 @@ body {
 
 
 							<p:commandButton value="Guardar"
-								action="#{userBean.adicionarArbitro}" />
+								action="#{refereeBean.adicionarArbitro}" />
 							<p:commandButton value="Cancelar" action="funcional" />
 
 						</p:panelGrid></td>

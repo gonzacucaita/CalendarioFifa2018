@@ -85,7 +85,7 @@ public class ScheduleBean {
 		if(log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR CALENDARIO");
 		}
-		return "schedule";
+		return "scheduleAgregar";
 	}
 	
 	/**

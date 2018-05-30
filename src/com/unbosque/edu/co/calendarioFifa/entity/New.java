@@ -24,7 +24,7 @@ public class New implements Serializable {
 	private Date dateNews;
 
 	/** The id user. */
-	private int idUser;
+	private long idUser;
 
 	/** The large description. */
 	private String largeDescription;
@@ -91,7 +91,7 @@ public class New implements Serializable {
 	 * @return the id user
 	 */
 	@Column(name = "idUser", nullable = false, length = 8)
-	public int getIdUser() {
+	public long getIdUser() {
 		return this.idUser;
 	}
 
@@ -100,7 +100,7 @@ public class New implements Serializable {
 	 *
 	 * @param idUser the new id user
 	 */
-	public void setIdUser(int idUser) {
+	public void setIdUser(long idUser) {
 		this.idUser = idUser;
 	}
 	

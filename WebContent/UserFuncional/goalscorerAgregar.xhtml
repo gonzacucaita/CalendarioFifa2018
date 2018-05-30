@@ -34,12 +34,7 @@ body {
 
 	</h:head>
 	<body>
-		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
-			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
-
-		<h:form
-			rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}>
-	
+		
 	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
@@ -78,7 +73,7 @@ body {
 						<p:inputText value="#{goalscorerBean.goleador.goals}"
 							rendered="true" required="true">
 
-							<f:validateLength minimum="3" />
+							<f:validateLength minimum="1" />
 
 						</p:inputText>
 

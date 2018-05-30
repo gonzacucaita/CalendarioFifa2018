@@ -36,8 +36,6 @@ body {
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}">
-
 	
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
 		
@@ -47,28 +45,28 @@ body {
 
 
 							<p:outputLabel value="La ciudad es: " />
-							<p:inputText value="#{userBean.estadio.city}" required="true">
+							<p:inputText value="#{stadiumBean.estadio.city}" required="true">
 
 								<f:validateLength minimum="3" />
 
 							</p:inputText>
 
 							<p:outputLabel value="La capacidad es: " />
-							<p:inputText value="#{userBean.estadio.capacity}" required="true">
+							<p:inputText value="#{stadiumBean.estadio.capacity}" required="true">
 
 								<f:validateLength minimum="3" />
 
 							</p:inputText>
 
 							<p:outputLabel value="La foto es: " />
-							<p:inputText value="#{userBean.estadio.photo}" required="true">
+							<p:inputText value="#{stadiumBean.estadio.photo}" required="true">
 
 								<f:validateLength minimum="3" />
 
 							</p:inputText>
 
 							<p:outputLabel value="La temperatura es: " />
-							<p:inputText value="#{userBean.estadio.temperature}"
+							<p:inputText value="#{stadiumBean.estadio.temperature}"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -76,7 +74,7 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="La Poblacion es: " />
-							<p:inputText value="#{userBean.estadio.population}"
+							<p:inputText value="#{stadiumBean.estadio.population}"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -84,7 +82,7 @@ body {
 							</p:inputText>
 
 							<p:commandButton value="guardar"
-								action="#{userBean.adicionarEstadio}" />
+								action="#{stadiumBean.adicionarEstadio}" />
 							<p:commandButton value="Cancelar" action="funcional" />
 						</p:panelGrid></td>
 				</tr>

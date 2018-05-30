@@ -86,7 +86,7 @@ public class NewsBean {
 		noticia = new New();
 		noticia.setState("A");
 		noticia.setDateNews(new Date());
-		
+		noticia.setIdUser(userBean.getUsuario().getId());
 		if(log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR NOTICIA");
 		}

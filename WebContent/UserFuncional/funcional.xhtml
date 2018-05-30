@@ -37,7 +37,7 @@ body {
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
-	
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
 			<table align="center">
 
@@ -91,7 +91,8 @@ body {
 
 											<p:commandButton value="Modificar"
 												action="#{teamBean.prepararModificarEquipo}" />
-											<p:commandButton value="Eliminar" action="#{teamBean.eliminarEquipo}"/>
+											<p:commandButton value="Eliminar"
+												action="#{teamBean.eliminarEquipo}" />
 
 										</h:panelGrid>
 
@@ -107,7 +108,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar estadio"
-											action="#{userBean.prepararAdicionarEstadio}" />
+											action="#{stadiumBean.prepararAdicionarEstadio}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -135,9 +136,8 @@ body {
 											<p:outputLabel value="#{estadio.temperature}" />
 
 											<p:commandButton value="Modificar"
-												action="#{userBean.prepararModificarEstadio}" />
-											<p:commandButton value="Eliminar" />
-
+												action="#{stadiumBean.prepararModificarEstadio}" />
+										
 										</h:panelGrid>
 
 									</p:panel>
@@ -152,7 +152,7 @@ body {
 								<f:facet name="actions">
 									<p:menuButton value="Opciones">
 										<p:menuitem value="Agregar arbitro"
-											action="#{userBean.prepararAdicionarArbitro}" />
+											action="#{refereeBean.prepararAdicionarArbitro}" />
 									</p:menuButton>
 								</f:facet>
 
@@ -178,8 +178,8 @@ body {
 												rendered="#{'I' eq arbitro.state}" />
 
 											<p:commandButton value="Modificar"
-												action="#{userBean.prepararModificarArbitro}" />
-											<p:commandButton value="Eliminar" />
+												action="#{refereeBean.prepararModificarArbitro}" />
+											<p:commandButton value="Eliminar" action= "#{refereeBean.eliminarArbitro}" />
 
 										</h:panelGrid>
 
@@ -220,7 +220,7 @@ body {
 
 											<p:commandButton value="Modificar"
 												action="#{goalscorerBean.prepararModificarGoleador}" />
-											<p:commandButton value="Eliminar" />
+											
 
 										</h:panelGrid>
 
@@ -263,7 +263,7 @@ body {
 											<p:commandButton value="Modificar"
 												action="#{newsBean.prepararModificarNoticia}" />
 
-											<p:commandButton value="Eliminar" />
+											<p:commandButton value="Eliminar" action = "#{newsBean.eliminarNoticia}"/>
 
 										</h:panelGrid>
 
@@ -272,10 +272,64 @@ body {
 								</p:dataGrid>
 							</p:tab>
 
-						</p:tabView> <p:commandButton value="Cerrar Sesión" action="#{userBean.cerrarSesion}" />
+							<p:tab title="Fechas">
+
+								<f:facet name="actions">
+									<p:menuButton value="Opciones">
+										<p:menuitem value="Agregar fechas"
+											action="#{scheduleBean.prepararAdicionarCalendario}" />
+									</p:menuButton>
+								</f:facet>
 
 
-					</td>
+								<p:dataGrid var="fecha"
+									value="#{scheduleBean.listarCalendarios}" columns="2"
+									layout="grid" rows="12" paginator="true" id="fecha"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="20,12,16">
+
+
+									<p:panel header="#{fecha.localTeam} vs #{fecha.visitTeam}"
+										style="text-align:center">
+
+										<h:panelGrid columns="2" style="width:100%">
+
+											<p:outputLabel value="Local :" />
+											<p:outputLabel value="#{fecha.localTeam}" />
+
+											<p:outputLabel value=" Goles local :" />
+											<p:outputLabel value="#{fecha.localGoals}" />
+
+											<p:outputLabel value="Visitante :" />
+											<p:outputLabel value="#{fecha.visitTeam}" />
+
+											<p:outputLabel value="Goles Visitante :" />
+											<p:outputLabel value="#{fecha.visitGoals}" />
+
+											<p:outputLabel value="Fecha :" />
+											<p:outputLabel value="#{fecha.gameDate}" />
+
+											<p:outputLabel value="Estadio :" />
+											<p:outputLabel value="#{fecha.idStadium}" />
+
+											<p:outputLabel value="Arbitro :" />
+											<p:outputLabel value="#{fecha.idReferee}" />
+
+											<p:commandButton value="Modificar"
+												action="#{scheduleBean.prepararModificarCalendario}" />
+											<p:commandButton value="Eliminar" action = "#{scheduleBean.eliminarCalendario}" />
+
+										</h:panelGrid>
+
+									</p:panel>
+
+
+								</p:dataGrid>
+							</p:tab>
+
+
+						</p:tabView> <p:commandButton value="Cerrar Sesión"
+							action="#{userBean.cerrarSesion}" /></td>
 				</tr>
 
 			</table>

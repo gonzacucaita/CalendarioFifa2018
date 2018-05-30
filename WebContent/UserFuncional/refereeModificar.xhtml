@@ -40,8 +40,6 @@ body {
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-		<h:form rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}">
-
 	
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
 		
@@ -50,7 +48,7 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Nombre: " />
-							<p:inputText value="#{userBean.arbitro.fullName}" rendered="true"
+							<p:inputText value="#{refereeBean.arbitro.fullName}" rendered="true"
 								required="true">
 
 								<f:validateLength minimum="3" />
@@ -58,21 +56,12 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Nacionalidad: " rendered="true" />
-							<p:inputText value="#{userBean.arbitro.nationality}"
+							<p:inputText value="#{refereeBean.arbitro.nationality}"
 								rendered="true" required="true">
 
 								<f:validateLength minimum="3" />
 
 							</p:inputText>
-
-							<p:outputLabel value="Estado: " rendered="true" />
-							<p:inputText value="#{userBean.arbitro.state}" rendered="true"
-								required="true" disabled="true">
-
-								<f:validateLength maximum="1" />
-
-							</p:inputText>
-
 
 							<p:commandButton value="guardar"
 								action="#{userBean.modificarArbitro}" />

@@ -82,8 +82,6 @@ public class GoalscorerBean {
 	public String prepararAdicionarGoleador() {
 		goleador = new Goalscorer();
 		
-		goleador.setGoals(0);
-		
 		return "goalscorerAgregar";
 	}
 	

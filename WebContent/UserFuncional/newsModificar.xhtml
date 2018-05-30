@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <f:view>
 	<h:head>
-		<f:loadBundle basename="com.mensajes.principal" var="msjs" />
-		<title><h:outputText value="Agregar noticias" /></title>
-
-		<style type="text/css">
+		<title><h:outputText value="MODIFICAR NOTICIA" /></title>
+		
+			<style type="text/css">
 body {
 	background-image: url('../img/captura3.jpg');
 	background-position: center center;
@@ -31,53 +30,48 @@ body {
 	background: rgba(131, 149, 183, 0.7);
 }
 </style>
-
+		
 	</h:head>
-	<body>
+	<h:body>
 
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
-			rendered="#{userBean.usuario.userType eq FUNCIONAL}" />
-
-		<h:form
-			rendered="#{userBean.usuario.userType eq FUNCIONAL eq false}>
-			<table align="center">
-			<tr>
-				<td><p:panelGrid columns="2">
-						<p:outputLabel value="Descripcion corta: " />
-						<p:inputText value="#{newsBean.noticia.shortDescription}"
-							rendered="true" required="true">
-	
-<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
-	
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
-				<table align="center">
+			<table align="center">
 				<tr>
-					<td><p:panelGrid columns="2">
+						<td><p:panelGrid columns="2">
+
 							<p:outputLabel value="Descripcion corta: " />
 							<p:inputText value="#{newsBean.noticia.shortDescription}"
-								rendered="true" />
+								rendered="true" required="true">
 
-							<f:validateLength minimum="3" />
+								<f:validateLength minimum="3" />
 
-						</p:inputText>
+							</p:inputText>
+							<p:outputLabel value="Descripcion larga: " />
+							<p:inputText value="#{newsBean.noticia.largeDescription}"
+								rendered="true" required="true">
 
-						<p:outputLabel value="Descipcion larga: " />
-						<p:inputText value="#{newsBean.noticia.largeDescription}"
-							rendered="true" required="true">
+								<f:validateLength minimum="3" />
 
-							<f:validateLength minimum="3" />
+							</p:inputText>
+							<p:outputLabel value="Foto: " />
+							<p:inputText value="#{newsBean.noticia.photo}"
+								rendered="true" required="true">
 
-						</p:inputText>
+								<f:validateLength minimum="3" />
 
-						<p:commandButton value="guardar"
-							action="#{newsBean.modificarEquipo}" />
+							</p:inputText>
+						
+						<p:commandButton value="Guardar"
+							action="#{newsBean.modificarNoticia}" />
 						<p:commandButton value="Cancelar" action="funcional" />
 					</p:panelGrid></td>
-			</tr>
+				</tr>
 			</table>
 		</h:form>
-	</body>
+	</h:body>
 </f:view>
 </html>
