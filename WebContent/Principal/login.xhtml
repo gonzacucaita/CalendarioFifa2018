@@ -7,23 +7,19 @@
 	xmlns:botDetect="https://captcha.com/java/jsf/simple-api">
 
 <f:view>
-<script>
-  function miFuncion() {
-    var response = grecaptcha.getResponse();
-
-    if(response.length == 0){
-      alert("Captcha no verificado")
-      return false;
-    } else {
-      alert("Captcha verificado");
-      return true;
-    }
-  }
-</script>
 	<h:head>
 		<f:loadBundle basename="com.mensajes.principal" var="principal" />
 		<title><h:outputText value="#{principal.tituloIngresar}" /></title>
 		<script src="https://www.google.com/recaptcha/api.js" async="defer"></script>
+		<script>
+			function miFuncion() {
+			    var response = grecaptcha.getResponse();
+			    if(response.length == 0){
+			        alert("Captcha no verificado");
+			        document.getElemenstById("enviar").disabled = true;
+			    }
+			  }
+		</script>
 		<style type="text/css">
 			body{
 				background-image: url('../img/captura3.jpg');
@@ -44,7 +40,7 @@
 		</style>
 	</h:head>
 	<h:body>
-		<h:form action="#" method="POST" onsubmit="miFuncion()">
+		<h:form>
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
@@ -55,13 +51,14 @@
 							</tr>
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.usuario}" /></td>
-								<td><p:inputText value="#{userBean.ingresarUsuario}" /></td>
+								<td><p:inputText value="#{userBean.ingresarUsuario}" onkeyup="miFuncion()"/></td>
 							</tr>
 							<tr><td colspan="2"></td></tr>
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.contrasenia}" /></td>
 								<td><p:password value="#{userBean.contrasenia}" feedback="true"	
-							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura" /></td>
+							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" 
+							goodLabel="La clave es segura"/></td>
 							</tr>
 							<tr rowspan="2"><td colspan="2"><br/></td></tr>
 							<tr align="center">
@@ -78,8 +75,9 @@
 				<tr><td valign="top">
 					<table align="center">
 						<tr>
-							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" /></td>
-							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" name="enviar" placeholder="ENVIAR" onclick="miFuncion()"/></td>
+							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" 
+							name="enviar" id="enviar" /></td>
+							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio"/></td>
 						</tr>
 						
 						<tr>
