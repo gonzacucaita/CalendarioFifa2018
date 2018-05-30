@@ -16,6 +16,7 @@ import java.util.Collection;
 
 import com.unbosque.edu.co.calendarioFifa.entity.New;
 import com.unbosque.edu.co.calendarioFifa.service.NewService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class NewsBean.
@@ -87,7 +88,7 @@ public class NewsBean {
 		noticia.setDateNews(new Date());
 		
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("PREPARAR PARA ADICIONAR NOTICIA");
 		}
 		return "newsAgregar";
 	}
@@ -102,7 +103,7 @@ public class NewsBean {
 		noticia.setDateNews(new Date());
 		
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("PREPARAR PARA MODIFICAR NOTICIA");
 		}
 		return "newsModificar";
 	}
@@ -113,13 +114,13 @@ public class NewsBean {
 	 * @return the string
 	 */
 	public String eliminarNoticia() {
-		New teamTemp = (New)(listaNoticia.getRowData());
+		noticia = (New)(listaNoticia.getRowData());
 		NewService dao = new NewService();
-		teamTemp.setState("I");
-		dao.update(teamTemp);
-		
+		noticia.setState("I");
+		dao.update(noticia);
+		auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "News", noticia.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("ELIMINAR NOTICIA");
 		}
 		return "inicio";
 	}
@@ -133,8 +134,9 @@ public class NewsBean {
 		NewService dao = new NewService();
 		dao.save(noticia);
 		
+		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "News", noticia.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("ADICIONAR NOTICIA");
 		}
 		return "funcional";
 	}
@@ -144,12 +146,12 @@ public class NewsBean {
 	 *
 	 * @return the string
 	 */
-	public String modificarEquipo() {
+	public String modificarNoticia() {
 		NewService dao = new NewService();
 		dao.update(noticia);
-		
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "News", noticia.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("MODIFICAR NOTICIA");
 		}
 		return "funcional";
 	}
@@ -164,7 +166,7 @@ public class NewsBean {
 		listaNoticia = new ListDataModel(lista);
 		
 		if(log.isDebugEnabled()) {
-			log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+			log.debug("LISTAR NOTICIAS");
 		}
 		return listaNoticia;
 	}

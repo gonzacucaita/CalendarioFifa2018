@@ -9,9 +9,9 @@ import javax.faces.model.ListDataModel;
 
 import org.apache.log4j.Logger;
 
-import com.unbosque.edu.co.calendarioFifa.dao.impl.StadiumDAOImpl;
 import com.unbosque.edu.co.calendarioFifa.entity.Stadium;
 import com.unbosque.edu.co.calendarioFifa.service.StadiumService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class StadiumBean.
@@ -107,25 +107,14 @@ public class StadiumBean {
 	public String adicionarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.save(estadio);
+		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", estadio.getId(), DireccionIp.getRemoteAddress());
+		
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR ESTADIO");
 		}
 		return "funcional";
 	}
 	
-	/**
-	 * Eliminar estadio.
-	 *
-	 * @return the string
-	 */
-	public String eliminarEstadio() {
-		StadiumService dao = new StadiumService();
-		dao.remove(estadio);
-		if(log.isDebugEnabled()) {
-			log.debug("ELIMINAR ESTADIO");
-		}
-		return "inicio";
-	}
 	
 	/**
 	 * Modificar estadio.
@@ -135,6 +124,7 @@ public class StadiumBean {
 	public String modificarEstadio() {
 		StadiumService dao = new StadiumService();
 		dao.update(estadio);
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Team", estadio.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("MODIFICAR ESTADIO");
 		}

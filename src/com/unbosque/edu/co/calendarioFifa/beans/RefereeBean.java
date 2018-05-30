@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.unbosque.edu.co.calendarioFifa.entity.Referee;
 import com.unbosque.edu.co.calendarioFifa.entity.User;
 import com.unbosque.edu.co.calendarioFifa.service.RefereeService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class RefereeBean.
@@ -84,7 +85,7 @@ public class RefereeBean {
 			arbitro = new Referee();
 			arbitro.setState("A");
 			if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+				log.debug("PREPARAR PARA ADICIONAR ARBITRO");
 			}
 			return "refereeAgregar";
 		}
@@ -97,7 +98,7 @@ public class RefereeBean {
 		public String prepararModificarArbitro() {
 			arbitro = (Referee) (listaArbitro.getRowData());
 			if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+				log.debug("PREPARAR PARA MODIFICAR ARBITRO");
 			}
 			return "refereeModificar";
 		}
@@ -108,10 +109,12 @@ public class RefereeBean {
 		 * @return the string
 		 */
 		public String eliminarArbitro() {
-			Referee arbitroTemp = (Referee)(listaArbitro.getRowData());
+			arbitro = (Referee)(listaArbitro.getRowData());
 			RefereeService dao = new RefereeService();
-			arbitroTemp.setState("I");
-			dao.update(arbitroTemp);
+			arbitro.setState("I");
+			dao.update(arbitro);
+			auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "Team", arbitro.getId(), DireccionIp.getRemoteAddress());
+			
 			if(log.isDebugEnabled()) {
 				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
 			}
@@ -126,8 +129,9 @@ public class RefereeBean {
 		public String adicionarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.save(arbitro);
+			auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", arbitro.getId(), DireccionIp.getRemoteAddress());
 			if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+				log.debug("ADICIONAR ARBITRO");
 			}
 			return "funcional";
 		}
@@ -140,8 +144,9 @@ public class RefereeBean {
 		public String modificarArbitro() {
 			RefereeService dao = new RefereeService();
 			dao.update(arbitro);
+			auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Team", arbitro.getId(), DireccionIp.getRemoteAddress());
 			if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+				log.debug("MODIFICAR ARBITRO");
 			}
 			return "funcional";
 		}
@@ -155,7 +160,7 @@ public class RefereeBean {
 			List<Referee> lista = new RefereeService().list();
 			listaArbitro = new ListDataModel(lista);
 			if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
+				log.debug("LISTAR ARBITROS");
 			}
 			return listaArbitro;
 		}

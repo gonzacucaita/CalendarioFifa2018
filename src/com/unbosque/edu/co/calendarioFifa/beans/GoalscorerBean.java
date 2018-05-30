@@ -14,6 +14,7 @@ import com.unbosque.edu.co.calendarioFifa.entity.Audit;
 import com.unbosque.edu.co.calendarioFifa.entity.Goalscorer;
 import com.unbosque.edu.co.calendarioFifa.service.AuditService;
 import com.unbosque.edu.co.calendarioFifa.service.GoalscorerService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class GoalscorerBean.
@@ -81,6 +82,7 @@ public class GoalscorerBean {
 	public String prepararAdicionarGoleador() {
 		goleador = new Goalscorer();
 		
+		goleador.setGoals(0);
 		
 		return "goalscorerAgregar";
 	}
@@ -92,24 +94,12 @@ public class GoalscorerBean {
 	 */
 	public String prepararModificarGoleador() {
 		goleador = (Goalscorer) (listaGoleadores.getRowData());
+		if(log.isDebugEnabled()) {
+			log.debug("PREPARAR PARA MODIFICAR GOLEADOR");
+		}
 		return "goalscorerModificar";
 	}
 	
-	/**
-	 * Eliminar goleador.
-	 *
-	 * @return the string
-	 */
-	public String eliminarGoleador() {
-		Goalscorer goalscorerTemp = (Goalscorer)(listaGoleadores.getRowData());
-		GoalscorerService dao = new GoalscorerService();
-		dao.update(goalscorerTemp);
-		Audit auditoria = new Audit();
-		AuditService as = new AuditService();
-//		auditoria.set
-		System.out.println();
-		return "inicio";
-	}
 	
 	/**
 	 * Adicionar goleador.
@@ -119,6 +109,11 @@ public class GoalscorerBean {
 	public String adicionarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
 		dao.save(goleador);
+		
+		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Goalscorer", goleador.getId(), DireccionIp.getRemoteAddress());
+		if(log.isDebugEnabled()) {
+			log.debug("ADICIONAR GOLEADOR");
+		}
 		return "funcional";
 	}
 	
@@ -130,6 +125,10 @@ public class GoalscorerBean {
 	public String modificarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
 		dao.update(goleador);
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Goalscorer", goleador.getId(), DireccionIp.getRemoteAddress());
+		if(log.isDebugEnabled()) {
+			log.debug("MODIFICAR EQUIPO");
+		}
 		return "funcional";
 	}
 	
@@ -141,6 +140,9 @@ public class GoalscorerBean {
 	public DataModel getListarGoleadores() {
 		List<Goalscorer> lista = new GoalscorerService().list();
 		listaGoleadores = new ListDataModel(lista);
+		if(log.isDebugEnabled()) {
+			log.debug("LISTAR GOLEADORES");
+		}
 		return listaGoleadores;
 	}
 	

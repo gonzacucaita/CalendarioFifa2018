@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.unbosque.edu.co.calendarioFifa.entity.Schedule;
 import com.unbosque.edu.co.calendarioFifa.service.ScheduleService;
+import com.unbosque.edu.co.calendarioFifa.util.DireccionIp;
 
 /**
  * The Class ScheduleBean.
@@ -106,10 +107,11 @@ public class ScheduleBean {
 	 * @return the string
 	 */
 	public String eliminarCalendario() {
-		Schedule scheduleTemp = (Schedule)(listaCalendario.getRowData());
+		calendario = (Schedule)(listaCalendario.getRowData());
 		ScheduleService dao = new ScheduleService();
-		scheduleTemp.setState("I");;
-		dao.update(scheduleTemp);
+		calendario.setState("I");;
+		dao.update(calendario);
+		auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ELIMINAR CALENDARIO");
 		}
@@ -124,7 +126,7 @@ public class ScheduleBean {
 	public String adicionarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		dao.save(calendario);
-		
+		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR CALENDARIO");
 		}
@@ -139,6 +141,7 @@ public class ScheduleBean {
 	public String modificarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		dao.update(calendario);
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("MODIFICAR CALENDARIO");
 		}

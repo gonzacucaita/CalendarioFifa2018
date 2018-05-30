@@ -131,7 +131,7 @@ public class TeamBean {
 	 * @return the string
 	 */
 	public String adicionarEquipo() {
-		System.out.println("entro");
+	
 		TeamService dao = new TeamService();
 		
 		dao.save(equipo);
@@ -167,7 +167,7 @@ public class TeamBean {
 		List<Team> lista = new TeamService().list();
 		listaEquipos = new ListDataModel(lista);
 		if(log.isDebugEnabled()) {
-			log.debug("LISTAR EQUIPO");
+			log.debug("LISTAR EQUIPOS");
 		}
 		return listaEquipos;
 	}
