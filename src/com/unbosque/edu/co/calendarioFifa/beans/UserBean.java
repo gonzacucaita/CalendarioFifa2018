@@ -24,69 +24,37 @@ import com.unbosque.edu.co.calendarioFifa.util.*;
 @SessionScoped
 public class UserBean {
 
-	
 	/**
 	 * ATRIBUTOS PARA EL USUARIO EN GENERAL.
 	 */
 	private static int INTENTOS = 0;
-	
+
 	/** The usuario. */
 	private User usuario;
-	
+
 	/** The lista usuarios. */
 	private DataModel listaUsuarios;
-	
+
 	/** The ingresar usuario. */
 	private String ingresarUsuario;
-	
+
 	/** The contrasenia. */
 	private String contrasenia;
-	
+
 	private String userOlvido;
-	
+
 	/** The contrasenia nueva. */
 	private String contraseniaNueva;
-	
+
 	@ManagedProperty("#{auditBean}")
 	private AuditBean auditBean;
-	
+
 	/** The verifica. */
 	private boolean verificaAdmin = false;
-	
+
 	private boolean verificaCliente = false;
-	
+
 	private boolean verificaFuncional = false;
-	
-	/** The lista arbitros. */
-	private DataModel listaArbitros;
-	
-	/** The lista equipos. */
-	private DataModel listaEquipos;
-	
-	/** The lista estadios. */
-	private DataModel listaEstadios;
-	
-	/** The lista noticias. */
-	private DataModel listaNoticias;
-	
-	/** ATRIBUTOS PARA EL USUARIO FUNCIONAL. */
-	private Goalscorer goleador;
-	
-	/** The noticia. */
-	private New noticia;
-	
-	/** The arbitro. */
-	private Referee arbitro;
-	
-	/** The calendario. */
-	private Schedule calendario;
-	
-	/** The estadio. */
-	private Stadium estadio;
-	
-	/** The equipo. */
-	private Team equipo;
-	
 
 	/** The Constant log. */
 	final static Logger log = Logger.getLogger(UserBean.class);
@@ -97,8 +65,7 @@ public class UserBean {
 	 * @return the string
 	 */
 
-	public String validarUsuario() 
-	{
+	public String validarUsuario() {
 
 		contrasenia = Util.getStringMessageDigest(contrasenia, Util.MD5);
 		UserService us = new UserService();
@@ -107,22 +74,19 @@ public class UserBean {
 		ParameterService ps = new ParameterService();
 		int ingresos = 0;
 		long diasDif = 0;
-		if (usuario != null) 
-		{
-			
+		if (usuario != null) {
+
 			Parameter pa = ps.verificarParametros(usuario.getId() + "");
 
-			if (usuario.getPassword().compareTo(contrasenia) != 0) 
-			{
-				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) 
-				{
+			if (usuario.getPassword().compareTo(contrasenia) != 0) {
+				if (usuario.getUserType().equals("cliente") || usuario.getUserType().equals("FUNCIONAL")) {
 					INTENTOS++;
-					if (INTENTOS == pa.getNumberValue()) 
-					{
+					if (INTENTOS == pa.getNumberValue()) {
 						usuario.setActive("I");
 						us.update(usuario);
 						INTENTOS = 0;
-						auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+						auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(),
+								DireccionIp.getRemoteAddress());
 						log.error("USUARIO:" + usuario.getUserName() + " BLOQUEADO");
 						return "/Error/ErrorLogin";
 					}
@@ -132,85 +96,74 @@ public class UserBean {
 					log.error("CONTRASEÑA INCORRECTA");
 				}
 				return "/Principal/login";
-			} else if (usuario.getActive().equals("A")) 
-			{
+			} else if (usuario.getActive().equals("A")) {
 				INTENTOS = 0;
-				if (usuario.getUserType().equals("ADMIN")) 
-				{
+				if (usuario.getUserType().equals("ADMIN")) {
 					setVerificaAdmin(true);
 
-					if (log.isInfoEnabled()) 
-					{
+					if (log.isInfoEnabled()) {
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
-										return "/Administrador/administrador";
-				} else if (usuario.getUserType().equals("FUNCIONAL")) 
-				{
+					return "/Administrador/administrador";
+				} else if (usuario.getUserType().equals("FUNCIONAL")) {
 					setVerificaFuncional(true);
 					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
 					ingresos = Integer.parseInt(pa.getParameterCode());
-					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
-					{
-						if(diasDif >= Integer.parseInt(pa.getParameterType())) {
+					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+						if (diasDif >= Integer.parseInt(pa.getParameterType())) {
 							usuario.setDateLastPassword(new Date());
 						}
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
 
-						if (log.isDebugEnabled()) 
-						{
+						if (log.isDebugEnabled()) {
 							log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
 						}
 						return "/UserFuncional/nuevaContraseñaFun";
 					}
 					pa.setParameterCode((ingresos + 1) + "");
 					ps.update(pa);
-					if (log.isInfoEnabled()) 
-					{
+					if (log.isInfoEnabled()) {
 						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
 								+ usuario.getUserType());
 					}
 					return "/UserFuncional/funcional";
 
-				} else if (usuario.getUserType().equals("cliente")) 
-				{
+				} else if (usuario.getUserType().equals("cliente")) {
 					setVerificaCliente(true);
-						diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
-						ingresos = Integer.parseInt(pa.getParameterCode());
-						if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) 
-						{
-							if(diasDif >= Integer.parseInt(pa.getParameterType())) {
-								usuario.setDateLastPassword(new Date());
-							}
-							pa.setParameterCode((ingresos + 1) + "");
-							ps.update(pa);
-
-							if (log.isDebugEnabled()) {
-								log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
-							}
-							return "/User/nuevaContraseña";
+					diasDif = DiferenciaFechas.DifeenciaFechas(new Date(), usuario.getDateLastPassword());
+					ingresos = Integer.parseInt(pa.getParameterCode());
+					if (ingresos == 0 || diasDif >= Integer.parseInt(pa.getParameterType())) {
+						if (diasDif >= Integer.parseInt(pa.getParameterType())) {
+							usuario.setDateLastPassword(new Date());
 						}
 						pa.setParameterCode((ingresos + 1) + "");
 						ps.update(pa);
-						if (log.isInfoEnabled()) 
-						{
-							log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
-									+ usuario.getUserType());
+
+						if (log.isDebugEnabled()) {
+							log.debug("CAMBIO DE CONTRASEÑA OBLIGATORIO");
 						}
-						return "/User/paginaInicio";
-
+						return "/User/nuevaContraseña";
 					}
-				auditBean.ingresarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
-					
-				} else 
-				{
+					pa.setParameterCode((ingresos + 1) + "");
+					ps.update(pa);
+					if (log.isInfoEnabled()) {
+						log.info("INGRESÓ SATISFACTORIAMENTE USUARIO: " + usuario.getUserName() + " TIPO: "
+								+ usuario.getUserType());
+					}
+					return "/User/paginaInicio";
 
-					log.error("USUARIO BLOQUEADO O ELIMINADO");
-					return "/Error/ErrorLogin";
 				}
+				auditBean.ingresarAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
+
+			} else {
+
+				log.error("USUARIO BLOQUEADO O ELIMINADO");
+				return "/Error/ErrorLogin";
 			}
-		
+		}
+
 		contrasenia = "";
 		ingresarUsuario = "";
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR DE AUTENTICACIÓN",
@@ -280,7 +233,7 @@ public class UserBean {
 
 			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 
-			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
 			if (log.isDebugEnabled()) {
 				log.debug("SE AGREGO USUARIO FUNCIONAL");
 			}
@@ -345,7 +298,7 @@ public class UserBean {
 			if (log.isInfoEnabled()) {
 				log.info("SE AGREGO USUARIO");
 			}
-			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+			auditBean.adicionarAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
 			Parameter parameter = new Parameter();
 			ParameterService ps = new ParameterService();
 
@@ -399,7 +352,7 @@ public class UserBean {
 		usuarioTemp.setActive("I");
 		dao.update(usuarioTemp);
 		AuditService as = new AuditService();
-		auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+		auditBean.bloquearAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
 		if (log.isDebugEnabled()) {
 			log.debug("USUARIO ELIMINADO");
 		}
@@ -433,7 +386,7 @@ public class UserBean {
 		usuario.setPassword(contraseniaNueva);
 		dao.update(usuario);
 
-		auditBean.actualizarAuditoria(usuario.getId(), "User", usuario.getId(),DireccionIp.getRemoteAddress());
+		auditBean.actualizarAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
 		ParameterService ps = new ParameterService();
 		Parameter p = ps.getParametroPorUsuario(usuario.getId());
 		if (p != null) {
@@ -446,16 +399,6 @@ public class UserBean {
 		}
 
 		return "/Administrador/administrador";
-	}
-
-	/**
-	 * Preparar adicionar goleador.
-	 *
-	 * @return the string
-	 */
-	public String prepararAdicionarGoleador() {
-		goleador = new Goalscorer();
-		return "goalscorer";
 	}
 
 	/**
@@ -537,41 +480,41 @@ public class UserBean {
 		UserService us = new UserService();
 		String nueva = DiferenciaFechas.getGenerarContrasenia();
 		User usu = us.verificarUsuario(userOlvido);
-		if(usu != null) {
-		ParameterService ps = new ParameterService();
-		Parameter p = ps.verificarParametros(usu.getId()+"");
-		p.setParameterCode("0");
-		ps.update(p);
-		String de = "calendario.fifa.uelbosque@gmail.com";
-		String clave = "patatafrita";
-		String asunto = "NUEVA CONTRASEÑA, CALENDARIO FIFA";
-		String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usu.getFullName() + "\n" + "\n"
-				+ "\n" + "\n" + "Se ha generado su nueva contraseña exitosamente" + "\n" + "\n" + "\n    " + "usuario: "
-				+ usu.getUserName() + "\n" + "Clave: " + nueva + "\n " + "\n" + "\n" + "\n"
-				+ "Le solicitamos que una vez ingrese y cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
-				+ "Att: administrador CalendarioFIFA";
+		if (usu != null) {
+			ParameterService ps = new ParameterService();
+			Parameter p = ps.verificarParametros(usu.getId() + "");
+			p.setParameterCode("0");
+			ps.update(p);
+			String de = "calendario.fifa.uelbosque@gmail.com";
+			String clave = "patatafrita";
+			String asunto = "NUEVA CONTRASEÑA, CALENDARIO FIFA";
+			String mensaje = "CALENDARIO FIFA 2018 \n" + "\n" + "\n" + "Usuario: " + usu.getFullName() + "\n" + "\n"
+					+ "\n" + "\n" + "Se ha generado su nueva contraseña exitosamente" + "\n" + "\n" + "\n    "
+					+ "usuario: " + usu.getUserName() + "\n" + "Clave: " + nueva + "\n " + "\n" + "\n" + "\n"
+					+ "Le solicitamos que una vez ingrese y cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
+					+ "Att: administrador CalendarioFIFA";
 
-		Correo.enviarCorreo(de, usu.getEmailAddress(), clave, asunto, mensaje);
-		nueva = Util.getStringMessageDigest(nueva, Util.MD5);
-		usu.setPassword(nueva);
-		usu.setDateLastPassword(new Date());
-		us.update(usu);
-		AuditService as = new AuditService();
+			Correo.enviarCorreo(de, usu.getEmailAddress(), clave, asunto, mensaje);
+			nueva = Util.getStringMessageDigest(nueva, Util.MD5);
+			usu.setPassword(nueva);
+			usu.setDateLastPassword(new Date());
+			us.update(usu);
+			AuditService as = new AuditService();
 
-		Audit auditoria = new Audit();
-		auditoria.setUserId(usu.getId());
-		auditoria.setOperation("U");
-		auditoria.setTableName("user");
-		auditoria.setTableId(usu.getId());
-		auditoria.setCreateDate(new Date());
-		auditoria.setIp(DireccionIp.getRemoteAddress());
-		as.save(auditoria);
-		if (log.isDebugEnabled()) {
-			log.debug("OLVIDO CONTRASEÑA");
+			Audit auditoria = new Audit();
+			auditoria.setUserId(usu.getId());
+			auditoria.setOperation("U");
+			auditoria.setTableName("user");
+			auditoria.setTableId(usu.getId());
+			auditoria.setCreateDate(new Date());
+			auditoria.setIp(DireccionIp.getRemoteAddress());
+			as.save(auditoria);
+			if (log.isDebugEnabled()) {
+				log.debug("OLVIDO CONTRASEÑA");
+			}
+			return "/Principal/login";
 		}
-		return "/Principal/login";
-		}
-		
+
 		return "/Principal/registro";
 
 	}
@@ -588,7 +531,8 @@ public class UserBean {
 	/**
 	 * Sets the contrasenia nueva.
 	 *
-	 * @param contraseniaNueva the new contrasenia nueva
+	 * @param contraseniaNueva
+	 *            the new contrasenia nueva
 	 */
 	public void setContraseniaNueva(String contraseniaNueva) {
 		this.contraseniaNueva = Util.getStringMessageDigest(contraseniaNueva, Util.MD5);
@@ -597,20 +541,18 @@ public class UserBean {
 
 		dao.update(usuario);
 	}
-	
+
 	public String cerrarSesion() {
 		usuario = null;
-		if(verificaAdmin == true) {
+		if (verificaAdmin == true) {
 			setVerificaAdmin(false);
-		}
-		else if(verificaCliente == true) {
+		} else if (verificaCliente == true) {
 			setVerificaCliente(false);
-		}
-		else if(verificaFuncional == true) {
+		} else if (verificaFuncional == true) {
 			setVerificaFuncional(false);
 		}
-		if(log.isDebugEnabled()) {
-		log.debug("CERRAR SESIÓN");
+		if (log.isDebugEnabled()) {
+			log.debug("CERRAR SESIÓN");
 		}
 		return "/Principal/inicio";
 	}
@@ -627,7 +569,8 @@ public class UserBean {
 	/**
 	 * Sets the ingresar usuario.
 	 *
-	 * @param usuario the new ingresar usuario
+	 * @param usuario
+	 *            the new ingresar usuario
 	 */
 	public void setIngresarUsuario(String usuario) {
 		this.ingresarUsuario = usuario;
@@ -645,7 +588,8 @@ public class UserBean {
 	/**
 	 * Sets the contrasenia.
 	 *
-	 * @param contrasenia the new contrasenia
+	 * @param contrasenia
+	 *            the new contrasenia
 	 */
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
@@ -654,15 +598,13 @@ public class UserBean {
 	/**
 	 * Sets the usuario.
 	 *
-	 * @param usuario the new usuario
+	 * @param usuario
+	 *            the new usuario
 	 */
 	public void setUsuario(User usuario) {
 
 		this.usuario = usuario;
 	}
-
-
-
 
 	public boolean isVerificaAdmin() {
 		return verificaAdmin;
@@ -700,7 +642,8 @@ public class UserBean {
 	/**
 	 * Sets the intentos.
 	 *
-	 * @param iNTENTOS the new intentos
+	 * @param iNTENTOS
+	 *            the new intentos
 	 */
 	public static void setINTENTOS(int iNTENTOS) {
 		INTENTOS = iNTENTOS;
@@ -718,118 +661,11 @@ public class UserBean {
 	/**
 	 * Sets the lista usuarios.
 	 *
-	 * @param listaUsuarios the new lista usuarios
+	 * @param listaUsuarios
+	 *            the new lista usuarios
 	 */
 	public void setListaUsuarios(DataModel listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
-	}
-
-	/**
-	 * Gets the goleador.
-	 *
-	 * @return the goleador
-	 */
-	public Goalscorer getGoleador() {
-		return goleador;
-	}
-
-	/**
-	 * Sets the goleador.
-	 *
-	 * @param goleador the new goleador
-	 */
-	public void setGoleador(Goalscorer goleador) {
-		this.goleador = goleador;
-	}
-
-	/**
-	 * Gets the noticia.
-	 *
-	 * @return the noticia
-	 */
-	public New getNoticia() {
-		return noticia;
-	}
-
-	/**
-	 * Sets the noticia.
-	 *
-	 * @param noticia the new noticia
-	 */
-	public void setNoticia(New noticia) {
-		this.noticia = noticia;
-	}
-
-	/**
-	 * Gets the arbitro.
-	 *
-	 * @return the arbitro
-	 */
-	public Referee getArbitro() {
-		return arbitro;
-	}
-
-	/**
-	 * Sets the arbitro.
-	 *
-	 * @param arbitro the new arbitro
-	 */
-	public void setArbitro(Referee arbitro) {
-		this.arbitro = arbitro;
-	}
-
-	/**
-	 * Gets the calendario.
-	 *
-	 * @return the calendario
-	 */
-	public Schedule getCalendario() {
-		return calendario;
-	}
-
-	/**
-	 * Sets the calendario.
-	 *
-	 * @param calendario the new calendario
-	 */
-	public void setCalendario(Schedule calendario) {
-		this.calendario = calendario;
-	}
-
-	/**
-	 * Gets the estadio.
-	 *
-	 * @return the estadio
-	 */
-	public Stadium getEstadio() {
-		return estadio;
-	}
-
-	/**
-	 * Sets the estadio.
-	 *
-	 * @param estadio the new estadio
-	 */
-	public void setEstadio(Stadium estadio) {
-		this.estadio = estadio;
-	}
-
-	/**
-	 * Gets the equipo.
-	 *
-	 * @return the equipo
-	 */
-	public Team getEquipo() {
-		return equipo;
-	}
-
-	/**
-	 * Sets the equipo.
-	 *
-	 * @param equipo the new equipo
-	 */
-	public void setEquipo(Team equipo) {
-		this.equipo = equipo;
 	}
 
 	/**
@@ -839,83 +675,6 @@ public class UserBean {
 	 */
 	public static Logger getLog() {
 		return log;
-	}
-
-	/**
-	 * Gets the lista arbitros.
-	 *
-	 * @return the lista arbitros
-	 */
-	public DataModel getListaArbitros() {
-		List<Referee> referee = new RefereeService().list();
-		 listaArbitros = new ListDataModel(referee);
-		 if(log.isDebugEnabled()) {
-				log.debug("PREPARAR PARA ADICIONAR LA AUDITORIA");
-			}
-		return listaArbitros;
-	}
-
-	/**
-	 * Sets the lista arbitros.
-	 *
-	 * @param listaArbitros the new lista arbitros
-	 */
-	public void setListaArbitros(DataModel listaArbitros) {
-		this.listaArbitros = listaArbitros;
-	}
-
-	/**
-	 * Gets the lista equipos.
-	 *
-	 * @return the lista equipos
-	 */
-	public DataModel getListaEquipos() {
-		return listaEquipos;
-	}
-
-	/**
-	 * Sets the lista equipos.
-	 *
-	 * @param listaEquipos the new lista equipos
-	 */
-	public void setListaEquipos(DataModel listaEquipos) {
-		this.listaEquipos = listaEquipos;
-	}
-
-	/**
-	 * Gets the lista estadios.
-	 *
-	 * @return the lista estadios
-	 */
-	public DataModel getListaEstadios() {
-		return listaEstadios;
-	}
-
-	/**
-	 * Sets the lista estadios.
-	 *
-	 * @param listaEstadios the new lista estadios
-	 */
-	public void setListaEstadios(DataModel listaEstadios) {
-		this.listaEstadios = listaEstadios;
-	}
-
-	/**
-	 * Gets the lista noticias.
-	 *
-	 * @return the lista noticias
-	 */
-	public DataModel getListaNoticias() {
-		return listaNoticias;
-	}
-
-	/**
-	 * Sets the lista noticias.
-	 *
-	 * @param listaNoticias the new lista noticias
-	 */
-	public void setListaNoticias(DataModel listaNoticias) {
-		this.listaNoticias = listaNoticias;
 	}
 
 	public String getUserOlvido() {
@@ -933,8 +692,5 @@ public class UserBean {
 	public void setAuditBean(AuditBean auditBean) {
 		this.auditBean = auditBean;
 	}
-
-	
-	
 
 }
