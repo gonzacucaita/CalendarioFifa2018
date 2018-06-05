@@ -28,6 +28,7 @@ public class Audit implements Serializable {
 
 	/** The table id. */
 	private long tableId;
+	
 
 	/** The table name. */
 	private String tableName;
