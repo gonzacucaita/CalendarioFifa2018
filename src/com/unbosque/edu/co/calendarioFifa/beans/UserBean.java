@@ -279,8 +279,9 @@ public class UserBean {
 
 		UserService dao = new UserService();
 		User existe = dao.verificarUsuario(usuario.getUserName());
-		
-		if (existe == null) {
+		boolean correo= usuario.getEmailAddress().contains("@");
+		if (existe == null && !correo) {
+			usuario.setEmailAddress(usuario.getEmailAddress()+"@gmail.com");
 			String contra = DiferenciaFechas.getGenerarContrasenia();
 			usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
 			dao.save(usuario);
