@@ -458,7 +458,6 @@ public class UserBean {
 	 * @return the string
 	 */
 	public String prepararModificarUsuarioNormal() {
-		usuario = (User) (listaUsuarios.getRowData());
 		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA MODIFICAR USUARIO");
 		}
