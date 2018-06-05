@@ -292,7 +292,7 @@ public class UserBean {
 					+ "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
 					+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
 
-			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
+			Correo.enviarCorreo(de, usuario.getEmailAddress()+"@gmail.com", clave, asunto, mensaje);
 
 			AuditService as = new AuditService();
 
