@@ -87,13 +87,13 @@ body {
 									</p:inputText></td>
 							</tr>
 
-
 							<tr align="center">
 								<td align="left"><p:outputLabel value="#{principal.email}" /></td>
 								<td><p:inputText id="email" required="true" label="email" onkeyup="miFuncion()"
 										requiredMessage="Please enter your email address."
 										validatorMessage="Ingrese un correo valido"
 										title="tiene que ser un gmail valido o no le llegara el correo"
+							
 										value="#{userBean.usuario.emailAddress}">
 
 										<f:validateRegex
@@ -101,6 +101,7 @@ body {
 
 									</p:inputText>
 									<p:outputLabel value="@gmail.com" /></td>
+									
 							</tr>
 
 							<tr rowspan="2">

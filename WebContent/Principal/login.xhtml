@@ -51,14 +51,14 @@
 							</tr>
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.usuario}" /></td>
-								<td><p:inputText value="#{userBean.ingresarUsuario}" onkeyup="miFuncion()"/></td>
+								<td><p:inputText value="#{userBean.ingresarUsuario}" onkeyup="miFuncion()" required="true" /></td>
 							</tr>
 							<tr><td colspan="2"></td></tr>
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.contrasenia}" /></td>
 								<td><p:password value="#{userBean.contrasenia}" feedback="true"	
 							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" 
-							goodLabel="La clave es segura"/></td>
+							goodLabel="La clave es segura" validatorMessage="Ingrese una contraseña" required="true" requiredMessage="Ingrese una contraseña valida"/></td>
 							</tr>
 							<tr rowspan="2"><td colspan="2"><br/></td></tr>
 							<tr align="center">
@@ -82,7 +82,7 @@
 						
 						<tr>
 						<td>
-							<h:commandLink value="¿Olvido su contraseña?" action="olvidoContraseña" style="color:#85C1E9">
+							<h:commandLink value="¿Olvido su contraseña?" action="olvidoContraseña" style="color:#85C1E9" immediate="true">
 							</h:commandLink>
 						</td>
 						</tr>
