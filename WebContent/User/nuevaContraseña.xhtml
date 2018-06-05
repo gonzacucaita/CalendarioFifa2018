@@ -78,13 +78,14 @@ function mi(){
 								<p:password  value="#{userBean.contraseniaNueva}" id="contraseña" required="true" label="contraseña" feedback="true"	
 								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
 										requiredMessage="Please enter your password."
-										validatorMessage="Ingrese uny valido">
+										validatorMessage="Ingrese uny valido" min="6" required>
 								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
 								</p:password><p:watermark for="contraseña" style="color:red"/></td>
 								<td>
 								<p:password  value="Verifique la contraseña" id="contraseñaa" required="true" label="contraseña" feedback="true"	
 								promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" goodLabel="La clave es segura"  
 										requiredMessage="Please enter your password."
+										min="6"
 										validatorMessage="Ingrese uny valido" onkeypress="mi()">
 								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8})" />
 								</p:password><p:watermark for="contraseñaa"/></td>
