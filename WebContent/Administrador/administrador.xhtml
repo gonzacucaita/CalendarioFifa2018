@@ -105,7 +105,7 @@ body {
 								</p:menuButton>
 							</f:facet>
 
-							<p:dataTable var="usuario" value="#{userBean.Pelicula}"
+							<p:dataTable var="usuario" value="#{userBean.listarUsuario}"
 								layout="grid" rows="6" paginator="true" id="usuario"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="2,6,10">
@@ -132,9 +132,10 @@ body {
 												rendered="#{'I' eq usuario.active}" />
 
 											<p:commandButton action="#{userBean.bloquearUsuario}"
-												value="Bloquear"  />
-											<p:commandButton action="#{userBean.modificarUsuario}"
-												value="Desbloquear"  />
+												value="Bloquear" rendered="#{'ADMIN' eq usuario.userType eq false}" />
+											<p:commandButton action="#{userBean.desbloquearUsuario}"
+												value="Desbloquear" rendered="#{'ADMIN' eq usuario.userType eq false}" />
+												
 
 										</p:panelGrid>
 									</p:panel>

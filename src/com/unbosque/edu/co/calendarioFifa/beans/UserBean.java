@@ -374,7 +374,7 @@ public class UserBean {
 	 *
 	 * @return the string
 	 */
-	public String modificarUsuario() {
+	public String desbloquearUsuario() {
 		prepararModificarUsuario();
 		UserService dao = new UserService();
 		AuditService as = new AuditService();
@@ -397,10 +397,11 @@ public class UserBean {
 
 		auditBean.actualizarAuditoria(usuario.getId(), "User", usuario.getId(), DireccionIp.getRemoteAddress());
 		ParameterService ps = new ParameterService();
-		Parameter p = ps.getParametroPorUsuario(usuario.getId());
+		Parameter p = ps.getParametroPorUsuario(usuario.getId()+"");
 		if (p != null) {
-			p.setParameterCode("0");
-			ps.update(p);
+			System.out.println(p.getParameterType()+" "+ p.getParameterCode()+" "+p.getDescriptionParameter()+p.getTextValue()+" "+p.getNumberValue());
+//			p.setParameterCode("0");
+//			ps.update(p);
 		}
 
 		if (log.isDebugEnabled()) {

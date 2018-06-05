@@ -44,14 +44,15 @@
 			<table height="500" width="100%">
 				<tr>
 					<td valign="middle">
-						<table align="center" class="tabla2" width="30%" height="30%">
+						<table align="center" class="tabla2" width="30%" height="30%" id="tab">
 							<tr><td colspan="2"></td></tr>
 							<tr align="center">
 								<td colspan="2"><H1>LOGIN</H1></td>
 							</tr>
 							<tr align="center">
-								<td><p:outputLabel value="#{principal.usuario}" /></td>
-								<td><p:inputText value="#{userBean.ingresarUsuario}" onkeyup="miFuncion()" required="true" /></td>
+								<td><p:outputLabel value="#{principal.usuario}" for="us" /></td>
+								<td><p:inputText value="#{userBean.ingresarUsuario}"  id="us" onkeyup="miFuncion()" required="true" /></td>
+								<td><p:message for="us" display="txt"/></td>
 							</tr>
 							<tr><td colspan="2"></td></tr>
 							<tr align="center">
@@ -76,7 +77,7 @@
 					<table align="center">
 						<tr>
 							<td><p:commandButton value="#{principal.btnIngresar}" action="#{userBean.validarUsuario}" 
-							name="enviar" id="enviar" /></td>
+							name="enviar" id="enviar"  /></td>
 							<td><p:commandButton value="#{principal.btnRegresar}" action="inicio" immediate="true" /></td>
 						</tr>
 						

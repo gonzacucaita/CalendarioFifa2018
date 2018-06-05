@@ -38,8 +38,8 @@ public class ParameterService {
 	 * @param idUsuario the id usuario
 	 * @return the parametro por usuario
 	 */
-	public Parameter getParametroPorUsuario(long idUsuario) {
-		return dao.getParameterFromUser(idUsuario+"");
+	public Parameter getParametroPorUsuario(String idUsuario) {
+		return dao.getParameterFromUser(idUsuario);
 	}
 	
 	/**
