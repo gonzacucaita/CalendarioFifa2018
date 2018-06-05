@@ -279,7 +279,9 @@ public class UserBean {
 
 		UserService dao = new UserService();
 		User existe = dao.verificarUsuario(usuario.getUserName());
-		if (existe == null) {
+		boolean correo = usuario.getEmailAddress().contains("@");
+		
+		if (existe == null && !correo) {
 			String contra = DiferenciaFechas.getGenerarContrasenia();
 			usuario.setPassword(Util.getStringMessageDigest(contra, Util.MD5));
 			dao.save(usuario);
@@ -292,7 +294,7 @@ public class UserBean {
 					+ "Te solicitamos que una vez ingrese, cambie su contraseña.\n" + "\n" + "\n" + "\n" + "\n"
 					+ "Att: administrador CalendarioFIFA" + "\n" + "Por favor no contestes este correo";
 
-			Correo.enviarCorreo(de, usuario.getEmailAddress()+"@gmail.com", clave, asunto, mensaje);
+			Correo.enviarCorreo(de, usuario.getEmailAddress(), clave, asunto, mensaje);
 
 			AuditService as = new AuditService();
 
