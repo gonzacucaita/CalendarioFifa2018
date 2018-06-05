@@ -170,6 +170,7 @@ public class UserBean {
 				"USUARIO NO EXISTE");
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		log.error("USUARIO NO EXISTE");
+		usuario = new User();
 		return "/Principal/registro";
 	}
 
