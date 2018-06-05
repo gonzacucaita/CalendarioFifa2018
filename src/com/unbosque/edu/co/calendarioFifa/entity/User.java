@@ -136,7 +136,7 @@ public class User implements Serializable {
 	 * @param emailAddress the new email address
 	 */
 	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+		this.emailAddress = emailAddress+"@gmail.com";
 	}
 
 	/**
