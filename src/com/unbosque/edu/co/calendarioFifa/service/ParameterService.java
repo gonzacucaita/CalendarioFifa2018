@@ -39,7 +39,7 @@ public class ParameterService {
 	 * @return the parametro por usuario
 	 */
 	public Parameter getParametroPorUsuario(String idUsuario) {
-		return dao.getParameterFromUser(idUsuario);
+		return dao.verificarParametro(idUsuario);
 	}
 	
 	/**

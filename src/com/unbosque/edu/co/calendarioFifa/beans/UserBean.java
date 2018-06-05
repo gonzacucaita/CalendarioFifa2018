@@ -399,9 +399,8 @@ public class UserBean {
 		ParameterService ps = new ParameterService();
 		Parameter p = ps.getParametroPorUsuario(usuario.getId()+"");
 		if (p != null) {
-			System.out.println(p.getParameterType()+" "+ p.getParameterCode()+" "+p.getDescriptionParameter()+p.getTextValue()+" "+p.getNumberValue());
-//			p.setParameterCode("0");
-//			ps.update(p);
+			p.setParameterCode("0");
+			ps.update(p);
 		}
 
 		if (log.isDebugEnabled()) {
