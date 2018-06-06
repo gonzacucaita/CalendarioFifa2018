@@ -7,7 +7,7 @@
 
 <f:view>
 	<h:head>
-		<title><h:outputText value="titulo ventana" /></title>
+		<title><h:outputText value="Agregar estadio" /></title>
 
 		<style type="text/css">
 body {
@@ -32,13 +32,13 @@ body {
 </style>
 	</h:head>
 	<h:body>
-	<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
+		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-	
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
-		
+
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
@@ -46,36 +46,39 @@ body {
 
 							<p:outputLabel value="Estadio : " />
 							<p:selectOneMenu value="#{stadiumBean.estadio.city}">
-							<f:selectItem itemLabel="Seleccione un Estadio" itemValue="" noSelectionOption="true"/>
-							<f:selectItems value="#{stadiumBean.estadios}"/>
+								<f:selectItem itemLabel="Seleccione un Estadio" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{stadiumBean.estadios}" />
 							</p:selectOneMenu>
-							
+
 							<p:outputLabel value="La capacidad es: " />
-							<p:inputText value="#{stadiumBean.estadio.capacity}" required="true">
+							<p:inputNumber value="#{stadiumBean.estadio.capacity}"
+								required="true" decimalPlaces="0" >
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
-								<f:validateLength minimum="3" />
 
-							</p:inputText>
-
-						
 
 							<p:outputLabel value="La temperatura es: " />
-							
-							<p:inputNumber id = "nmb1"  value="#{stadiumBean.estadio.temperature}" symbol="°C" >
+
+							<p:inputNumber id="nmb1"
+								value="#{stadiumBean.estadio.temperature}" symbol="°C">
 							</p:inputNumber>
 							<p:outputLabel value="" />
 							<p:slider for="nmb1" style="color:red" />
+
+
 							<p:outputLabel value="La Poblacion es: " />
-							<p:inputText value="#{stadiumBean.estadio.population}"
-								required="true">
+							<p:inputNumber value="#{stadiumBean.estadio.population}"
+								required="true" decimalPlaces="0" >
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
 
 							<p:commandButton value="guardar"
 								action="#{stadiumBean.adicionarEstadio}" />
-							<p:commandButton value="Cancelar" action="funcional" immediate="true"/>
+							<p:commandButton value="Cancelar" action="funcional"
+								immediate="true" />
 						</p:panelGrid></td>
 				</tr>
 			</table>
