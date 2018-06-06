@@ -55,12 +55,13 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Equipo: " />
-							<p:inputText value="#{goalscorerBean.goleador.team}"
-								rendered="true" required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
+							<p:selectOneMenu value="#{goalscorerBean.goleador.team}">
+								<f:selectItem itemLabel="Seleccione un pais" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{teamBean.equipos}" />
+							</p:selectOneMenu>
+							
+							
 							<p:outputLabel value="foto: " />
 							<p:inputText value="#{goalscorerBean.goleador.photo}"
 								rendered="true" required="true">
@@ -69,16 +70,16 @@ body {
 
 							</p:inputText>
 
-							<p:outputLabel value="Nombre: " />
-							<p:inputText value="#{goalscorerBean.goleador.goals}"
-								rendered="true" required="true">
+							<p:outputLabel value="Goles: " />
+							<p:inputNumber value="#{goalscorerBean.goleador.goals}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="50">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
-								<f:validateLength minimum="1" />
-
-							</p:inputText>
 							<p:commandButton value="guardar"
 								action="#{goalscorerBean.modificarGoleador}" />
-							<p:commandButton value="Cancelar" action="funcional" immediate="true" />
+							<p:commandButton value="Cancelar" action="funcional"
+								immediate="true" />
 
 						</p:panelGrid></td>
 

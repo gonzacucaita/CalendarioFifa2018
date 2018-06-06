@@ -64,12 +64,11 @@ body {
 						
 
 						<p:outputLabel value="Goles: " rendered="true" />
-						<p:inputText value="#{goalscorerBean.goleador.goals}"
-							rendered="true" required="true">
+						<p:inputNumber value="#{goalscorerBean.goleador.goals}"
+							rendered="true" required="true" decimalPlaces="0" maxValue="50">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
-							<f:validateLength minimum="1" />
-
-						</p:inputText>
 
 						<p:commandButton value="Guardar"
 							action="#{goalscorerBean.adicionarGoleador}" />
