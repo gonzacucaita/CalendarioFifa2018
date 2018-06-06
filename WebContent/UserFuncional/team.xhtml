@@ -69,52 +69,47 @@ body {
 							</p:inputText>
 
 							<p:outputLabel value="Partidos Jugados: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.playedGames}"
-								rendered="true" required="true">
+							<p:inputNumber value="#{teamBean.equipo.playedGames}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="25">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
-
-							</p:inputText>
 
 							<p:outputLabel value="Partidos Ganados: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.wonMatches}"
-								rendered="true" required="true">
-
-
-							</p:inputText>
+							<p:inputNumber value="#{teamBean.equipo.wonMatches}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="25">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
 							<p:outputLabel value="Partidos Empadatados: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.tiedMatches}"
-								rendered="true" required="true">
-
-
-							</p:inputText>
-
-							<p:outputLabel value="Goles a favor: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.goalsFavor}"
-								rendered="true" required="true">
-
-
-							</p:inputText>
-
-							<p:outputLabel value="Goles en contra: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.goalsAgainst}"
-								rendered="true" required="true">
-
-
-							</p:inputText>
+							<p:inputNumber value="#{teamBean.equipo.tiedMatches}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="25">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
 							<p:outputLabel value="Juegos Perdidos: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.lostMatches}"
-								rendered="true" required="true">
+							<p:inputNumber value="#{teamBean.equipo.lostMatches}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="25">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
+							<p:outputLabel value="Goles a favor: " rendered="true" />
+							<p:inputNumber value="#{teamBean.equipo.goalsFavor}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="50">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
 
-							</p:inputText>
+							<p:outputLabel value="Goles en contra: " rendered="true" />
+							<p:inputNumber value="#{teamBean.equipo.goalsAgainst}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="50">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
 
 							<p:commandButton value="guardar"
 								action="#{teamBean.modificarEquipo}" />
-							<p:commandButton value="Cancelar" action="funcional" immediate="true"/>
-
-
+							<p:commandButton value="Cancelar" action="funcional"
+								immediate="true" />
 						</p:panelGrid></td>
 				</tr>
 			</table>

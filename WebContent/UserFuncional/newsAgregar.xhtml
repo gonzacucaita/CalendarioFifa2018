@@ -47,30 +47,26 @@ body {
 							<p:outputLabel value="Descripcion corta: " />
 							<p:inputText value="#{newsBean.noticia.shortDescription}"
 								rendered="true" required="true">
-
 								<f:validateLength minimum="3" />
-
-
 							</p:inputText>
+
 							<p:outputLabel value="Descripcion larga: " />
-							<p:inputText value="#{newsBean.noticia.largeDescription}"
-								rendered="true" required="true">
-
+							<p:inputTextarea rows="6" cols="33"
+								value="#{newsBean.noticia.largeDescription}" rendered="true"
+								required="true">
 								<f:validateLength minimum="3" />
+							</p:inputTextarea>
 
-							</p:inputText>
 							<p:outputLabel value="Foto: " />
-							<p:inputText value="#{newsBean.noticia.photo}"
-								rendered="true" required="true">
-
+							<p:inputText value="#{newsBean.noticia.photo}" rendered="true"
+								required="true">
 								<f:validateLength minimum="3" />
-
 							</p:inputText>
-							
+
 							<p:commandButton value="Guardar"
 								action="#{newsBean.adicionarNoticia}" />
-							<p:commandButton value="Cancelar" action="funcional" immediate="true"/>
-							
+							<p:commandButton value="Cancelar" action="funcional"
+								immediate="true" />
 						</p:panelGrid></td>
 				</tr>
 			</table>
