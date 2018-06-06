@@ -43,31 +43,50 @@ body {
 				<tr>
 					<td><p:panelGrid columns="2">
 							<p:outputLabel value="Equipo local: " />
-							<p:inputText value="#{scheduleBean.calendario.localTeam}"
-								rendered="true" />
-								
-							
-								
-								
-								
+							<p:inputNumber value="#{scheduleBean.calendario.localTeam}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Goles Local: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.localGoals}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.localGoals}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="10">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Equipo viditante: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.visitTeam}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.visitTeam}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Goles visitante: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.visitGoals}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.visitGoals}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="10">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Fecha de juego: " rendered="true" />
 							<p:calendar value="#{scheduleBean.calendario.gameDate}"
 								pattern="MM/dd/yyyy HH:mm:ss" required="true" rendered="true" />
+								
 							<p:outputLabel value="Estadio: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.idStadium}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.idStadium}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="idReferi: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.idReferee}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.idReferee}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
+
+							<p:commandButton value="Agregar"
+								action="#{scheduleBean.adicionarCalendario}" />
+							<p:commandButton value="Regresar" action="funcional" />
+
 						</p:panelGrid></td>
 				</tr>
 			</table>
