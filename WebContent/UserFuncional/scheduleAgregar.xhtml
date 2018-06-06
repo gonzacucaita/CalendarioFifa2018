@@ -44,7 +44,7 @@ body {
 					<td><p:panelGrid columns="2">
 							<p:outputLabel value="Equipo local: " />
 							<p:inputNumber value="#{scheduleBean.calendario.localTeam}"
-								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								rendered="true" required="true" decimalPlaces="0" maxValue="32">
 								<f:validateLongRange minimum="0" />
 							</p:inputNumber>
 
@@ -56,7 +56,7 @@ body {
 
 							<p:outputLabel value="Equipo viditante: " rendered="true" />
 							<p:inputNumber value="#{scheduleBean.calendario.visitTeam}"
-								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								rendered="true" required="true" decimalPlaces="0" maxValue="32">
 								<f:validateLongRange minimum="0" />
 							</p:inputNumber>
 
@@ -68,17 +68,17 @@ body {
 
 							<p:outputLabel value="Fecha de juego: " rendered="true" />
 							<p:calendar value="#{scheduleBean.calendario.gameDate}"
-								pattern="MM/dd/yyyy HH:mm:ss" required="true" rendered="true" />
+								pattern="MM/dd/yyyy HH:mm:ss" required="true" rendered="true"  mindate="01/01/2018" maxdate="08/01/2018"  maxlength="0"/>
 								
 							<p:outputLabel value="Estadio: " rendered="true" />
 							<p:inputNumber value="#{scheduleBean.calendario.idStadium}"
-								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								rendered="true" required="true" decimalPlaces="0" maxValue="20">
 								<f:validateLongRange minimum="0" />
 							</p:inputNumber>
 
 							<p:outputLabel value="idReferi: " rendered="true" />
 							<p:inputNumber value="#{scheduleBean.calendario.idReferee}"
-								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								rendered="true" required="true" decimalPlaces="0" maxValue="33">
 								<f:validateLongRange minimum="0" />
 							</p:inputNumber>
 

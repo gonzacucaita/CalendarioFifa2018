@@ -23,16 +23,17 @@ public class ScheduleBean {
 
 	/** The calendario. */
 	private Schedule calendario;
-	
+
 	/** The lista calendario. */
 	private DataModel listaCalendario;
 	
+
 	/** The Constant log. */
 	final static Logger log = Logger.getLogger(ScheduleBean.class);
-	
+
 	@ManagedProperty("#{userBean}")
 	private UserBean userBean;
-	
+
 	public UserBean getUserBean() {
 		return userBean;
 	}
@@ -41,11 +42,10 @@ public class ScheduleBean {
 		this.userBean = userBean;
 	}
 
+
 	@ManagedProperty("#{auditBean}")
 	private AuditBean auditBean;
-	
-	
-	
+
 	public AuditBean getAuditBean() {
 		return auditBean;
 	}
@@ -54,7 +54,6 @@ public class ScheduleBean {
 		this.auditBean = auditBean;
 	}
 
-	
 	/**
 	 * Gets the calendario.
 	 *
@@ -63,17 +62,17 @@ public class ScheduleBean {
 	public Schedule getCalendario() {
 		return calendario;
 	}
-	
+
 	/**
 	 * Sets the calendario.
 	 *
-	 * @param shedule the new calendario
+	 * @param shedule
+	 *            the new calendario
 	 */
 	public void setCalendario(Schedule shedule) {
 		this.calendario = shedule;
 	}
-	
-	
+
 	/**
 	 * Preparar adicionar calendario.
 	 *
@@ -82,12 +81,12 @@ public class ScheduleBean {
 	public String prepararAdicionarCalendario() {
 		calendario = new Schedule();
 		calendario.setState("A");
-		if(log.isDebugEnabled()) {
+		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR CALENDARIO");
 		}
 		return "scheduleAgregar";
 	}
-	
+
 	/**
 	 * Preparar modificar calendario.
 	 *
@@ -95,11 +94,12 @@ public class ScheduleBean {
 	 */
 	public String prepararModificarCalendario() {
 		calendario = (Schedule) (listaCalendario.getRowData());
-		if(log.isDebugEnabled()) {
+		if (log.isDebugEnabled()) {
 			log.debug("PREPARAR PARA ADICIONAR CALENDARIO");
 		}
 		return "schedule";
 	}
+	
 	
 	/**
 	 * Eliminar calendario.
@@ -107,17 +107,19 @@ public class ScheduleBean {
 	 * @return the string
 	 */
 	public String eliminarCalendario() {
-		calendario = (Schedule)(listaCalendario.getRowData());
+		calendario = (Schedule) (listaCalendario.getRowData());
 		ScheduleService dao = new ScheduleService();
-		calendario.setState("I");;
+		calendario.setState("I");
+		;
 		dao.update(calendario);
-		auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
-		if(log.isDebugEnabled()) {
+		auditBean.bloquearAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(),
+				DireccionIp.getRemoteAddress());
+		if (log.isDebugEnabled()) {
 			log.debug("ELIMINAR CALENDARIO");
 		}
 		return "inicio";
 	}
-	
+
 	/**
 	 * Adicionar calendario.
 	 *
@@ -125,20 +127,23 @@ public class ScheduleBean {
 	 */
 	public String adicionarCalendario() {
 		ScheduleService dao = new ScheduleService();
-		
-		
+
 		Schedule existe = dao.verificarFecha(calendario.getGameDate());
-		if(existe == null) {
-		dao.save(calendario);
-		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
-		if(log.isDebugEnabled()) {
-			log.debug("ADICIONAR CALENDARIO");
-		}
-		return "funcional";
+		if (existe == null) {
+			if (calendario.getLocalTeam() != calendario.getVisitTeam()) {
+
+				dao.save(calendario);
+				auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(),
+						DireccionIp.getRemoteAddress());
+				if (log.isDebugEnabled()) {
+					log.debug("ADICIONAR CALENDARIO");
+				}
+				return "funcional";
+			}
 		}
 		return "scheduleAgregar";
 	}
-	
+
 	/**
 	 * Modificar calendario.
 	 *
@@ -147,13 +152,14 @@ public class ScheduleBean {
 	public String modificarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		dao.update(calendario);
-		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
-		if(log.isDebugEnabled()) {
+		auditBean.actualizarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(),
+				DireccionIp.getRemoteAddress());
+		if (log.isDebugEnabled()) {
 			log.debug("MODIFICAR CALENDARIO");
 		}
 		return "funcional";
 	}
-	
+
 	/**
 	 * Gets the listar calendarios.
 	 *
@@ -162,9 +168,12 @@ public class ScheduleBean {
 	public DataModel getListarCalendarios() {
 		List<Schedule> lista = new ScheduleService().list();
 		listaCalendario = new ListDataModel(lista);
-		if(log.isDebugEnabled()) {
+		if (log.isDebugEnabled()) {
 			log.debug("LISTAR CALENDARIOS");
 		}
 		return listaCalendario;
 	}
+	
+	
+	
 }

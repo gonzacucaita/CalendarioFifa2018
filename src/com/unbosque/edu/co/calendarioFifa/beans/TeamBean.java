@@ -30,6 +30,8 @@ public class TeamBean {
 	/** The lista equipos. */
 	private DataModel listaEquipos;
 	
+	private DataModel lista;
+	
 	/** The Constant log. */
 	final static Logger log = Logger.getLogger(TeamBean.class);
 	
@@ -214,4 +216,24 @@ public class TeamBean {
 	public List<String> getGrupos(){
 		return grupos;
 	}
+
+	public DataModel getLista() {
+		List<Team> listaequ = new TeamService().list();
+//		for (int i = 0; i < listaequ.size(); i++) {
+//			if (equipo.getLostMatches()<equipo.getWonMatches()) {
+				listaEquipos = new ListDataModel(listaequ);
+//			}
+//		}
+		return lista;
+	}
+
+	public void setLista(DataModel lista) {
+		this.lista = lista;
+	}
+	
+	
+	
+	
+	
+	
 }
