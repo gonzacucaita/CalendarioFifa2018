@@ -45,7 +45,7 @@ body {
 
 
 							<p:outputLabel value="Estadio : " />
-							<p:selectOneMenu value="#{stadiumBean.estadio.city}">
+							<p:selectOneMenu value="#{stadiumBean.estadio.city}" required="true">
 								<f:selectItem itemLabel="Seleccione un Estadio" itemValue=""
 									noSelectionOption="true" />
 								<f:selectItems value="#{stadiumBean.estadios}" />

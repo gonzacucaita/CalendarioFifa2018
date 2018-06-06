@@ -55,7 +55,7 @@ body {
 
 						<p:outputLabel value="equipo: " rendered="true" />
 						
-							<p:selectOneMenu value="#{goalscorerBean.goleador.team}">
+							<p:selectOneMenu value="#{goalscorerBean.goleador.team}" required="true">
 								<f:selectItem itemLabel="Seleccione un pais" itemValue=""
 									noSelectionOption="true" />
 								<f:selectItems value="#{teamBean.equipos}" />

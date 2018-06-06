@@ -46,14 +46,14 @@ body {
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Pais: " />
-							<p:selectOneMenu value="#{teamBean.equipo.country}">
+							<p:selectOneMenu value="#{teamBean.equipo.country}" required="true">
 								<f:selectItem itemLabel="Seleccione un pais" itemValue=""
 									noSelectionOption="true" />
 								<f:selectItems value="#{teamBean.equipos}" />
 							</p:selectOneMenu>
 							<p:outputLabel value="Grupo: " rendered="true" />
 							
-							<p:selectOneMenu value="#{teamBean.equipo.group}">
+							<p:selectOneMenu value="#{teamBean.equipo.group}" required="true">
 								<f:selectItem itemLabel="Seleccione un grupo" itemValue="" noSelectionOption="true"/>
 								<f:selectItems value="#{teamBean.grupos}" />
 							</p:selectOneMenu>
