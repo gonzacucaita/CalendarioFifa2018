@@ -43,10 +43,14 @@ body {
 				<tr>
 					<td><p:panelGrid columns="2">
 							<p:outputLabel value="Equipo local: " />
-							<p:inputNumber value="#{scheduleBean.calendario.localTeam}"
+						<!--  	<p:inputNumber value="#{scheduleBean.calendario.localTeam}"
 								rendered="true" required="true" decimalPlaces="0" maxValue="65">
 								<f:validateLongRange minimum="0" />
-							</p:inputNumber>
+							</p:inputNumber>-->
+							<p:selectOneMenu value="#{scheduleBean.calendario.localTeam}">
+								<f:selectItem itemLabel="Seleccione un equipo" itemValue=""  noSelectionOption="true"/>
+								<!-- <f:selectItems itemLabel="#{scheduleBean}"/>-->
+							</p:selectOneMenu>
 
 							<p:outputLabel value="Goles Local: " rendered="true" />
 							<p:inputNumber value="#{scheduleBean.calendario.localGoals}"
