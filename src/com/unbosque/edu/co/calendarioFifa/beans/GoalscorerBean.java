@@ -106,7 +106,11 @@ public class GoalscorerBean {
 	 */
 	public String adicionarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
+		
+		goleador.setPhoto(goleador.getFullName()+"jpg");
 		dao.save(goleador);
+		
+		
 		
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Goalscorer", goleador.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {

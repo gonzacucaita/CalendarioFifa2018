@@ -54,20 +54,14 @@ body {
 						</p:inputText>
 
 						<p:outputLabel value="equipo: " rendered="true" />
-						<p:inputText value="#{goalscorerBean.goleador.team}"
-							rendered="true" required="true">
-
-							<f:validateLength minimum="3" />
-
-						</p:inputText>
-
-						<p:outputLabel value="Foto: " rendered="true" />
-						<p:inputText value="#{goalscorerBean.goleador.photo}"
-							rendered="true" required="true">
-
-							<f:validateLength minimum="3" />
-
-						</p:inputText>
+						
+							<p:selectOneMenu value="#{teamBean.equipo.country}">
+								<f:selectItem itemLabel="Seleccione un pais" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{teamBean.equipos}" />
+							</p:selectOneMenu>
+						
+						
 
 						<p:outputLabel value="Goles: " rendered="true" />
 						<p:inputText value="#{goalscorerBean.goleador.goals}"

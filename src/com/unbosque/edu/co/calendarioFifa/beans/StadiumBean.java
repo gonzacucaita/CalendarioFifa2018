@@ -128,6 +128,8 @@ public class StadiumBean {
 	public String adicionarEstadio() {
 		StadiumService dao = new StadiumService();
 		
+		Stadium existe = dao.verificarEstadio(estadio.getCity());
+		if(existe == null) {
 		estadio.setPhoto(estadio.getCity()+".jpg");
 		dao.save(estadio);
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", estadio.getId(), DireccionIp.getRemoteAddress());
@@ -136,6 +138,8 @@ public class StadiumBean {
 			log.debug("ADICIONAR ESTADIO");
 		}
 		return "funcional";
+		}
+		return "stadiumAgregar";
 	}
 	
 	
