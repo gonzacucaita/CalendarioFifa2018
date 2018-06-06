@@ -55,7 +55,7 @@ public class StadiumDAOImpl  implements StadiumDAO{
 	@Override
 	public Stadium verificarEstadiio(String city) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		return (Stadium) session.createQuery("from Stadium WHERE city = '"+city+"'");
+		return (Stadium) session.createQuery("from Stadium WHERE city = '"+city+"'").uniqueResult();
 	}
 
 }

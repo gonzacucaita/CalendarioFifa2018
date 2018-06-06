@@ -1,5 +1,6 @@
 package com.unbosque.edu.co.calendarioFifa.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -51,6 +52,13 @@ public class ScheduleDAOImpl implements ScheduleDAO{
 		Transaction t = session.beginTransaction();
 		session.update(calendario);
 		t.commit();
+	}
+
+	@Override
+	public Schedule verificarFecha(Date gameDate) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return (Schedule) session.createQuery("from Schedule WHERE gameDate = '"+gameDate+"'").uniqueResult();
 	}
 
 }

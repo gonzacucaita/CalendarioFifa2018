@@ -1,5 +1,6 @@
 package com.unbosque.edu.co.calendarioFifa.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.unbosque.edu.co.calendarioFifa.dao.impl.ScheduleDAOImpl;
@@ -57,5 +58,9 @@ private ScheduleDAOImpl dao = new ScheduleDAOImpl();
 	 */
 	public void update(Schedule calendario) {
 		dao.update(calendario);
+	}
+
+	public Schedule verificarFecha(Date gameDate) {
+		return dao.verificarFecha(gameDate);
 	}
 }

@@ -44,5 +44,7 @@ public interface NewsDAO {
 	 * @param noticia the noticia
 	 */
 	public void update(New noticia);
+
+	New verificarNoticia(String shortDescription);
 }
 

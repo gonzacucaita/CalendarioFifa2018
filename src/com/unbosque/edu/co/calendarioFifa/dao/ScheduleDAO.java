@@ -1,5 +1,6 @@
 package com.unbosque.edu.co.calendarioFifa.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.unbosque.edu.co.calendarioFifa.entity.Schedule;
@@ -44,4 +45,6 @@ public void save(Schedule calendario);
 	 * @param calendario the calendario
 	 */
 	public void update(Schedule calendario);
+
+	Schedule verificarFecha(Date gameDate);
 }

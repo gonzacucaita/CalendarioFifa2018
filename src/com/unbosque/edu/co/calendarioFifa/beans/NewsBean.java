@@ -132,6 +132,9 @@ public class NewsBean {
 	 */
 	public String adicionarNoticia() {
 		NewService dao = new NewService();
+		
+		New existe = dao.verificarNoticia(noticia.getShortDescription());
+		if(existe == null) {
 		dao.save(noticia);
 		
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "News", noticia.getId(), DireccionIp.getRemoteAddress());
@@ -139,6 +142,8 @@ public class NewsBean {
 			log.debug("ADICIONAR NOTICIA");
 		}
 		return "funcional";
+		}
+		return "newsAgregar";
 	}
 	
 	/**

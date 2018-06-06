@@ -107,6 +107,8 @@ public class GoalscorerBean {
 	public String adicionarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
 		
+		Goalscorer existe = dao.verificarGoleador(goleador.getFullName());
+		if(existe == null) {
 		goleador.setPhoto(goleador.getFullName()+"jpg");
 		dao.save(goleador);
 		
@@ -117,6 +119,8 @@ public class GoalscorerBean {
 			log.debug("ADICIONAR GOLEADOR");
 		}
 		return "funcional";
+		}
+		return "goalscorerAgregar";
 	}
 	
 	/**

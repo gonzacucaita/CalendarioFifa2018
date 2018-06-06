@@ -52,6 +52,13 @@ public class GoalscorerDAOImpl implements GoalscorerDAO {
 		session.update(goleador);
 		t.commit();
 	}
+	
+	@Override
+	public Goalscorer verificarGoleador(String fullName) {
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return (Goalscorer) session.createQuery("from Goalscorer WHERE fullName = '"+fullName+"'").uniqueResult();
+	}
 
 
 }

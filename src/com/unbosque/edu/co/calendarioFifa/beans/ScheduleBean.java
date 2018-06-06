@@ -125,12 +125,17 @@ public class ScheduleBean {
 	 */
 	public String adicionarCalendario() {
 		ScheduleService dao = new ScheduleService();
+		
+		Schedule existe = dao.verificarFecha(calendario.getGameDate());
+		if(existe == null) {
 		dao.save(calendario);
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Schedule", calendario.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR CALENDARIO");
 		}
 		return "funcional";
+		}
+		return "scheduleAgregar";
 	}
 	
 	/**

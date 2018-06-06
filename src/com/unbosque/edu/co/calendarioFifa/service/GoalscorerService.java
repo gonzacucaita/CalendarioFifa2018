@@ -58,4 +58,8 @@ public class GoalscorerService {
 	public void update(Goalscorer goleador) {
 		dao.update(goleador);
 	}
+
+	public Goalscorer verificarGoleador(String fullName) {
+		return dao.verificarGoleador(fullName);
+	}
 }

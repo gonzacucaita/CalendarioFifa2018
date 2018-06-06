@@ -53,4 +53,11 @@ public class RefereeDAOImpl implements RefereeDAO {
 		t.commit();
 	}
 
+	@Override
+	public Referee verificarArbitro(String fullName) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		return (Referee) session.createQuery("from Referee WHERE fullName = '"+ fullName +"'").uniqueResult();
+	}
+
 }

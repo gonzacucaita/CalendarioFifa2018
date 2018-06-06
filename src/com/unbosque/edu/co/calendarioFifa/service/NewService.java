@@ -58,4 +58,8 @@ private NewsDAOImpl dao = new NewsDAOImpl();
 	public void update(New noticia){
 		dao.update(noticia);
 	}
+
+	public New verificarNoticia(String shortDescription) {
+		return dao.verificarNoticia(shortDescription);
+	}
 }
