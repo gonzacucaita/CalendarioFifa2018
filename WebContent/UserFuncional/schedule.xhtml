@@ -8,7 +8,7 @@
 <f:view>
 	<h:head>
 		<title><h:outputText value="Modificar calendario" /></title>
-		
+
 		<style type="text/css">
 body {
 	background-image: url('../img/captura3.jpg');
@@ -30,43 +30,63 @@ body {
 	background: rgba(131, 149, 183, 0.7);
 }
 </style>
-		
+
 	</h:head>
 	<body>
 		<h:outputLabel value="NO SE A INICIADO SESIÓN DE UN USUARIO FUNCIONAL"
 			rendered="#{userBean.verificaFuncional eq false}" />
 
-	
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
-		
+
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
 							<p:outputLabel value="Equipo local: " />
-							<p:inputText value="#{scheduleBean.calendario.localTeam}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.localTeam}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Goles Local: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.localGoals}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.localGoals}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="10">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Equipo viditante: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.visitTeam}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.visitTeam}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Goles visitante: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.visitGoals}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.visitGoals}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="10">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="Fecha de juego: " rendered="true" />
-							<p:calendar value="#{scheduleBean.calendario.gameDate}" pattern="MM/dd/yyyy HH:mm:ss"
-								rendered="true"  required ="true"/>
+							<p:calendar value="#{scheduleBean.calendario.gameDate}"
+								pattern="MM/dd/yyyy HH:mm:ss" rendered="true" required="true" />
+
 							<p:outputLabel value="Estadio: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.idStadium}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.idStadium}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:outputLabel value="idReferi: " rendered="true" />
-							<p:inputText value="#{scheduleBean.calendario.idReferee}"
-								rendered="true" />
+							<p:inputNumber value="#{scheduleBean.calendario.idReferee}"
+								rendered="true" required="true" decimalPlaces="0" maxValue="65">
+								<f:validateLongRange minimum="0" />
+							</p:inputNumber>
+
 							<p:commandButton value="guardar"
 								action="#{scheduleBean.modificarCalendario}" />
-								<p:commandButton value="Cancelar" action="funcional" immediate="true"/>
-							
+							<p:commandButton value="Cancelar" action="funcional"
+								immediate="true" />
+								</p:inputNumber>
 						</p:panelGrid></td>
 				</tr>
 			</table>
