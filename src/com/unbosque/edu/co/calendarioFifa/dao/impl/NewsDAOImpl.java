@@ -53,4 +53,11 @@ public class NewsDAOImpl implements NewsDAO {
 		t.commit();
 	}
 
+	@Override
+	public New verificarNoticia(String shortDescription) {
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return (New) session.createQuery("from New WHERE shortDescription = '"+shortDescription+"'").uniqueResult();
+	}
+
 }

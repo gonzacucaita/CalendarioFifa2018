@@ -128,12 +128,17 @@ public class RefereeBean {
 		 */
 		public String adicionarArbitro() {
 			RefereeService dao = new RefereeService();
+			
+			Referee existe = dao.verificarArbitro(arbitro.getFullName());
+			if(existe == null) {
 			dao.save(arbitro);
 			auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", arbitro.getId(), DireccionIp.getRemoteAddress());
 			if(log.isDebugEnabled()) {
 				log.debug("ADICIONAR ARBITRO");
 			}
 			return "funcional";
+			}
+			return "refereeAgregar";
 		}
 		
 		/**

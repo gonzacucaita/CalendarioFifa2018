@@ -44,4 +44,6 @@ public void save(Stadium estadio);
 	 * @param estadio the estadio
 	 */
 	public void update(Stadium estadio);
+
+	Stadium verificarEstadiio(String city);
 }

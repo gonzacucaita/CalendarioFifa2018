@@ -58,4 +58,8 @@ private StadiumDAOImpl dao = new StadiumDAOImpl();
 	public void update(Stadium estadio) {
 		dao.update(estadio);
 	}
+
+	public Stadium verificarEstadio(String city) {
+		return dao.verificarEstadiio(city);
+	}
 }

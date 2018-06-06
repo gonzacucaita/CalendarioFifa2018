@@ -45,5 +45,7 @@ public interface GoalscorerDAO {
 	 */
 	public void update(Goalscorer goleadors);
 
+	Goalscorer verificarGoleador(String fullName);
+
 }
 

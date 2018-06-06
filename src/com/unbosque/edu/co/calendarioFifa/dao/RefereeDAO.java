@@ -47,6 +47,8 @@ public interface RefereeDAO {
 	 */
 	public void update(Referee arbitro);
 
+	Referee verificarArbitro(String fullName);
+
 	
 }
 

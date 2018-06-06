@@ -58,4 +58,8 @@ private RefereeDAOImpl dao = new RefereeDAOImpl();
 	public void update(Referee arbitro) {
 		dao.update(arbitro);
 	}
+
+	public Referee verificarArbitro(String fullName) {
+		return dao.verificarArbitro(fullName);
+	}
 }

@@ -106,13 +106,21 @@ public class GoalscorerBean {
 	 */
 	public String adicionarGoleador() {
 		GoalscorerService dao = new GoalscorerService();
+		
+		Goalscorer existe = dao.verificarGoleador(goleador.getFullName());
+		if(existe == null) {
+		goleador.setPhoto(goleador.getFullName()+".jpg");
 		dao.save(goleador);
+		
+		
 		
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Goalscorer", goleador.getId(), DireccionIp.getRemoteAddress());
 		if(log.isDebugEnabled()) {
 			log.debug("ADICIONAR GOLEADOR");
 		}
 		return "funcional";
+		}
+		return "goalscorerAgregar";
 	}
 	
 	/**
