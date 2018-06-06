@@ -62,7 +62,8 @@ public class TeamBean {
 		grupos.add("F");
 		grupos.add("G");
 		grupos.add("H");
-	
+		
+
 	}
 	
 	public AuditBean getAuditBean() {
