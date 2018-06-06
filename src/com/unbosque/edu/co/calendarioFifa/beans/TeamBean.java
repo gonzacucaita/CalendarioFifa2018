@@ -1,6 +1,9 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -35,6 +38,32 @@ public class TeamBean {
 	
 	@ManagedProperty("#{auditBean}")
 	private AuditBean auditBean;
+	
+	private List<String> equipos;
+	
+	private List<String> grupos;
+	
+	@PostConstruct
+    public void init() {
+		equipos = new LinkedList<>();
+		grupos = new LinkedList<>();
+		equipos.add("Alemania"); equipos.add("Argentina");equipos.add("Arabia Saudí");equipos.add("Australia");equipos.add("Bélgica");equipos.add("Brasil");equipos.add("Colombia");
+		equipos.add("Corea del Sur");equipos.add("Costa Rica");equipos.add("Croacia");equipos.add("Dinamarca");equipos.add("Egipto");
+		equipos.add("España");equipos.add("Francia");equipos.add("Inglaterra");equipos.add("Irán");equipos.add("Islandia");	equipos.add("Japón");equipos.add("Marruecos");
+		equipos.add("México");equipos.add("Nigeria");equipos.add("Panamá");equipos.add("Perú");equipos.add("Polonia");equipos.add("Portugal");
+		equipos.add("Rusia");equipos.add("Senegal");equipos.add("Serbia");equipos.add("Suecia");equipos.add("Suiza");equipos.add("Túnez");
+		equipos.add("Uruguay");
+		
+		grupos.add("A");
+		grupos.add("B");
+		grupos.add("C");
+		grupos.add("D");
+		grupos.add("E");
+		grupos.add("F");
+		grupos.add("G");
+		grupos.add("H");
+	
+	}
 	
 	public AuditBean getAuditBean() {
 		return auditBean;
@@ -133,7 +162,9 @@ public class TeamBean {
 	public String adicionarEquipo() {
 	
 		TeamService dao = new TeamService();
-		
+		Team existe = dao.validarEquipo(equipo.getCountry());
+		if(existe == null) {
+		equipo.setFlag(equipo.getCountry()+".jpg");
 		dao.save(equipo);
 		
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", equipo.getId(), DireccionIp.getRemoteAddress());
@@ -141,7 +172,9 @@ public class TeamBean {
 			log.debug("ADICIONAR EQUIPO");
 		}
 		return "funcional";
-	}
+		}
+		return "teamAgregar";
+		}
 	
 	/**
 	 * Modificar equipo.
@@ -170,5 +203,14 @@ public class TeamBean {
 			log.debug("LISTAR EQUIPOS");
 		}
 		return listaEquipos;
+	}
+	
+	public List<String> getEquipos(){
+		
+		return equipos;
+	}
+	
+	public List<String> getGrupos(){
+		return grupos;
 	}
 }

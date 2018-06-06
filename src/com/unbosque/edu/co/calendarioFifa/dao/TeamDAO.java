@@ -44,4 +44,6 @@ public interface TeamDAO {
 	 * @param equipo the equipo
 	 */
 	public void update(Team equipo);
+
+	Team validarEquipo(String country);
 }

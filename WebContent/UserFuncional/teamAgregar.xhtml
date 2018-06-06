@@ -13,7 +13,7 @@
 		<style type="text/css">
 body {
 	background-image: url('../img/captura3.jpg');
-	background-position: center center;
+	background-position: cen ter center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
@@ -37,37 +37,26 @@ body {
 			rendered="#{userBean.verificaFuncional eq false}" />
 
 
-	
-	
+
+
 		<h:form rendered="#{userBean.verificaFuncional eq true}">
-		
+
 			<table align="center">
 				<tr>
 					<td><p:panelGrid columns="2">
 
 							<p:outputLabel value="Pais: " />
-							<p:inputText value="#{teamBean.equipo.country}" rendered="true"
-								required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
-
-							<p:outputLabel value="Bandera: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.flag}" rendered="true"
-								required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
-
+							<p:selectOneMenu value="#{teamBean.equipo.country}">
+								<f:selectItem itemLabel="Seleccione un pais" itemValue=""
+									noSelectionOption="true" />
+								<f:selectItems value="#{teamBean.equipos}" />
+							</p:selectOneMenu>
 							<p:outputLabel value="Grupo: " rendered="true" />
-							<p:inputText value="#{teamBean.equipo.group}" rendered="true"
-								required="true">
-
-								<f:validateLength minimum="1" maximum="1" />
-
-							</p:inputText>
+							
+							<p:selectOneMenu value="#{teamBean.equipo.group}">
+								<f:selectItem itemLabel="Seleccione un grupo" itemValue="" noSelectionOption="true"/>
+								<f:selectItems value="#{teamBean.grupos}" />
+							</p:selectOneMenu>
 
 							<p:commandButton value="guardar"
 								action="#{teamBean.adicionarEquipo}" />

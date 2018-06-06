@@ -52,5 +52,10 @@ public class TeamDAOImpl implements TeamDAO{
 		session.update(equipo);
 		t.commit();
 	}
+	@Override
+	public Team validarEquipo(String country) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		return (Team) session.createQuery("from Team WHERE country = '"+country+"'").uniqueResult();
+	}
 
 }

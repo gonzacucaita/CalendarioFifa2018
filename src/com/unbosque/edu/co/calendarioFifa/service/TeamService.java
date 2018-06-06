@@ -58,4 +58,8 @@ public class TeamService {
 	public void update(Team equipo) {
 		dao.update(equipo);
 	}
+
+	public Team validarEquipo(String country) {
+		return dao.validarEquipo(country);
+	}
 }
