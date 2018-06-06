@@ -55,9 +55,12 @@ public class UserBean {
 	private boolean verificaCliente = false;
 
 	private boolean verificaFuncional = false;
+	
+	private Parameter parameter;
 
 	/** The Constant log. */
 	final static Logger log = Logger.getLogger(UserBean.class);
+	
 
 	/**
 	 * METODOS PARA LOS USUARIOS EN GENERAL (ADMINISTRADOR, FUNCIONAL, CLIENTE).
@@ -701,5 +704,16 @@ public class UserBean {
 	public void setAuditBean(AuditBean auditBean) {
 		this.auditBean = auditBean;
 	}
+
+	public Parameter getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(Parameter parameter) {
+		this.parameter = parameter;
+	}
+	
+	
+	
 
 }
