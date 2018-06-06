@@ -56,14 +56,14 @@ body {
 
 								<p:dataGrid var="equipo" value="#{teamBean.listarEquipos}"
 									columns="2" layout="grid" rows="12" paginator="true"
-									id="equipo"
+									id="equipo" 
 									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-									rowsPerPageTemplate="20,12,16">
+									rowsPerPageTemplate="20,12,16" >
 
 
-									<p:panel header="#{equipo.country}" style="text-align:center">
+									<p:panel header="#{equipo.country}" style="text-align:center" rendered="#{'A' eq equipo.state }">
 
-										<h:panelGrid columns="2" style="width:100%">
+										<h:panelGrid columns="2" style="width:100%" rendered="#{'A' eq equipo.state }">
 
 											<p:outputLabel value="Bandera: " />
 											<p:outputLabel value="#{equipo.flag}" />
