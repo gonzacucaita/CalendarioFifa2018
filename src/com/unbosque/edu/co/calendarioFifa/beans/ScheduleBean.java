@@ -126,6 +126,7 @@ public class ScheduleBean {
 	public String adicionarCalendario() {
 		ScheduleService dao = new ScheduleService();
 		
+		
 		Schedule existe = dao.verificarFecha(calendario.getGameDate());
 		if(existe == null) {
 		dao.save(calendario);
