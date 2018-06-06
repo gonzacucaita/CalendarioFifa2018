@@ -26,9 +26,9 @@ body {
 }
 
 .tabla2 {
-	border: solid 7px #4371CD;
+	border: solid 1px #F8ECEC;
 	border-radius: 30px;
-	background: rgba(131, 149, 183, 0.7);
+	background: rgba(257, 257, 257, 0.7);
 }
 </style>
 
@@ -36,41 +36,68 @@ body {
 	<body>
 
 		<h:outputLabel value="NO SE A INICIADO SESIÓN COMO ADMINISTRADOR"
-		rendered="#{userBean.verificaAdmin eq false}" />
+			rendered="#{userBean.verificaAdmin eq false}" />
 
-	<h:form rendered="#{userBean.verificaAdmin eq true}">
-	<table align="center">
+		<h:form rendered="#{userBean.verificaAdmin eq true}">
+			<table height="100%" width="150%" align="center">
 				<tr>
-					<td><p:panelGrid columns="2">
+					<td valig="middle">
+						<table class="tabla2" width="50%" height="30%">
+							<tr>
+								<td colspan="2"></td>
+							</tr>
 
-							<p:outputLabel value="Nombre de usuario: " />
-							<p:inputText value="#{userBean.usuario.userName}" required="true">
+							<tr aling="center">
+								<td colspan="2" align="center"><h1>AGREGAR FUNCIONAL</h1></td>
+							</tr>
 
-								<f:validateLength minimum="6" maximum="8" />
+							<tr align="center">
+								<td><p:outputLabel value="Nombre de usuario: " /></td>
+								<td><p:inputText id="focus"
+										value="#{userBean.usuario.userName}" required="true"
+										title="El usuario debe contener entre 6 a 8 caracteres"
+										requiredMessage="Por favor ingrese un usuario valido"
+										validatorMessage="Ingrese un usuario valido">
 
-							</p:inputText>
+										<f:validateLength minimum="6" maximum="8" />
 
-							<p:outputLabel value="Nombre completo: " />
-							<p:inputText value="#{userBean.usuario.fullName}" required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
-
-							<p:outputLabel value="Correo: " />
-							<p:inputText value="#{userBean.usuario.emailAddress}">
-
-								<f:validateRegex
-									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText> <p:tooltip id="toolTipFocus" for="focus" showEvent="focus"
+										hideEvent="blur" position="right" /></td>
+							</tr>
 
 
-							</p:inputText>
+							<tr align="center">
+								<td><p:outputLabel value="Nombre completo: " /></td>
+								<td><p:inputText value="#{userBean.usuario.fullName}"
+										required="true" rendered="true">
 
-							<p:commandButton value="Guardar"
-								action="#{userBean.adicionarUsuarioFuncional}" />
-							<p:commandButton value="Cancelar" action="administrador" />
-						</p:panelGrid></td>
+										<f:validateLength minimum="3" />
+
+									</p:inputText></td>
+							</tr>
+							<tr align="center">
+								<td align="center"><p:outputLabel value="Correo: " /></td>
+								<td><p:inputText id="email" required="true" label="email"
+										requiredMessage="Please enter your email address."
+										validatorMessage="Ingrese un correo valido"
+										title="tiene que ser un gmail valido o no le llegara el correo"
+										value="#{userBean.usuario.emailAddress}">
+
+										<f:validateRegex pattern="((?=.*[a-z]).{2,})" />
+
+									</p:inputText> <p:outputLabel value="@gmail.com" /></td>
+
+							</tr>
+						</table>
+					</td>
 				</tr>
+				<tr>
+
+					<td align="left"><p:commandButton value="Guardar"
+							action="#{userBean.adicionarUsuarioFuncional}" /> <p:commandButton value="Cancelar"
+							action="administrador" /></td>
+									</tr>
+
 			</table>
 		</h:form>
 	</body>
