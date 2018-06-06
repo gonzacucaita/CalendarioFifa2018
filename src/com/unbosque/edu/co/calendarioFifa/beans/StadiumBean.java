@@ -1,6 +1,8 @@
 package com.unbosque.edu.co.calendarioFifa.beans;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -31,6 +33,25 @@ public class StadiumBean {
 	
 	@ManagedProperty("#{userBean}")
 	private UserBean userBean;
+	
+	private List<String> estadios;
+	
+	@PostConstruct
+    public void init() {
+		estadios = new LinkedList<>();
+		estadios.add("Rostov Arena");
+		estadios.add("Spartak stadium");
+		estadios.add("Luzhniki Stadium");
+		estadios.add("Nizhny Novgorod Stadium");
+		estadios.add("Samara Arena");
+		estadios.add("Kazan Arena");
+		estadios.add("Saint Petersburg Stadium");
+		estadios.add("Mordovia Arena");
+		estadios.add("Ekaterinburg Arena");
+		estadios.add("Kaliningrad Stadium");
+		estadios.add("Volgogrado Arena");
+		estadios.add("Fisht Stadium");
+	}
 	
 	public UserBean getUserBean() {
 		return userBean;
@@ -106,6 +127,8 @@ public class StadiumBean {
 	 */
 	public String adicionarEstadio() {
 		StadiumService dao = new StadiumService();
+		
+		estadio.setPhoto(estadio.getCity()+".jpg");
 		dao.save(estadio);
 		auditBean.adicionarAuditoria(userBean.getUsuario().getId(), "Team", estadio.getId(), DireccionIp.getRemoteAddress());
 		
@@ -143,5 +166,9 @@ public class StadiumBean {
 			log.debug("LISTAR ESTADIOS");
 		}
 		return listaEstadio;
+	}
+	
+	public List<String> getEstadios(){
+		return estadios;
 	}
 }

@@ -44,13 +44,12 @@ body {
 					<td><p:panelGrid columns="2">
 
 
-							<p:outputLabel value="La ciudad es: " />
-							<p:inputText value="#{stadiumBean.estadio.city}" required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
-
+							<p:outputLabel value="Estadio : " />
+							<p:selectOneMenu value="#{stadiumBean.estadio.city}">
+							<f:selectItem itemLabel="Seleccione un Estadio" itemValue="" noSelectionOption="true"/>
+							<f:selectItems value="#{stadiumBean.estadios}"/>
+							</p:selectOneMenu>
+							
 							<p:outputLabel value="La capacidad es: " />
 							<p:inputText value="#{stadiumBean.estadio.capacity}" required="true">
 
@@ -58,21 +57,14 @@ body {
 
 							</p:inputText>
 
-							<p:outputLabel value="La foto es: " />
-							<p:inputText value="#{stadiumBean.estadio.photo}" required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
+						
 
 							<p:outputLabel value="La temperatura es: " />
-							<p:inputText value="#{stadiumBean.estadio.temperature}"
-								required="true">
-
-								<f:validateLength minimum="3" />
-
-							</p:inputText>
-
+							
+							<p:inputNumber id = "nmb1"  value="#{stadiumBean.estadio.capacity}" symbol="°C">
+							</p:inputNumber>
+							<p:outputLabel value="" />
+							<p:slider for="nmb1" style="color:red" />
 							<p:outputLabel value="La Poblacion es: " />
 							<p:inputText value="#{stadiumBean.estadio.population}"
 								required="true">
