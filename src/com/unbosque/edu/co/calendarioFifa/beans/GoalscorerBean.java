@@ -109,7 +109,7 @@ public class GoalscorerBean {
 		
 		Goalscorer existe = dao.verificarGoleador(goleador.getFullName());
 		if(existe == null) {
-		goleador.setPhoto(goleador.getFullName()+"jpg");
+		goleador.setPhoto(goleador.getFullName()+".jpg");
 		dao.save(goleador);
 		
 		
