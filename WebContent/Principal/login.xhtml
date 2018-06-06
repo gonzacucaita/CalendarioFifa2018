@@ -57,7 +57,7 @@
 							<tr><td colspan="2"></td></tr>
 							<tr align="center">
 								<td><p:outputLabel value="#{principal.contrasenia}" /></td>
-								<td><p:password value="#{userBean.contrasenia}" feedback="true"	
+								<td><p:password value="#{userBean.contrasenia}" onkeyup="miFuncion()" feedback="true"	
 							promptLabel="Ingrese una contraseña" weakLabel="La clave es muy debil" 
 							goodLabel="La clave es segura" validatorMessage="Ingrese una contraseña" required="true" requiredMessage="Ingrese una contraseña valida"/></td>
 							</tr>
